@@ -50,20 +50,45 @@
     {
         if (!empty($username) || !empty($password)) {
             $db = $GLOBALS['db'];
-            $userQuery = "SELECT `id` FROM `users` WHERE `username` = '".$username."'";
+            $userQuery = "SELECT `id`,`token` FROM `users` WHERE `username` = '".$username."'";
             $userResult = mysqli_query($db, $userQuery);
             $userExists = mysqli_num_rows($userResult);
             $userData = mysqli_fetch_assoc($userResult);
             $userId = $userData['id'];
+            $userToken = $userData['token'];
             if (!empty($userExists)) {
-                $passwordQuery = "SELECT `user` FROM `passwords` WHERE `user` = '".$userId."' AND `password` = '".$password."'";
-                $passwordResult = mysqli_query($db, $passwordQuery);
-                $passwordExists = mysqli_num_rows($passwordResult);
-                if (!empty($passwordExists)) {
-                    header("HTTP/1.0 200 OK");
+                if (!empty($userToken)) {
+                    $passwordQuery = "SELECT `id` FROM `passwords` WHERE `id` = '".$userId."' AND `password` = '".$password."'";
+                    $passwordResult = mysqli_query($db, $passwordQuery);
+                    $passwordExists = mysqli_num_rows($passwordResult);
+                    if (!empty($passwordExists)) {
+                        $loggedIn = [
+                            'id'=>$userId,
+                            'email'=>$email,
+                            'token'=>$userToken,
+                        ];
+                        header("Content-Type: application/json");
+                        echo json_encode($loggedIn);
+                    }
                 } else {
-                    header("HTTP/1.0 400 Bad Request");
-                    response(400, "Invalid Password", true);
+                    $passwordQuery = "SELECT `id` FROM `passwords` WHERE `id` = '".$userId."' AND `password` = '".$password."'";
+                    $passwordResult = mysqli_query($db, $passwordQuery);
+                    $passwordExists = mysqli_num_rows($passwordResult);
+                    if (!empty($passwordExists)) {
+                        $token = md5(uniqid());
+                        $setTokenQuery = "UPDATE `users` SET `token` = '".$token."' WHERE `id` = ".$userId;
+                        $setTokenResult = mysqli_query($db, $setTokenQuery);
+                        $loggedIn = [
+                            'id'=>$userId,
+                            'email'=>$email,
+                            'token'=>$token,
+                        ];
+                        header("Content-Type: application/json");
+                        echo json_encode($loggedIn);
+                    } else {
+                        header("HTTP/1.0 400 Bad Request");
+                        response(400, "Invalid Password", true);
+                    }
                 }
             } else {
                 header("HTTP/1.0 400 Bad Request");
