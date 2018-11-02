@@ -46,6 +46,11 @@
         }
     }
 
+    function encryptPassword($password)
+    {
+        return md5($password);
+    }
+
     function login($username, $password)
     {
         if (!empty($username) || !empty($password)) {
@@ -108,7 +113,7 @@
             $userResult = mysqli_query($db, $userQuery);
             $userExists = mysqli_num_rows($userResult);
             if (empty($userExists)) {
-                $validKeys = ['first_name','last_name','username','password'];
+                $validKeys = ['first_name','last_name','username'];
                 foreach ($postData as $key=>$value) {
                     if (in_array($key, $validKeys)) {
                         $postKeys[] = "`".$key."`";
@@ -117,9 +122,6 @@
                 }
                 $postUserQuery = 'INSERT INTO `users` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
                 $postUserResult = mysqli_query($db, $postUserQuery);
-                $getUserQuery = "SELECT `id` FROM `users` WHERE `username` = '".$postData['username']."'";
-                $getUserResult = mysqli_query($db, $getUserQuery);
-                $userId = mysqli_fetch_assoc($getUserResult)['id'];
                 $postPasswordQuery = "INSERT INTO `passwords` (`password`) VALUES ('".$postData['password']."')";
                 $postPasswordResult = mysqli_query($db, $postPasswordQuery);
             } else {
