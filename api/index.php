@@ -23,6 +23,9 @@
                 header("HTTP/1.0 403 Forbidden");
                 response(403, "Invalid Request Method", true);
             }
+        } else {
+            header("HTTP/1.0 401 Unauthorized");
+            response(401, "You aren't authorised to do this", true);
         }
     } else {
         header("HTTP/1.0 404 Not Found");
