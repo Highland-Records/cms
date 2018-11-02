@@ -92,10 +92,103 @@
                 }
             } else {
                 header("HTTP/1.0 400 Bad Request");
-                response(400, "Incorrect Email", true);
+                response(400, "Incorrect Username", true);
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
             response(400, "Blank email/password provided", true);
         }
+    }
+
+    function createNewUser($postData)
+    {
+        if (!empty($postData['username']) && !empty($postData['password']) && !empty($postData['first_name']) && !empty($postData['last_name'])) {
+            $db = $GLOBALS['db'];
+            $userQuery = "SELECT `username` FROM `users` WHERE `username` = '".$postData['username']."'";
+            $userResult = mysqli_query($db, $userQuery);
+            $userExists = mysqli_num_rows($userResult);
+            if (empty($userExists)) {
+                $validKeys = ['first_name','last_name','email','client','account_type'];
+                foreach ($postData as $key=>$value) {
+                    if (in_array($key, $validKeys)) {
+                        $postKeys[] = "`".$key."`";
+                        $postValues[] = "'".$value."'";
+                    }
+                }
+                $postUserQuery = 'INSERT INTO `users` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
+                $postUserResult = mysqli_query($db, $postUserQuery);
+                $getUserQuery = "SELECT `id` FROM `users` WHERE `username` = '".$postData['username']."'";
+                $getUserResult = mysqli_query($db, $getUserQuery);
+                $userId = mysqli_fetch_assoc($getUserResult)['id'];
+                $postPasswordQuery = "INSERT INTO `passwords` (`password`) VALUES ('".$postData['password']."')";
+                $postPasswordResult = mysqli_query($db, $postPasswordQuery);
+            } else {
+                header("HTTP/1.0 409 Conflict");
+                response(409, "User already exists", true);
+            }
+        } else {
+            if (empty($postData['username'])) {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Username required", true);
+            } elseif (empty($postData['password'])) {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Password required", true);
+            } elseif (empty($postData['first_name'])) {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "First Name required", true);
+            } elseif (empty($postData['last_name'])) {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Last Name required", true);
+            } else {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Username, Password, First Name and Last Name need to be submitted", true);
+            }
+        }
+    }
+
+    function getAllUsers()
+    {
+        $db = $GLOBALS['db'];
+        $currentUser = $GLOBALS['currentUser'];
+        $checkUserQuery = "SELECT `id` FROM `users` WHERE `id` = ".$currentUser;
+        $checkUserResult = mysqli_query($db, $checkUserQuery);
+        $exists = mysqli_num_rows($checkUserResult);
+        $accountType = mysqli_fetch_assoc($checkUserResult)['account_type'];
+        $clientId = mysqli_fetch_assoc($checkUserResult)['client'];
+        if (!empty($exists)) {
+            if ($accountType == 1) {
+                $getUsersQuery = "SELECT `id`,`first_name`,`last_name`,`account_type`,`profile_img`,`issues` FROM `users` WHERE `deleted` = 0 AND `client` = ".$clientId;
+                $getUsersResult = mysqli_query($db, $getUsersQuery);
+                $data = [];
+                while ($row = mysqli_fetch_assoc($getUsersResult)) {
+                    array_push($data, $row);
+                }
+                header("Content-Type: application/json");
+                echo json_encode($data);
+            } elseif ($accountType == 2) {
+                $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0 AND `client` = ".$clientId;
+                $getUsersResult = mysqli_query($db, $getUsersQuery);
+                $data = [];
+                while ($row = mysqli_fetch_assoc($getUsersResult)) {
+                    array_push($data, $row);
+                }
+                header("Content-Type: application/json");
+                echo json_encode($data);
+            } elseif ($accountType == 3) {
+                $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0";
+                $getUsersResult = mysqli_query($db, $getUsersQuery);
+                $data = [];
+                while ($row = mysqli_fetch_assoc($getUsersResult)) {
+                    array_push($data, $row);
+                }
+                header("Content-Type: application/json");
+                echo json_encode($data);
+            } else {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Invalid Account Type", true);
+            }
+        }
+        // if user is an admin(2) show all users data for their clients
+        // if user is a developer(3) show all users for all clients
+        // if user is user(1) show all users (id, first name, last name, account_type, issues)
     }
