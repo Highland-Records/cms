@@ -1,80 +1,85 @@
 .SignIn {
-	background: #fff;
+  background: #fff;
 }
 
 .left-panel-background-colour {
-    /*background-color: #4D4F5C;*/
-	background-image: url("../../assets/images/signin-bg2.jpg");
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-	padding: 0;
+  /*background-color: #4D4F5C;*/
+  background-image: url("../../assets/images/signin-bg2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 0;
 }
 
 .signin-panel {
-    height: 100vh;
-	padding: 0;
+  height: 100vh;
+  padding: 0;
 }
 
 .signin-panel-title {
-    font-weight: bold;
-    font-size: 35px;
-    letter-spacing: 0.2em;
-    line-height: 21px;
-    text-align: left;
-    color: #000;
+  font-weight: bold;
+  font-size: 35px;
+  letter-spacing: 0.2em;
+  line-height: 21px;
+  text-align: left;
+  color: #000;
 }
 
 .welcome-back-text, .wrong-back-text {
-    margin-top: 20px;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 13px;
-    color: #999;
+  margin-top: 20px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 13px;
+  color: #999;
 }
 
 .wrong-back-text {
-    color: #c0392b;
+  color: #c0392b;
 }
 
 .signin-form {
-    width: 470px;
-	position: absolute;
-	top: 50%;
-	margin-top: -133px;
+  width: 470px;
+  position: absolute;
+  top: 50%;
+  margin-top: -133px;
 }
 
 .username-input, .password-input {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #e9e9f0;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 470px;
-    padding: 5px;
-	box-sizing: border-box;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e9e9f0;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 470px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.username-input:hover, .password-input:hover {
+  border-bottom: 2px solid #000;
+}
+.username-input:focus, .password-input:focus {
+  border-bottom: 2px solid #000;
 }
 
-.username-input:hover, .password-input:hover, .username-input:focus, .password-input:focus {
-	border-bottom: 2px solid #000;
-}
 .submit-btn {
-    margin-top: 15px;
-    width: 185px;
-    height: 50px;
-    background: #000;
-	border: 3px #000 solid;
-    color: #ffffff;
-	border: none;
-	float: left;
-	margin-right: 30px;
-	text-transform: uppercase;
-	font-weight: bold;
-	letter-spacing: 3px;
+  margin-top: 15px;
+  width: 185px;
+  height: 50px;
+  background: #000;
+  border: 3px #000 solid;
+  color: #ffffff;
+  border: none;
+  float: left;
+  margin-right: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
 }
 .submit-btn:hover {
-	background: none;
-	color: #000;
-	border: 3px #000 solid;
+  background: none;
+  color: #000;
+  border: 3px #000 solid;
 }
+
+/*# sourceMappingURL=SplashStyle.css.map */
