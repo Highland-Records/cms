@@ -49,7 +49,7 @@ class SignInPage extends React.Component {
             window.location.href = "/";
         } else {
             const SignInMessage = ({status}) => (
-                status ? <p className="welcome-back-text">Welcome back! Please login to your account</p> : <p className="welcome-back-text">Something went wrong, try again...</p>
+                status ? <p className="welcome-back-text">Welcome back! Please login to your account</p> : <p className="wrong-back-text">Something went wrong, try again...</p>
             );
             const isEnabled = this.state.username.length >= 3 && this.state.password.length > 7;
             return (
