@@ -9,10 +9,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+	padding: 0;
 }
 
 .signin-panel {
     height: 100vh;
+	padding: 0;
 }
 
 .signin-panel-title {
