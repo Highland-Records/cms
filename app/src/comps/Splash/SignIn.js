@@ -49,65 +49,54 @@ class SignInPage extends React.Component {
             window.location.href = "/";
         } else {
             const SignInMessage = ({status}) => (
-                status ? '' : <p>Something went wrong, try again...</p>
+                status ? <p className="welcome-back-text">Welcome back! Please login to your account</p> : <p className="wrong-back-text">Something went wrong, try again...</p>
             );
-            const isEnabled = this.state.username.length > 3 && this.state.password.length > 7;
+            const isEnabled = this.state.username.length >= 3 && this.state.password.length > 7;
             return (
                 <div className="SignIn">
                     <section className="SplashStyle">
-
-                        <div class="bg">
-
-                            <div class="row">
-                                <div class="col left-panel-background-colour">
-                                </div>
-                                <div class="col signin-panel">
-                                    <h1 class="d-flex justify-content-center signin-panel-title"> HIGHLAND RECORDS </h1>
-                                    <p className="welcome-back-text"> Welcome back! Please login to your account.</p>
-
-                                    <form
-                                        class="signin-form"
-                                        onSubmit={this.handleSubmit}
-                                        encType="multipart/form-data"
-                                    >
-                                        <SignInMessage status={this.state.status}/>
-
-                                        <input class="username-input"
-                                               name="username"
-                                               type="username"
-                                               placeholder="Username"
-                                               value={this.state.username}
-                                               onChange={this.handleChange}
-                                               autoFocus={true}/>
-                                        <br/>
-                                        <input
-                                            class="password-input"
-                                            name="password"
-                                            type="password"
-                                            placeholder="Password"
-                                            value={this.state.password}
-                                            onChange={this.handleChange}
-                                        />
-                                        <br/>
-                                        <input
-                                            class="submit-btn"
-                                            type="submit"
-                                            value="Sign In"
-                                            disabled={!isEnabled}
-                                        />
-                                        <br/>
-                                        <Link to="/">&lt; Go Home</Link>
-                                    </form>
-
-                                </div>
+                        <div className="row">
+                            <div className="col left-panel-background-colour">
                             </div>
-
-
+                            <div className="col signin-panel">
+                                <form
+                                    className="signin-form"
+                                    onSubmit={this.handleSubmit}
+                                    encType="multipart/form-data"
+                                >
+									<h1 className="d-flex signin-panel-title">HIGHLAND RECORDS</h1>
+                                    <SignInMessage status={this.state.status}/>
+                                    <input className="username-input"
+                                           name="username"
+                                           type="text"
+                                           placeholder="Username"
+                                           value={this.state.username}
+                                           onChange={this.handleChange}
+                                           autoFocus={true}/>
+                                    <br/>
+                                    <input
+                                        className="password-input"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Password"
+                                        value={this.state.password}
+                                        onChange={this.handleChange}
+                                    />
+                                    <br/>
+                                    <input
+                                        className="submit-btn"
+                                        type="submit"
+                                        value="Sign In"
+                                        disabled={!isEnabled}
+                                    />
+                                    <br/>
+                                    <Link to="/">&lt; Go Home</Link>
+                                </form>
+                            </div>
                         </div>
                     </section>
                 </div>
-            )
-                ;
+            );
         }
     }
 }
