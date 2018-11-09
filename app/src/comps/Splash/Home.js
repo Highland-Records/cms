@@ -6,7 +6,7 @@ class SplashHome extends React.Component {
 	render() {
 		return(
 			<div className="App">
-				<section class="SplashStyle">
+				<section className="SplashStyle">
 					<div>
 						<Link to='/sign-in'>Sign in</Link>
 					</div>

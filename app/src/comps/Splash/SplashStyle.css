@@ -1,45 +1,27 @@
-/** FONTS **/
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
-body, html {
-    height: 100%;
-    margin: 0;
-    height: 100%;
-    overflow: hidden
-}
-
-.bg {
-    background-image: url("../../assets/images/signin-bg.jpg");
-
-    /* Full height */
-    height: 960px;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.SignIn {
+	background: #fff;
 }
 
 .left-panel-background-colour {
-    background-color: #4D4F5C;
+    /*background-color: #4D4F5C;*/
+	background-image: url("../../assets/images/signin-bg2.jpg");
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
-    opacity: 0.69;
-
 }
 
 .signin-panel {
-    background-color: #ffffff;
     height: 100vh;
 }
 
 .signin-panel-title {
-    margin-top: 230px;
     font-weight: bold;
     font-size: 35px;
     letter-spacing: 0.2em;
     line-height: 21px;
     text-align: left;
-    color: #43425d;
+    color: #000;
 }
 
 .welcome-back-text {
@@ -47,42 +29,47 @@ body, html {
     font-weight: normal;
     font-size: 18px;
     line-height: 13px;
-    text-align: center;
     color: #4d4f5c;
     opacity: 0.5;
 }
 
 .signin-form {
-    width: 400px;
-    margin: 0 auto;
+    width: 470px;
+	position: absolute;
+	top: 50%;
+	margin-top: -133px;
 }
 
-.username-input {
+.username-input, .password-input {
     background: transparent;
     border: none;
     border-bottom: 2px solid #e9e9f0;
     margin-top: 15px;
     margin-bottom: 15px;
-    width: 400px;
+    width: 470px;
     padding: 5px;
+	box-sizing: border-box;
 }
 
-.password-input {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #e9e9f0;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 400px;
-    padding: 5px;
+.username-input:hover, .password-input:hover, .username-input:focus, .password-input:focus {
+	border-bottom: 2px solid #000;
 }
-
 .submit-btn {
     margin-top: 15px;
     width: 185px;
     height: 50px;
-    background: #43425d;
+    background: #000;
+	border: 3px #000 solid;
     color: #ffffff;
+	border: none;
+	float: left;
+	margin-right: 30px;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 3px;
 }
-
-
+.submit-btn:hover {
+	background: none;
+	color: #000;
+	border: 3px #000 solid;
+}
