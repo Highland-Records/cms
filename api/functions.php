@@ -288,10 +288,6 @@
         $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0  AND `id` = ".$userId;
         $getUsersResult = mysqli_query($db, $getUsersQuery);
         $row = mysqli_fetch_assoc($getUsersResult);
-        // $data = [];
-        // while ($row = mysqli_fetch_assoc($getUsersResult)) {
-        //     array_push($data, $row);
-        // }
         header("Content-Type: application/json");
         echo json_encode($row);
     }
@@ -307,4 +303,25 @@
         if (!empty($exists)) {
             //edit user
         }
+    }
+
+    function createArtist()
+    {
+    }
+
+    function getAllArtists()
+    {
+    }
+
+    function getArtist($artistId)
+    {
+        $db = $GLOBALS['db'];
+        $getArtistQuery = "SELECT * FROM `artists` WHERE `deleted` = 0  AND `id` = ".$artistId;
+        $getArtistResult = mysqli_query($db, $getArtistQuery);
+        header("Content-Type: application/json");
+        echo json_encode(mysqli_fetch_assoc($getArtistResult));
+    }
+
+    function editArtist()
+    {
     }

@@ -69,18 +69,6 @@
                 } else {
                     header("HTTP/1.0 404 Not Found");
                 }
-                // if ($rMethod === 'post') {
-                //     if ($_POST['delete'] == "true") {
-                //         deleteRow($endpointId, "users");
-                //     } else {
-                //         editUser($enpointId, $_POST);
-                //     }
-                // } elseif ($rMethod === 'get') {
-                //     getUser($endpointId);
-                // } else {
-                //     header("HTTP/1.0 403 Forbidden");
-                //     response(403, "Invalid Request Method", true);
-                // }
             } else {
                 header("HTTP/1.0 404 Not Found");
             }
@@ -92,6 +80,49 @@
         if (authorised($bearerToken)) {
             header("HTTP/1.0 200 OK");
             response(200, "Authorised", true);
+        } else {
+            header("HTTP/1.0 401 Unauthorized");
+            response(401, "Unauthorised", true);
+        }
+    } elseif ($endpoint === "artists") {
+        if (authorised($bearerToken)) {
+            if (empty($endpointId)) {
+                if ($rMethod === 'post') {
+                    createArtist($_POST);
+                } elseif ($rMethod === 'get') {
+                    getAllArtists();
+                } else {
+                    header("HTTP/1.0 403 Forbidden");
+                    response(403, "Invalid Request Method", true);
+                }
+            } elseif (is_numeric($endpointId)) {
+                if ($command === 'delete') {
+                    if ($rMethod === 'post') {
+                        deleteRow($endpointId, $endpoint);
+                    } else {
+                        header("HTTP/1.0 403 Forbidden");
+                        response(403, "Invalid Request Method", true);
+                    }
+                } elseif (empty($command)) {
+                    if ($rMethod === 'get') {
+                        getArtist($endpointId);
+                    } elseif ($rMethod === 'post') {
+                        if (!empty($_POST)) {
+                            editArtist($enpointId, $_POST);
+                        } else {
+                            header("HTTP/1.0 400 Bad Request");
+                            response(400, "No data has been posted to change");
+                        }
+                    } else {
+                        header("HTTP/1.0 403 Forbidden");
+                        response(403, "Invalid Request Method", true);
+                    }
+                } else {
+                    header("HTTP/1.0 404 Not Found");
+                }
+            } else {
+                header("HTTP/1.0 404 Not Found");
+            }
         } else {
             header("HTTP/1.0 401 Unauthorized");
             response(401, "Unauthorised", true);
