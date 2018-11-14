@@ -50,22 +50,19 @@ class PortalHome extends React.Component {
   			// 	<li>{item}</li>
 			// );
 			const artistsHtml = artistsData.map((artist) =>
-			<div>
-				<p>{artist.id}</p>
-				<p>{artist.name}</p>
-			</div>
+			<li>{artist.name}</li>
 
 			);
 			return (
 				<div className="Portal">
 					{PortalNavigation.DrawNavigation(userData)}
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					{artistsHtml}
+					<header>
+						Artists
+						<Link to="/new-artist">Add a new Artist</Link>
+					</header>
+					<ul className="artistList">
+						{artistsHtml}
+					</ul>
 				</div>
 			);
 		}
