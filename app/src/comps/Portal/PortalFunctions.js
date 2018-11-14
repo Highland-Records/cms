@@ -30,6 +30,40 @@ const PortalFunctions = {
 				});
 		}
 	},
+	GetUserData(){
+		return fetch(
+			"http://highland.oliverrichman.uk/api/users/" +
+				localStorage.getItem("UserID"),
+			{
+				method: "GET",
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken"),
+					id: localStorage.getItem("UserID")
+				})
+			}
+		)
+			// .then(res => {
+			// 	if (!res.ok) {
+			// 		throw new Error(res.status);
+			// 	}
+			// 	else  {
+			// 		return res.json();
+			// 	}
+			// })
+			// .then(
+			// 	result => {
+			// 		state.isLoaded = true;
+			// 			state.items = result
+			// 			return state;
+			// 	},
+			// 	error => {
+			// 		state.isLoaded = true;
+			// 			state.error = error;
+			// 			return state;
+			// 	}
+			// );
+	},
 };
 
 export default PortalFunctions;
