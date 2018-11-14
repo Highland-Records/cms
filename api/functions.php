@@ -152,7 +152,7 @@
             !empty($postData['password'])
         ) {
             $db = $GLOBALS['db'];
-            $checkUserExistsQuery = "SELECT `username` FROM `users` WHERE `deleted` = 1 AND `username` = '".$postData['username']."'";
+            $checkUserExistsQuery = "SELECT `username` FROM `users` WHERE `deleted` = 0 AND `username` = '".$postData['username']."'";
             $checkUserExistsResult = mysqli_query($db, $checkUserExistsQuery);
             $userExists = mysqli_num_rows($checkUserExistsResult);
             if (empty($userExists)) {
@@ -305,12 +305,77 @@
         }
     }
 
-    function createArtist()
+    function createArtist($postData)
     {
+        if (
+             !empty($postData['name']) &&
+             !empty($postData['age']) &&
+             !empty($postData['description'])
+         ) {
+            $db = $GLOBALS['db'];
+            $checkArtistExistsQuery = "SELECT `name` FROM `artists` WHERE `deleted` = 0 AND `name` = '".$postData['name']."'";
+            $checkArtistExistsResult = mysqli_query($db, $checkArtistExistsQuery);
+            $artistExists = mysqli_num_rows($checkArtistExistsResult);
+            if (empty($artistExists)) {
+                $validKeys = ['name','age','description'];
+                foreach ($postData as $key=>$value) {
+                    if (in_array($key, $validKeys)) {
+                        $postKeys[] = "`".$key."`";
+                        $postValues[] = "'".$value."'";
+                    }
+                }
+                // $thirtySecondsAgo = time() - (30);
+                 $thirtyDaysAgo = time() - (86400*30); // 86400 is one day in seconds
+                 $getDeletedArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 1";
+                $getDeletedArtistsResult = mysqli_query($db, $getDeletedArtistsQuery);
+                while ($row = mysqli_fetch_assoc($getDeletedArtistsResult)) {
+                    if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
+                        $idToRecycle = "'".$row['id']."'";
+                        break;
+                    }
+                }
+
+                if (isset($idToRecycle)) {
+                    $postKeys[] = '`deleted`';
+                    $postValues[] = 0;
+                    $postKeys[] = '`deleted_timestamp`';
+                    $postValues[] = 0;
+                    $setValue = "";
+
+                    foreach ($postKeys as $i=>$key) {
+                        $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+                    }
+                    $setValue = rtrim($setValue, ', ');
+                    $recycleArtistQuery = "UPDATE `artists` SET ".$setValue." WHERE `id` = ".$idToRecycle;
+                    $recycleArtistResult = mysqli_query($db, $recycleArtistQuery);
+                } else {
+                    $postArtistQuery = 'INSERT INTO `artists` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
+                    // echo $postArtistQuery;
+                    $postArtistResult = mysqli_query($db, $postArtistQuery);
+                }
+                header("HTTP/1.0 201 Created");
+                response(201, "Created Artist");
+            } else {
+                header("HTTP/1.0 409 Conflict");
+                response(409, "Artist name already in use", true);
+            }
+        } else {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "name, description & age cannot be blank", true);
+        }
     }
 
     function getAllArtists()
     {
+        $db = $GLOBALS['db'];
+        $getArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 0";
+        $getArtistsResult = mysqli_query($db, $getArtistsQuery);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getArtistsResult)) {
+            array_push($data, $row);
+        }
+        header("Content-Type: application/json");
+        echo json_encode($data);
     }
 
     function getArtist($artistId)
