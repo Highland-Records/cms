@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PortalElements from "./PortalElements";
+import PortalFunctions from "./PortalFunctions";
+import PortalNavigation from "./nav/Navigation";
 
 // - Home Portal Page
 class PortalHome extends React.Component {
@@ -55,11 +56,8 @@ class PortalHome extends React.Component {
 		} else {
 			return (
 				<div className="Portal">
-					{PortalElements.PortalNavigation()}
-					<section className="PortalStyle">
-						Welcome back, {items.first_name} {items.last_name}
-						!
-					</section>
+					{PortalNavigation}
+
 				</div>
 			);
 		}
