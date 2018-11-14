@@ -5,6 +5,9 @@ import PortalNavigation from "./nav/Navigation";
 
 // - Home Portal Page
 class PortalHome extends React.Component {
+
+	userData = {};
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,36 +18,14 @@ class PortalHome extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch(
-			"http://highland.oliverrichman.uk/api/users/" +
-				localStorage.getItem("UserID"),
-			{
-				method: "GET",
-				headers: new Headers({
-					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken"),
-					id: localStorage.getItem("UserID")
-				})
-			}
-		)
+		PortalFunctions.GetUserData()
 			.then(res => {
-				console.log(res);
 				if (!res.ok) throw new Error(res.status);
 				else return res.json();
 			})
 			.then(
-				result => {
-					this.setState({
-						isLoaded: true,
-						items: result
-					});
-				},
-				error => {
-					this.setState({
-						isLoaded: true,
-						error
-					});
-				}
+				r => {this.setState({isLoaded: true,items: r})},
+				e => {this.setState({isLoaded: true,e})}
 			);
 	}
 	render() {
@@ -56,8 +37,7 @@ class PortalHome extends React.Component {
 		} else {
 			return (
 				<div className="Portal">
-					{PortalNavigation}
-
+					{PortalNavigation.DrawNavigation(items)}
 				</div>
 			);
 		}
