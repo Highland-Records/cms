@@ -26,6 +26,10 @@
             header("HTTP/1.0 401 Unauthorized");
             response(401, "You aren't authorised to do this", true);
         }
+    } elseif ($endpoint === "upload") {
+        if ($endpointId === "profile") {
+            uploadProfileImage($_FILES, $_POST);
+        }
     } elseif ($endpoint === "users") {
         if (authorised($bearerToken) == true) {
             if (empty($endpointId)) {
