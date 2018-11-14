@@ -4,19 +4,23 @@ import PortalFunctions from "../PortalFunctions";
 
 const PortalNavigation =
 <nav>
-	<a>Highland Records CMS</a>
 	<ul>
+		<li>
+			Highland
+		</li>
 		<li>
 			<Link to="#">Artists</Link>
 		</li>
 		<li>
 			<Link to="#">Users</Link>
 		</li>
+		<li>
+			<img src="https://via.placeholder.com/62" />
+		</li>
+		<li onClick={PortalFunctions.SignOut}>
+			Sign Out
+		</li>
 	</ul>
-	<img src="https://via.placeholder.com/50"/>
-	<a onClick={PortalFunctions.SignOut}>
-		<Link to="#">Sign Out</Link>
-	</a>
 </nav>
 
 
