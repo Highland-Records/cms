@@ -6,7 +6,7 @@ nav {
 }
 nav ul {
   width: 80%;
-  height: 62px;
+  height: 70px;
   min-width: 990px;
   margin: 0;
   padding: 0;
@@ -24,10 +24,10 @@ nav ul li:nth-child(1) {
   letter-spacing: 10px;
   background: #000;
   color: #fff;
-  padding: 10px 10px 10px 20px;
+  padding: 14px 10px 14px 20px;
 }
 nav ul li:nth-child(2), nav ul li:nth-child(3) {
-  padding: 18px 20px;
+  padding: 23px 20px;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
@@ -41,7 +41,83 @@ nav ul li:nth-child(2) a:hover, nav ul li:nth-child(3) a:hover {
   border-bottom-color: #000;
 }
 nav ul li:nth-child(4), nav ul li:nth-child(5) {
+  text-align: right;
   float: right;
+}
+nav ul li:nth-child(4) img {
+  border-radius: 70px;
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+}
+nav ul li:nth-child(5) {
+  padding-top: 15px;
+  margin-right: 20px;
+  font-size: 20px;
+  line-height: 20px;
+}
+nav ul li:nth-child(5) p {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+header {
+  margin: 0 auto;
+  margin-top: 100px;
+  padding-bottom: 10px;
+  width: 80%;
+  min-width: 990px;
+  font-size: 28px;
+  letter-spacing: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #000;
+  border-bottom: 2px #000 solid;
+}
+header a {
+  float: right;
+  border: 2px #000 solid;
+  font-size: 14px;
+  letter-spacing: normal;
+  text-transform: none;
+  padding: 7px 13px;
+  font-weight: normal;
+  color: #000;
+}
+header a:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+ul.artistList {
+  margin: 0;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  margin-top: 40px;
+  padding-bottom: 100px;
+  width: 80%;
+  min-width: 990px;
+  column-count: 3;
+  column-gap: 20px;
+  -moz-column-count: 3;
+  -moz-column-gap: 20px;
+  -webkit-column-gap: 20px;
+  -webkit-column-count: 3;
+}
+ul.artistList li {
+  max-width: 400px;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: inline-block;
+  background: #fff;
 }
 
 /*# sourceMappingURL=PortalStyle.css.map */

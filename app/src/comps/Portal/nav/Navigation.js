@@ -17,14 +17,15 @@ const PortalNavigation = {
 					<Link to="#">Users</Link>
 				</li>
 				<li>
-					<img src="https://via.placeholder.com/62" />
+					<img src={userData.profile_img} />
 				</li>
-				<li onClick={PortalFunctions.SignOut}>
-					Sign Out
+				<li>
+					{userData.first_name}<br/>
+					<p>Settings</p>
+					<p onClick={PortalFunctions.SignOut}>Sign Out</p>
 				</li>
 			</ul>
 		</nav>
-
 		return navigation;
 	}
 }

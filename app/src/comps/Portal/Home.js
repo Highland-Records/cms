@@ -38,6 +38,18 @@ class PortalHome extends React.Component {
 			return (
 				<div className="Portal">
 					{PortalNavigation.DrawNavigation(items)}
+					<header>
+						Artists
+						<Link to="/new-artist">Add a new Artist</Link>
+					</header>
+					<ul className="artistList">
+						<li>
+							Artist 1
+						</li>
+						<li>
+							Artist 2
+						</li>
+					</ul>
 				</div>
 			);
 		}
