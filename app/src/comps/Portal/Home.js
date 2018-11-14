@@ -6,14 +6,13 @@ import PortalNavigation from "./nav/Navigation";
 // - Home Portal Page
 class PortalHome extends React.Component {
 
-	userData = {};
-
 	constructor(props) {
 		super(props);
 		this.state = {
 			error: null,
 			isLoaded: false,
-			items: {}
+			userData: {},
+			artistsData: []
 		};
 	}
 
@@ -24,31 +23,45 @@ class PortalHome extends React.Component {
 				else return res.json();
 			})
 			.then(
-				r => {this.setState({isLoaded: true,items: r})},
+				r => {this.setState({isLoaded: true,userData: r})},
+				e => {this.setState({isLoaded: true,e})}
+			);
+		PortalFunctions.GetAllArtists()
+			.then(res => {
+				if (!res.ok) throw new Error(res.status);
+					else return res.json();
+				})
+			.then(
+				r => {this.setState({isLoaded: true,artistsData: r})},
 				e => {this.setState({isLoaded: true,e})}
 			);
 	}
 	render() {
-		const {error, isLoaded, items} = this.state;
+
+		const {error, isLoaded, userData, artistsData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
 			return <div>Loading...</div>;
 		} else {
+			console.log(artistsData);
+			// const list = [1,2,3,4,5,7,3,2,];
+			// const listItems = list.map((item) =>
+  			// 	<li>{item}</li>
+			// );
+			const artistsHtml = artistsData.map((artist) =>
+			<li>{artist.name}</li>
+
+			);
 			return (
 				<div className="Portal">
-					{PortalNavigation.DrawNavigation(items)}
+					{PortalNavigation.DrawNavigation(userData)}
 					<header>
 						Artists
 						<Link to="/new-artist">Add a new Artist</Link>
 					</header>
 					<ul className="artistList">
-						<li>
-							Artist 1
-						</li>
-						<li>
-							Artist 2
-						</li>
+						{artistsHtml}
 					</ul>
 				</div>
 			);
