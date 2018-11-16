@@ -44,14 +44,8 @@ class PortalHome extends React.Component {
 		} else if (!isLoaded) {
 			return <div>Loading...</div>;
 		} else {
-			console.log(artistsData);
-			// const list = [1,2,3,4,5,7,3,2,];
-			// const listItems = list.map((item) =>
-  			// 	<li>{item}</li>
-			// );
 			const artistsHtml = artistsData.map((artist) =>
 			<li>{artist.name}</li>
-
 			);
 			return (
 				<div className="Portal">
