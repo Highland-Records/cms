@@ -67,6 +67,76 @@
         }
     }
 
+    function uploadVideo($files, $post)
+    {
+        $files["fileToUpload"]["name"] = uniqid('');
+        $db = $GLOBALS['db'];
+        $target_dir = "videos/";
+        //$target_file = $target_dir . basename($files["fileToUpload"]["name"]);
+        $target_file = $target_dir . uniqid('') . ".mp4";
+        $uploadOk = 1;
+        $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+
+        // // Check if image file is a actual image or fake image
+        // if (isset($post["submit"])) {
+        //     $check = getimagesize($files["fileToUpload"]["tmp_name"]);
+        //     // print_r($check);
+        //     if ($check !== false) {
+        //         $uploadOk = 1;
+        //     } else {
+        //         header("HTTP/1.0 400 Bad Request");
+        //         response(400, "Not a Video", true);
+        //         $uploadOk = 0;
+        //     }
+        // }
+        // if ($check[0] > 500 || $check[1] > 500) {
+        //     header("HTTP/1.0 400 Bad Request");
+        //     response(400, "File too large, must be 500 x 500", true);
+        //     $uploadOk = 0;
+        // }
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "File already exists", true);
+            $uploadOk = 0;
+        }
+        // Check file size
+        if ($files["fileToUpload"]["size"] > 5000000000) {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "File too large", true);
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if ($videoFileType != "mp4") {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "MP4 files only", true);
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". basename($files["fileToUpload"]["name"]). " has been uploaded.";
+                $getVideoUrlQuery = "SELECT `video_links` FROM `artists` WHERE `id` = ".$post['id'];
+                $getVideoUrlResult = mysqli_query($db, $getVideoUrlQuery);
+                $videoLinks = mysqli_fetch_assoc($getVideoUrlResult)['video_links'];
+                $videoURL = $files["fileToUpload"]["name"];
+
+                if (empty($videoLinks)) {
+                    $uploadVideoLinks = "'".$videoURL.".mp4'";
+                } else {
+                    $uploadVideoLinks = "'".$videoLinks.",".$videoURL.".mp4'";
+                }
+
+                $postVideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadVideoLinks." WHERE `id` = ".$post['id'];
+                $postVideoLinksResult = mysqli_query($db, $postVideoLinksQuery);
+            } else {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "File failed to upload", true);
+            }
+        }
+    }
+
     function response($code, $message, $die = false)
     {
         header("Content-Type: application/json");
@@ -366,7 +436,6 @@
     {
         if (
              !empty($postData['name']) &&
-             !empty($postData['age']) &&
              !empty($postData['description'])
          ) {
             $db = $GLOBALS['db'];
@@ -374,7 +443,7 @@
             $checkArtistExistsResult = mysqli_query($db, $checkArtistExistsQuery);
             $artistExists = mysqli_num_rows($checkArtistExistsResult);
             if (empty($artistExists)) {
-                $validKeys = ['name','age','description'];
+                $validKeys = ['name','description'];
                 foreach ($postData as $key=>$value) {
                     if (in_array($key, $validKeys)) {
                         $postKeys[] = "`".$key."`";
@@ -418,7 +487,7 @@
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
-            response(400, "name, description & age cannot be blank", true);
+            response(400, "name, description cannot be blank", true);
         }
     }
 
