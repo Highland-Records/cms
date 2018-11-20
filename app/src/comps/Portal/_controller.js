@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './PortalStyle.css';
 import PortalHome from './Home';
+import Settings from './settings/settings';
 
 class PortalController extends React.Component {
 	constructor(props) {
@@ -15,6 +16,8 @@ class PortalController extends React.Component {
 			return <PortalHome token={this.props.token} />;
 		} else if(this.props.request === "ChangeState") {
 			return <Redirect push to="/" />
+		} else if(this.props.request === "Settings") {
+			return <Settings token={this.props.token} />;
 		} else {
 			alert("404");
 		}

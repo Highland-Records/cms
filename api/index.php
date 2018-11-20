@@ -29,6 +29,8 @@
     } elseif ($endpoint === "upload") {
         if ($endpointId === "profile") {
             uploadProfileImage($_FILES, $_POST);
+        } elseif ($endpointId === "video") {
+            uploadVideo($_FILES, $_POST);
         }
     } elseif ($endpoint === "users") {
         if (authorised($bearerToken) == true) {
