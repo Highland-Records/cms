@@ -2,7 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './PortalStyle.css';
 import PortalHome from './Home';
+
 import NewArtist from './Artists/newArtist';
+import Settings from './settings/settings';
 
 class PortalController extends React.Component {
 	constructor(props) {
@@ -17,7 +19,9 @@ class PortalController extends React.Component {
 		} else if(this.props.request === "NewArtist") {
 			return <NewArtist token={this.props.token} />;
 		} else if(this.props.request === "ChangeState") {
-			return <Redirect push to="/" />;
+			return <Redirect push to="/" />
+		} else if(this.props.request === "Settings") {
+			return <Settings token={this.props.token} />;
 		} else {
 			alert("404");
 		}

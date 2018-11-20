@@ -21,7 +21,7 @@ const PortalNavigation = {
 				</li>
 				<li>
 					{userData.first_name} {userData.last_name}<br/>
-					<p>Settings</p>
+					<Link to="/settings">Settings</Link>
 					<p onClick={PortalFunctions.SignOut}>Sign Out</p>
 				</li>
 			</ul>
