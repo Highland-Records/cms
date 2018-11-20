@@ -11,13 +11,13 @@ const PortalNavigation = {
 					Highland
 				</li>
 				<li>
-					<Link to="#">Artists</Link>
+					<Link to="/">Artists</Link>
 				</li>
 				<li>
-					<Link to="#">Users</Link>
+					<Link to="/users">Users</Link>
 				</li>
 				<li>
-					<img src={userData.profile_img} />
+					<img src={PortalFunctions.CoreURLImages()+userData.profile_img} />
 				</li>
 				<li>
 					{userData.first_name} {userData.last_name}<br/>

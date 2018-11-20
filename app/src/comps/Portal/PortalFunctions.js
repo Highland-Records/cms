@@ -30,6 +30,12 @@ const PortalFunctions = {
 				});
 		}
 	},
+	CoreURLImages() {
+		return "http://highland.oliverrichman.uk/api/images/";
+	},
+	CoreURLVideos() {
+		return "http://highland.oliverrichman.uk/api/videos/";
+	},
 	GetUserData(){
 		return fetch(
 			"http://highland.oliverrichman.uk/api/users/" +

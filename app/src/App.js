@@ -14,15 +14,14 @@ class App extends React.Component {
 	render() {
 		if(this.state.token) {
 			const NotFound = ({location}) =>  (
-				"Page not found (Portal)."
+				"Page not found (Portal)"
 			)
 			return (
 				<main>
 				    <Switch>
 						<Route exact path='/api' />
 				    	<Route exact path='/' render={(props) => <PortalController {...props} token={this.state.token} request={"Home"} />} />
-						<Route path='/p/:id' render={(props) => <PortalController {...props} token={this.state.token} request={"Project"} />} />
-						<Route path='/i/:id' render={(props) => <PortalController {...props} token={this.state.token} request={"Issue"} />} />
+						<Route exact path='/new-artist' render={(props) => <PortalController {...props} token={this.state.token} request={"NewArtist"} />} />
 						<Route exact path='/settings' render={(props) => <PortalController {...props} token={this.state.token} request={"Settings"} />} />
 						<Route path='/change-state' render={(props) => <PortalController {...props} token={this.state.token} request={"ChangeState"} />} />
 						<Route component={NotFound} />
@@ -31,7 +30,7 @@ class App extends React.Component {
 			)
 		} else {
 			const NotFound = ({location}) =>  (
-				"Page not found (Splash)."
+				"Page not found (Splash)"
 			)
 			return(
 				<main>
