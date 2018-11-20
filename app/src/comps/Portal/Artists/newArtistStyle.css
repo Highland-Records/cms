@@ -1,0 +1,40 @@
+ul.artistOutline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.artistOutline li {
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+ul.artistOutline li div {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+ul.artistOutline li div i {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  background: #000;
+  border-radius: 150px;
+  margin-left: 40px;
+}
+ul.artistOutline li div h1 {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 10px;
+}
+ul.artistOutline li:first-child {
+  height: 400px;
+}
+
+/*# sourceMappingURL=newArtistStyle.css.map */

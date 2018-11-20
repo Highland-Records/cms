@@ -7,6 +7,7 @@ nav {
 		width: 80%;
 		height: 70px;
 		min-width: 990px;
+		max-width: 1200px;
 		margin: 0;
 		padding: 0;
 		margin: 0 auto;
@@ -102,6 +103,7 @@ ul.artistList {
 	padding-bottom: 100px;
 	width: 80%;
 	min-width: 990px;
+	max-width: 1200px;
 	column-count: 3;
     column-gap: 20px;
     -moz-column-count: 3;
@@ -118,4 +120,9 @@ ul.artistList {
       	display: inline-block;
 		background: #fff;
 	}
+}
+div.c {
+	margin: 0 auto;
+	width: 80%;
+	min-width: 990px;
 }
