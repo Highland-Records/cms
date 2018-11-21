@@ -27,10 +27,58 @@
             response(401, "You aren't authorised to do this", true);
         }
     } elseif ($endpoint === "upload") {
-        if ($endpointId === "profile") {
-            uploadProfileImage($_FILES, $_POST);
-        } elseif ($endpointId === "video") {
-            uploadVideo($_FILES, $_POST);
+        if (authorised($bearerToken)) {
+            if ($endpointId === "profile") {
+                uploadProfileImage($_FILES, $_POST);
+            } elseif ($endpointId === "artist") {
+                if ($command === "video") {
+                    uploadVideo($_FILES, $_POST);
+                } elseif ($command === "banner") {
+                    uploadBanner($_FILES, $_POST);
+                } elseif ($command === "profile") {
+                    uploadArtistProfile($_FILES, $_POST);
+                }
+            }
+        }
+    } elseif ($endpoint === "albums") {
+        if (authorised($bearerToken)) {
+            if (empty($endpointId)) {
+                if ($rMethod === 'post') {
+                    // Create Album
+                } elseif ($rMethod === 'get') {
+                    // Get All Albums
+                } else {
+                    header("HTTP/1.0 403 Forbidden");
+                    response(403, "Invalid Request Method", true);
+                }
+            } elseif (is_numeric($endpointId)) {
+                if ($command === 'delete') {
+                    if ($rMethod === 'post') {
+                        deleteRow($endpointId, $endpoint);
+                    } else {
+                        header("HTTP/1.0 403 Forbidden");
+                        response(403, "Invalid Request Method", true);
+                    }
+                } elseif (empty($command)) {
+                    if ($rMethod === 'get') {
+                        // Get Album
+                    } elseif ($rMethod === 'post') {
+                        if (!empty($_POST)) {
+                            // Edit Album
+                        } else {
+                            header("HTTP/1.0 400 Bad Request");
+                            response(400, "No data has been posted to change");
+                        }
+                    } else {
+                        header("HTTP/1.0 403 Forbidden");
+                        response(403, "Invalid Request Method", true);
+                    }
+                } else {
+                    header("HTTP/1.0 404 Not Found");
+                }
+            } else {
+                header("HTTP/1.0 404 Not Found");
+            }
         }
     } elseif ($endpoint === "users") {
         if (authorised($bearerToken) == true) {
