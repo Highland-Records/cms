@@ -501,3 +501,13 @@
     function editArtist()
     {
     }
+
+    function getMe($bearerToken)
+    {
+        $db = $GLOBALS['db'];
+        $getUsersQuery = "SELECT * FROM `users` WHERE `token` = '".$bearerToken."'";
+        $getUsersResult = mysqli_query($db, $getUsersQuery);
+        $row = mysqli_fetch_assoc($getUsersResult);
+        header("Content-Type: application/json");
+        echo json_encode($row);
+    }

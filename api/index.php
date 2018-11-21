@@ -90,6 +90,13 @@
             header("HTTP/1.0 401 Unauthorized");
             response(401, "Unauthorised", true);
         }
+    } elseif ($endpoint === "me") {
+        if (authorised($bearerToken)) {
+            getMe($bearerToken);
+        } else {
+            header("HTTP/1.0 401 Unauthorized");
+            response(401, "Unauthorised", true);
+        }
     } elseif ($endpoint === "artists") {
         if (authorised($bearerToken)) {
             if (empty($endpointId)) {
