@@ -2,6 +2,8 @@ ul.artistOutline {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	margin-bottom: 40px;
+	z-index: 99;
 	li {
 		background-color: #fff;
 		background-position: center;
@@ -18,17 +20,72 @@ ul.artistOutline {
 				height: 150px;
 				background: #000;
 				border-radius: 150px;
-				margin-left: 40px;
+				margin-left: 50px;
 			}
-			h1 {
-				display: inline-block;
-				vertical-align: bottom;
+			input.artistFullName-input {
+				border: 0;
+				padding: 0;
+				margin: 0;
+				border-bottom: 2px #ccc solid;
+				position: absolute;
+				bottom: 0;
+				left: 200px;
+				right: 50px;
+				font-size: 32px;
 				margin-left: 40px;
 				margin-bottom: 40px;
 				text-transform: uppercase;
 				font-weight: bold;
 				color: #000;
 				letter-spacing: 10px;
+				&:focus {
+					border-bottom-color: #000;
+				}
+			}
+		}
+		textarea.artistDescription-input {
+			border: 0;
+			padding: 0;
+			margin: 0;
+			padding: 7px 13px;
+			border: 2px #ccc solid;
+			width: 90%;
+			margin-top: 40px;
+			margin-bottom: 40px;
+			resize: none;
+            box-sizing: border-box;
+			&:focus {
+				border-color: #000;
+			}
+		}
+		ul.artistAlbums, ul.artistVideos {
+			list-style: none;
+			width: 90%;
+			margin: 0 auto;
+			padding: 0;
+			padding-bottom: 20px;
+		}
+		ul.artistAlbums {
+			li:first-child {
+				width: 200px;
+				height: 200px;
+				border: 4px #000 dashed;
+				line-height: 190px;
+				text-align: center;
+				font-size: 72px;
+				margin-top: 20px;
+			}
+		}
+		ul.artistVideos {
+			li:first-child {
+				margin-top: 20px;
+				margin-bottom: 20px;
+				width: 200px;
+				height: 120px;
+				border: 4px #000 dashed;
+				line-height: 110px;
+				text-align: center;
+				font-size: 72px;
 			}
 		}
 	}

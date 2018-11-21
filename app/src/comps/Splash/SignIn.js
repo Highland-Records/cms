@@ -32,7 +32,6 @@ class SignInPage extends React.Component {
                 console.log("API Status: ", response.code);
                 console.log("API Message: ", response.message);
                 if (!response.code) {
-                    localStorage.setItem('UserID', response.id);
                     localStorage.setItem('AuthToken', response.token);
                     this.setState({token: localStorage.getItem("AuthToken")});
                 } else {
