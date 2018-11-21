@@ -17,7 +17,7 @@ body, html {
     background: #eee;
 	overflow-x: hidden;
 }
-input {
+input, textarea {
 	/*font-family: 'CircularStd';*/
 	font-size: 16px;
 	outline: none;

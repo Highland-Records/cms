@@ -19,8 +19,13 @@ class PortalHome extends React.Component {
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
-				if (!res.ok) throw new Error(res.status);
-				else return res.json();
+				if (!res.ok) {
+					console.log("API Status: ",res.status);
+					PortalFunctions.SignOut();
+					throw new Error(res.status);
+				} else {
+					return res.json();
+				}
 			})
 			.then(
 				r => {this.setState({isLoaded: true,userData: r})},
@@ -42,7 +47,7 @@ class PortalHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
-			return <div>Loading...</div>;
+			return <div></div>;
 		} else {
 			const artistsHtml = artistsData.map((artist) =>
 			<li>{artist.name}</li>

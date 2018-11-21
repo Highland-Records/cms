@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import TextareaAutosize from 'react-textarea-autosize';
 import './newArtistStyle.css';
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
@@ -12,11 +13,16 @@ class NewArtist extends React.Component {
 			error: null,
 			isLoaded: false,
 			userData: {},
-			artistsData: {
-				FullName: "Full Name"
-			}
+			artistFullName: "",
+            artistDescription: ""
 		};
 	}
+	// On change set the data states
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -29,7 +35,7 @@ class NewArtist extends React.Component {
 			);
 	}
 	render() {
-		const {error, isLoaded, userData, artistsData} = this.state;
+		const {error, isLoaded, userData} = this.state;
 		const artistHeaderImage = {
 			//backgroundImage: "url(" + {artistsData.HeaderImage} + ")"
 		}
@@ -43,23 +49,53 @@ class NewArtist extends React.Component {
 					Add a new Artist
 				</header>
 				<div className="c">
-					<ul className="artistOutline">
-						<li style={artistHeaderImage}>
-							<div>
-								<i style={artistProfileImage}></i>
-								<h1>{artistsData.FullName}</h1>
-							</div>
-						</li>
-						<li>
-							Description
-						</li>
-						<li>
-							Albums
-						</li>
-						<li>
-							Videos
-						</li>
-					</ul>
+					<form
+						className="newArtist-form"
+						onSubmit={this.handleSubmit}
+						encType="multipart/form-data"
+					>
+						<ul className="artistOutline">
+							<li style={artistHeaderImage}>
+								<div>
+									<i style={artistProfileImage}></i>
+									<input className="artistFullName-input"
+	                                    name="artistFullName"
+	                                    type="text"
+	                                    placeholder="Full Name"
+	                                    value={this.state.artistFullName}
+	                                    onChange={this.handleChange}
+	                                    autoFocus={true}
+									/>
+								</div>
+							</li>
+							<li>
+								<center>
+									<TextareaAutosize
+										className="artistDescription-input"
+										name="artistDescription"
+										placeholder="Describe this Artist"
+										onChange={this.handleChange}
+									/>
+								</center>
+							</li>
+							<li>
+								<ul className="artistAlbums">
+									Albums
+									<li>
+										+
+									</li>
+								</ul>
+							</li>
+							<li>
+								<ul className="artistVideos">
+									Videos
+									<li>
+										+
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</form>
 				</div>
 			</div>
 		);

@@ -9,25 +9,20 @@ const PortalFunctions = {
 				headers: new Headers({
 					"Content-Type": "application/x-www-form-urlencoded",
 					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken"),
-					id: localStorage.getItem("UserID")
-				}),
-				body: "id=" + localStorage.getItem("UserID")
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
 			})
 				.then(response => response.json())
 				.then(response => {
 					console.log("API Status: ", response.code);
-					if (response.code === 200) {
-						localStorage.removeItem("UserID");
-						localStorage.removeItem("AuthToken");
-						window.location.href = "/";
-					} else {
-						console.log(
-							"API Status Failed: ",
-							response.message
-						);
-					}
+					console.log("API Status Failed: ",response.message);
+					localStorage.removeItem("AuthToken");
+					window.location.href = "/";
 				});
+		} else {
+			// Assume user doesn't exist and sign out
+			localStorage.removeItem("AuthToken");
+			window.location.href = "/";
 		}
 	},
 	CoreURLImages() {
@@ -38,14 +33,11 @@ const PortalFunctions = {
 	},
 	GetUserData(){
 		return fetch(
-			"http://highland.oliverrichman.uk/api/users/" +
-				localStorage.getItem("UserID"),
-			{
+			"http://highland.oliverrichman.uk/api/me", {
 				method: "GET",
 				headers: new Headers({
 					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken"),
-					id: localStorage.getItem("UserID")
+						"Bearer " + localStorage.getItem("AuthToken")
 				})
 			}
 		)
@@ -57,8 +49,7 @@ const PortalFunctions = {
 				method: "GET",
 				headers: new Headers({
 					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken"),
-					id: localStorage.getItem("UserID")
+						"Bearer " + localStorage.getItem("AuthToken")
 				})
 			}
 		)
