@@ -23,8 +23,11 @@ nav {
 		    font-size: 28px;
 		    letter-spacing: 10px;
 			background: #000;
-			color: #fff;
-			padding: 14px 10px 14px 20px
+			padding: 14px 10px 14px 20px;
+			a {
+				color: #fff;
+				text-decoration: none;
+			}
 		}
 		li:nth-child(2), li:nth-child(3) {
 			padding: 23px 20px;
@@ -57,12 +60,18 @@ nav {
 			margin-right: 20px;
 			font-size: 20px;
 			line-height: 20px;
-			p {
+			p, a {
 				margin: 0;
 				padding: 0;
 				display: inline-block;
 				font-size: 12px;
 				margin-left: 10px;
+			}
+			p:last-child {
+				cursor: pointer;
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 		}
 	}

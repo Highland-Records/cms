@@ -8,7 +8,7 @@ const PortalNavigation = {
 		<nav>
 			<ul>
 				<li>
-					Highland
+					<Link to="/">Highland</Link>
 				</li>
 				<li>
 					<Link to="/">Artists</Link>
@@ -22,6 +22,7 @@ const PortalNavigation = {
 				<li>
 					{userData.first_name} {userData.last_name}<br/>
 					<Link to="/settings">Settings</Link>
+					<p>&bull;</p>
 					<p onClick={PortalFunctions.SignOut}>Sign Out</p>
 				</li>
 			</ul>
