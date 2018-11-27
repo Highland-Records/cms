@@ -1,5 +1,6 @@
 <?php
-    require("functions.php");
+    require("methods/functions.php");
+    require("methods/uploads.php");
     $headers = getallheaders();
     $bearerToken = getBearerToken($headers['Authorization']);
     $urls = explode("/", $_SERVER['REDIRECT_URL']);
