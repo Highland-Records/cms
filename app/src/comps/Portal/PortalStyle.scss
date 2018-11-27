@@ -136,5 +136,29 @@ section.PortalStyle {
 		margin: 0 auto;
 		width: 80%;
 		min-width: 990px;
+		form.settingsLeft, form.settingsRight {
+			width: 50%;
+			display: inline-block;
+			background-color: #fff;
+			vertical-align: top;
+			padding: 40px;
+			box-sizing: border-box;
+			i {
+				display: block;
+				width: 198px;
+				height: 198px;
+				border-radius: 200px;
+				background: #000;
+				margin: 0 auto;
+			}
+			h2 {
+				font-size: 20px;
+				color: #000;
+				text-transform: uppercase;
+				letter-spacing: 3px;
+				font-weight: bold;
+				margin-bottom: 40px;
+			}
+		}
 	}
 }
