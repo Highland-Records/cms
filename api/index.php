@@ -1,4 +1,5 @@
 <?php
+    error_reporting(E_ALL);
     require("methods/functions.php");
     require("methods/uploads.php");
     $headers = getallheaders();
@@ -30,7 +31,7 @@
     } elseif ($endpoint === "upload") {
         if (authorised($bearerToken)) {
             if ($endpointId === "profile") {
-                uploadProfileImage($_FILES, $_POST);
+                uploadProfileImage($_FILES, $_POST, $bearerToken);
             } elseif ($endpointId === "artist") {
                 if ($command === "video") {
                     uploadVideo($_FILES, $_POST);
@@ -40,6 +41,9 @@
                     uploadArtistProfile($_FILES, $_POST);
                 }
             }
+        } else {
+            header("HTTP/1.0 401 Unauthorized");
+            response(401, "You aren't authorised to do this", true);
         }
     } elseif ($endpoint === "albums") {
         if (authorised($bearerToken)) {

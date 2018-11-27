@@ -1,76 +1,129 @@
-.SignIn {
-	background: #fff;
-}
-.left-panel-background-colour {
-    /*background-color: #4D4F5C;*/
-	background-image: url("../../assets/images/signin-bg2.jpg");
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-	padding: 0;
-}
-.signin-panel {
-    height: 100vh;
-	padding: 0;
-}
-.signin-panel-title {
-    font-weight: bold;
-	text-transform: uppercase;
-    font-size: 35px;
-    letter-spacing: 0.2em;
-    line-height: 21px;
-    text-align: left;
-    color: #000;
-}
-.welcome-back-text, .wrong-back-text {
-    margin-top: 20px;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 13px;
-    color: #999;
-}
-.wrong-back-text {
-    color: #c0392b;
-}
-.signin-form {
-    width: 470px;
-	position: absolute;
-	top: 50%;
-	margin-top: -133px;
-}
-.username-input, .password-input {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #e9e9f0;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    width: 470px;
-    padding: 5px;
-	box-sizing: border-box;
-	&:hover {
-		border-bottom: 2px solid #000;
+Section.SignInStyle {
+	// .SignIn {
+	// 	background: #fff;
+	// }
+	.left-panel-background-colour {
+		background-image: url("../../assets/images/signin-bg2.jpg");
+		background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    height: 100vh;
+		padding: 0;
 	}
-	&:focus {
-		border-bottom: 2px solid #000;
+	.signin-panel {
+	    height: 100vh;
+		padding: 0;
+		background-color: #fff;
 	}
-}
-.submit-btn {
-    margin-top: 15px;
-    width: 120px;
-    height: 40px;
-    background: #000;
-	border: 3px #000 solid;
-    color: #ffffff;
-	border: none;
-	float: left;
-	margin-right: 30px;
-	text-transform: uppercase;
-	font-weight: bold;
-	letter-spacing: 3px;
-	&:hover {
-		background: none;
-		color: #000;
+	.signin-panel-title {
+	    font-weight: bold;
+		text-transform: uppercase;
+	    font-size: 35px;
+	    letter-spacing: 0.2em;
+	    line-height: 21px;
+	    text-align: left;
+	    color: #000;
+	}
+	.welcome-back-text, .wrong-back-text {
+	    margin-top: 20px;
+	    font-weight: normal;
+	    font-size: 18px;
+	    line-height: 13px;
+	    color: #999;
+	}
+	.wrong-back-text {
+	    color: #c0392b;
+	}
+	.signin-form {
+	    width: 470px;
+		position: absolute;
+		top: 50%;
+		margin-top: -133px;
+	}
+	.username-input, .password-input {
+	    background: transparent;
+	    border: none;
+	    border-bottom: 2px solid #e9e9f0;
+	    margin-top: 15px;
+	    margin-bottom: 15px;
+	    width: 470px;
+	    padding: 5px;
+		box-sizing: border-box;
+		&:hover {
+			border-bottom: 2px solid #000;
+		}
+		&:focus {
+			border-bottom: 2px solid #000;
+		}
+	}
+	.submit-btn {
+	    margin-top: 15px;
+	    width: 120px;
+	    height: 40px;
+	    background: #000;
 		border: 3px #000 solid;
+	    color: #ffffff;
+		border: none;
+		float: left;
+		margin-right: 30px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 3px;
+		&:hover {
+			background: none;
+			color: #000;
+			border: 3px #000 solid;
+		}
+	}
+}
+
+Section.SplashStyle {
+	width: 80%;
+	margin: 0 auto;
+	background-color: #fff;
+	nav {
+		width: 80%;
+		position: fixed;
+		a.title {
+			font-size: 50px;
+			text-transform: uppercase;
+			letter-spacing: 0.2em;
+			font-weight: bold;
+			text-decoration: none;
+			color: #000;
+			text-align: center;
+			display: block;
+		}
+		a.adminLink {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 10px 15px;
+			color: #000;
+			text-transform: uppercase;
+			font-size: 13px;
+			font-weight: bold;
+		}
+		ul {
+			text-align: center;
+			padding: 0;
+			margin: 0;
+			li {
+				display: inline-block;
+				a {
+					text-transform: uppercase;
+					color: #000;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+	.banner {
+		width: 100%;
+		height: 100px;
+		// background-image: url("../../assets/images/home-banner.jpeg");
+		background-size: cover;
+		background-position: bottom;
 	}
 }

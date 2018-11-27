@@ -2,14 +2,13 @@
 
 require("./dbconfig.php");
 
-function uploadProfileImage($files, $post)
+function uploadProfileImage($files, $post, $bearerToken = "")
 {
-    $fileExtension = explode($files["fileToUpload"]["name"])[1];
+    $fileExtension = explode(".", $files["fileToUpload"]["name"])[1];
     $files["fileToUpload"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "images/";
-    $target_file = $target_dir . uniqid('') . "." . $fileExtension;
-
+    $target_file = $target_dir . uniqid('') . ".".$fileExtension;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     // Check if image file is a actual image or fake image
@@ -41,20 +40,14 @@ function uploadProfileImage($files, $post)
         response(400, "File too large", true);
         $uploadOk = 0;
     }
-    // Allow certain file formats
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif") {
-        header("HTTP/1.0 400 Bad Request");
-        response(400, "JPG, JPEG, PNG & GIF files only", true);
-        $uploadOk = 0;
-    }
+
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 1) {
         if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "The file ". basename($files["fileToUpload"]["name"]). " has been uploaded.";
-            $profileURL = $files["fileToUpload"]["name"].".".$fileExtension;
-            $postImgUrlQuery = "UPDATE `users` SET `profile_img` = '".$profileURL."' WHERE `id` = ".$post['id'];
+            $profileURL = explode("/", $target_file)[1];
+            $postImgUrlQuery = "UPDATE `users` SET `profile_img` = '". $profileURL."' WHERE `token` = '".$bearerToken."'";
             $postImgUrlResult = mysqli_query($db, $postImgUrlQuery);
+            response(200, "File uploaded");
         } else {
             header("HTTP/1.0 400 Bad Request");
             response(400, "File failed to upload", true);
