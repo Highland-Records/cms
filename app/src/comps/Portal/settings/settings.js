@@ -40,7 +40,7 @@ class Settings extends React.Component {
 			return <div>Loading...</div>;
 		} else {
 			return (
-				<div className="Portal">
+				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>Settings</header>
 					<form
@@ -79,7 +79,7 @@ class Settings extends React.Component {
 							value="Sign In"
 						/>
 					</form>
-				</div>
+				</section>
 			);
 		}
 	}

@@ -1,11 +1,11 @@
-nav {
+section.PortalStyle nav {
   width: 100%;
   background: #FFF;
   position: fixed;
   top: 0;
   z-index: 101;
 }
-nav ul {
+section.PortalStyle nav ul {
   width: 80%;
   height: 70px;
   min-width: 990px;
@@ -15,11 +15,11 @@ nav ul {
   margin: 0 auto;
   list-style: none;
 }
-nav ul li {
+section.PortalStyle nav ul li {
   display: inline-block;
   vertical-align: top;
 }
-nav ul li:nth-child(1) {
+section.PortalStyle nav ul li:nth-child(1) {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 28px;
@@ -27,55 +27,54 @@ nav ul li:nth-child(1) {
   background: #000;
   padding: 14px 10px 14px 20px;
 }
-nav ul li:nth-child(1) a {
+section.PortalStyle nav ul li:nth-child(1) a {
   color: #fff;
   text-decoration: none;
 }
-nav ul li:nth-child(2), nav ul li:nth-child(3) {
+section.PortalStyle nav ul li:nth-child(2), section.PortalStyle nav ul li:nth-child(3) {
   padding: 23px 20px;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
 }
-nav ul li:nth-child(2) a, nav ul li:nth-child(3) a {
+section.PortalStyle nav ul li:nth-child(2) a, section.PortalStyle nav ul li:nth-child(3) a {
   color: #000;
   border-bottom: 2px transparent solid;
 }
-nav ul li:nth-child(2) a:hover, nav ul li:nth-child(3) a:hover {
+section.PortalStyle nav ul li:nth-child(2) a:hover, section.PortalStyle nav ul li:nth-child(3) a:hover {
   text-decoration: none;
   border-bottom-color: #000;
 }
-nav ul li:nth-child(4), nav ul li:nth-child(5) {
+section.PortalStyle nav ul li:nth-child(4), section.PortalStyle nav ul li:nth-child(5) {
   text-align: right;
   float: right;
 }
-nav ul li:nth-child(4) img {
+section.PortalStyle nav ul li:nth-child(4) img {
   border-radius: 70px;
   margin-top: 10px;
   width: 50px;
   height: 50px;
 }
-nav ul li:nth-child(5) {
+section.PortalStyle nav ul li:nth-child(5) {
   padding-top: 15px;
   margin-right: 20px;
   font-size: 20px;
   line-height: 20px;
 }
-nav ul li:nth-child(5) p, nav ul li:nth-child(5) a {
+section.PortalStyle nav ul li:nth-child(5) p, section.PortalStyle nav ul li:nth-child(5) a {
   margin: 0;
   padding: 0;
   display: inline-block;
   font-size: 12px;
   margin-left: 10px;
 }
-nav ul li:nth-child(5) p:last-child {
+section.PortalStyle nav ul li:nth-child(5) p:last-child {
   cursor: pointer;
 }
-nav ul li:nth-child(5) p:last-child:hover {
+section.PortalStyle nav ul li:nth-child(5) p:last-child:hover {
   text-decoration: underline;
 }
-
-header {
+section.PortalStyle header {
   margin: 0 auto;
   margin-top: 100px;
   padding-bottom: 10px;
@@ -88,7 +87,7 @@ header {
   color: #000;
   border-bottom: 2px #000 solid;
 }
-header a {
+section.PortalStyle header a {
   float: right;
   border: 2px #000 solid;
   font-size: 14px;
@@ -98,13 +97,12 @@ header a {
   font-weight: normal;
   color: #000;
 }
-header a:hover {
+section.PortalStyle header a:hover {
   background: #000;
   color: #fff;
   text-decoration: none;
 }
-
-ul.artistList {
+section.PortalStyle ul.artistList {
   margin: 0;
   padding: 0;
   margin: 0 auto;
@@ -121,7 +119,7 @@ ul.artistList {
   -webkit-column-gap: 20px;
   -webkit-column-count: 3;
 }
-ul.artistList li {
+section.PortalStyle ul.artistList li {
   max-width: 400px;
   width: 100%;
   margin: 0;
@@ -131,8 +129,7 @@ ul.artistList li {
   display: inline-block;
   background: #fff;
 }
-
-div.c {
+section.PortalStyle div.c {
   margin: 0 auto;
   width: 80%;
   min-width: 990px;
