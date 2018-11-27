@@ -25,8 +25,11 @@ nav ul li:nth-child(1) {
   font-size: 28px;
   letter-spacing: 10px;
   background: #000;
-  color: #fff;
   padding: 14px 10px 14px 20px;
+}
+nav ul li:nth-child(1) a {
+  color: #fff;
+  text-decoration: none;
 }
 nav ul li:nth-child(2), nav ul li:nth-child(3) {
   padding: 23px 20px;
@@ -58,12 +61,18 @@ nav ul li:nth-child(5) {
   font-size: 20px;
   line-height: 20px;
 }
-nav ul li:nth-child(5) p {
+nav ul li:nth-child(5) p, nav ul li:nth-child(5) a {
   margin: 0;
   padding: 0;
   display: inline-block;
   font-size: 12px;
   margin-left: 10px;
+}
+nav ul li:nth-child(5) p:last-child {
+  cursor: pointer;
+}
+nav ul li:nth-child(5) p:last-child:hover {
+  text-decoration: underline;
 }
 
 header {

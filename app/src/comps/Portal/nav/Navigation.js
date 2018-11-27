@@ -4,7 +4,6 @@ import PortalFunctions from "../PortalFunctions";
 
 const PortalNavigation = {
 	DrawNavigation(userData) {
-		console.log(userData);
 		let navigation = (
 			<nav>
 				<ul>
@@ -29,6 +28,7 @@ const PortalNavigation = {
 						{userData.first_name} {userData.last_name}
 						<br />
 						<Link to="/settings">Settings</Link>
+						<p>&bull;</p>
 						<p onClick={PortalFunctions.SignOut}>Sign Out</p>
 					</li>
 				</ul>
