@@ -83,7 +83,7 @@ class SignInPage extends React.Component {
                                     />
                                     <br/>
                                     <input
-                                        className="submit-btn"
+                                        className="button"
                                         type="submit"
                                         value="Sign In"
                                         disabled={!isEnabled}

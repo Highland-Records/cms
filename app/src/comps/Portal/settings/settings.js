@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
+import ImageUpload from "./uploadImage";
 
 class Settings extends React.Component {
 	constructor(props) {
@@ -11,12 +12,11 @@ class Settings extends React.Component {
 			isLoaded: false,
 			userData: {},
 			formData: {
-				first_name: "",
-				last_name: ""
-			}
+				password: "",
+				passwordConfirm: ""
+			},
 		};
 	}
-
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -33,6 +33,9 @@ class Settings extends React.Component {
 			);
 	}
 	render() {
+		const profileUploadPreview = {
+			//backgroundImage: "url(" + {this.state.imageURL} + ")"
+		}
 		const {error, isLoaded, userData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
@@ -43,42 +46,45 @@ class Settings extends React.Component {
 				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>Settings</header>
-					<form
-						className="signin-form"
-						onSubmit={this.handleSubmit}
-						encType="multipart/form-data"
-					>
-						<input
-							className="username-input"
-							name="username"
-							type="text"
-							placeholder="Username"
-							value={this.state.username}
-							autoFocus={true}
-						/>
-						<br />
-						<input
-							className="password-input"
-							name="password"
-							type="password"
-							placeholder="Password"
-							value={this.state.password}
-						/>
-						<br />
-						<input
-							className="password-input"
-							name="password"
-							type="password"
-							placeholder="Password"
-							value={this.state.password}
-						/>
-						<br />
-						<input
-							className="submit-btn"
-							type="submit"
-							value="Sign In"
-						/>
-					</form>
+					<div className="c">
+						<ImageUpload></ImageUpload>
+						<form
+							onSubmit={this.handleSubmit}
+							encType="multipart/form-data"
+							className="settingsRight"
+						>
+							<h2>Change your Password</h2>
+							<input
+								className="password-input"
+								name="password"
+								type="password"
+								placeholder="Your current Password"
+								value={this.state.passwordCurrent}
+							/>
+							<br />
+							<input
+								className="password-input"
+								name="password"
+								type="password"
+								placeholder="Your new Password"
+								value={this.state.password}
+							/>
+							<br />
+							<input
+								className="password-input"
+								name="passwordConfirm"
+								type="password"
+								placeholder="Confirm your new Password"
+								value={this.state.passwordConfirm}
+							/>
+							<br />
+							<input
+								className="button"
+								type="submit"
+								value="Change Password"
+							/>
+						</form>
+					</div>
 				</section>
 			);
 		}
