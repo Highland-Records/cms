@@ -53,7 +53,7 @@ class SignInPage extends React.Component {
             const isEnabled = this.state.username.length >= 3 && this.state.password.length > 7;
             return (
                 <div className="SignIn">
-                    <section className="SplashStyle">
+                    <section className="SignInStyle">
                         <div className="row">
                             <div className="col left-panel-background-colour">
                             </div>

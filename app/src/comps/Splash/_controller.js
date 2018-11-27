@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import './SplashStyle.css';
 import SplashHome from './Home';
 import SignInPage from './SignIn';
+import Artists from './Artists';
+import About from './About';
+import Contact from './Contact';
 
 class SplashController extends React.Component {
 	render() {
@@ -10,6 +13,12 @@ class SplashController extends React.Component {
 			return <SplashHome token={this.props.token} />;
 		} else if(this.props.request === "SignIn") {
 			return <SignInPage token={this.props.token} />;
+		} else if(this.props.request === "Artists") {
+			return <Artists token={this.props.token} />;
+		} else if(this.props.request === "About") {
+			return <About token={this.props.token} />;
+		} else if(this.props.request === "Contact") {
+			return <Contact token={this.props.token} />;
 		} else if(this.props.request === "ChangeState") {
 			return <Redirect push to="/" />
 		}
