@@ -2,18 +2,17 @@ import React from "react";
 import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
 
-// - Home Splash Page
-class SplashHome extends React.Component {
+class Artists extends React.Component {
 	render() {
 		return (
 			<div className="App">
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
-					<div class="banner"></div>
+					<h1>artists</h1>
 				</section>
 			</div>
 		);
 	}
 }
 
-export default SplashHome;
+export default Artists;
