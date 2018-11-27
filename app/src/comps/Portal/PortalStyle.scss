@@ -1,138 +1,140 @@
-nav {
-	width: 100%;
-	background: #FFF;
-	position: fixed;
-	top: 0;
-	z-index: 101;
-	ul {
-		width: 80%;
-		height: 70px;
-		min-width: 990px;
-		max-width: 1200px;
-		margin: 0;
-		padding: 0;
-		margin: 0 auto;
-		list-style: none;
-		li {
-			display: inline-block;
-			vertical-align: top;
+section.PortalStyle {
+	nav {
+		width: 100%;
+		background: #FFF;
+		position: fixed;
+		top: 0;
+		z-index: 101;
+		ul {
+			width: 80%;
+			height: 70px;
+			min-width: 990px;
+			max-width: 1200px;
+			margin: 0;
+			padding: 0;
+			margin: 0 auto;
+			list-style: none;
+			li {
+				display: inline-block;
+				vertical-align: top;
+			}
+			li:nth-child(1) {
+				font-weight: bold;
+				text-transform: uppercase;
+			    font-size: 28px;
+			    letter-spacing: 10px;
+				background: #000;
+				padding: 14px 10px 14px 20px;
+				a {
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+			li:nth-child(2), li:nth-child(3) {
+				padding: 23px 20px;
+				text-transform: uppercase;
+				font-weight: bold;
+				letter-spacing: 2px;
+				a {
+					color: #000;
+					border-bottom: 2px transparent solid;
+					&:hover {
+						text-decoration: none;
+						border-bottom-color: #000;
+					}
+				}
+			}
+			li:nth-child(4), li:nth-child(5) {
+				text-align: right;
+				float: right;
+			}
+			li:nth-child(4) {
+				img {
+					border-radius: 70px;
+					margin-top: 10px;
+					width: 50px;
+					height: 50px;
+				}
+			}
+			li:nth-child(5) {
+				padding-top: 15px;
+				margin-right: 20px;
+				font-size: 20px;
+				line-height: 20px;
+				p, a {
+					margin: 0;
+					padding: 0;
+					display: inline-block;
+					font-size: 12px;
+					margin-left: 10px;
+				}
+				p:last-child {
+					cursor: pointer;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
 		}
-		li:nth-child(1) {
-			font-weight: bold;
-			text-transform: uppercase;
-		    font-size: 28px;
-		    letter-spacing: 10px;
-			background: #000;
-			padding: 14px 10px 14px 20px;
-			a {
+	}
+	header {
+		margin: 0 auto;
+		margin-top: 100px;
+		padding-bottom: 10px;
+		width: 80%;
+		min-width: 990px;
+		font-size: 28px;
+		letter-spacing: 10px;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #000;
+		border-bottom: 2px #000 solid;
+		a {
+			float: right;
+			border: 2px #000 solid;
+			font-size: 14px;
+			letter-spacing: normal;
+			text-transform: none;
+			padding: 7px 13px;
+			font-weight: normal;
+			color: #000;
+			&:hover {
+				background: #000;
 				color: #fff;
 				text-decoration: none;
 			}
 		}
-		li:nth-child(2), li:nth-child(3) {
-			padding: 23px 20px;
-			text-transform: uppercase;
-			font-weight: bold;
-			letter-spacing: 2px;
-			a {
-				color: #000;
-				border-bottom: 2px transparent solid;
-				&:hover {
-					text-decoration: none;
-					border-bottom-color: #000;
-				}
-			}
-		}
-		li:nth-child(4), li:nth-child(5) {
-			text-align: right;
-			float: right;
-		}
-		li:nth-child(4) {
-			img {
-				border-radius: 70px;
-				margin-top: 10px;
-				width: 50px;
-				height: 50px;
-			}
-		}
-		li:nth-child(5) {
-			padding-top: 15px;
-			margin-right: 20px;
-			font-size: 20px;
-			line-height: 20px;
-			p, a {
-				margin: 0;
-				padding: 0;
-				display: inline-block;
-				font-size: 12px;
-				margin-left: 10px;
-			}
-			p:last-child {
-				cursor: pointer;
-				&:hover {
-					text-decoration: underline;
-				}
-			}
+	}
+	ul.artistList {
+		margin: 0;
+		padding: 0;
+		margin: 0 auto;
+		list-style: none;
+		margin-top: 40px;
+		padding-bottom: 100px;
+		width: 80%;
+		min-width: 990px;
+		max-width: 1200px;
+		column-count: 3;
+	    column-gap: 20px;
+	    -moz-column-count: 3;
+	    -moz-column-gap: 20px;
+	    -webkit-column-gap: 20px;
+	    -webkit-column-count: 3;
+		li {
+			max-width: 400px;
+	      	width: 100%;
+	      	margin: 0;
+	      	box-sizing: border-box;
+	      	break-inside: avoid;
+	      	page-break-inside: avoid;
+	      	display: inline-block;
+			background: #fff;
 		}
 	}
-}
-header {
-	margin: 0 auto;
-	margin-top: 100px;
-	padding-bottom: 10px;
-	width: 80%;
-	min-width: 990px;
-	font-size: 28px;
-	letter-spacing: 10px;
-	font-weight: bold;
-	text-transform: uppercase;
-	color: #000;
-	border-bottom: 2px #000 solid;
-	a {
-		float: right;
-		border: 2px #000 solid;
-		font-size: 14px;
-		letter-spacing: normal;
-		text-transform: none;
-		padding: 7px 13px;
-		font-weight: normal;
-		color: #000;
-		&:hover {
-			background: #000;
-			color: #fff;
-			text-decoration: none;
-		}
+	div.c {
+		margin: 0 auto;
+		width: 80%;
+		min-width: 990px;
 	}
-}
-ul.artistList {
-	margin: 0;
-	padding: 0;
-	margin: 0 auto;
-	list-style: none;
-	margin-top: 40px;
-	padding-bottom: 100px;
-	width: 80%;
-	min-width: 990px;
-	max-width: 1200px;
-	column-count: 3;
-    column-gap: 20px;
-    -moz-column-count: 3;
-    -moz-column-gap: 20px;
-    -webkit-column-gap: 20px;
-    -webkit-column-count: 3;
-	li {
-		max-width: 400px;
-      	width: 100%;
-      	margin: 0;
-      	box-sizing: border-box;
-      	break-inside: avoid;
-      	page-break-inside: avoid;
-      	display: inline-block;
-		background: #fff;
-	}
-}
-div.c {
-	margin: 0 auto;
-	width: 80%;
-	min-width: 990px;
 }

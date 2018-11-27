@@ -53,7 +53,7 @@ class PortalHome extends React.Component {
 			<li>{artist.name}</li>
 			);
 			return (
-				<div className="Portal">
+				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>
 						Artists
@@ -62,7 +62,7 @@ class PortalHome extends React.Component {
 					<ul className="artistList">
 						{artistsHtml}
 					</ul>
-				</div>
+				</section>
 			);
 		}
 	}

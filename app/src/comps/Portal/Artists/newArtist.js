@@ -23,6 +23,28 @@ class NewArtist extends React.Component {
             [event.target.name]: event.target.value
         });
     }
+	handleSubmit = event => {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        // Post this to API
+        fetch("http://highland.oliverrichman.uk/api/login", {
+            method: "POST",
+            body: data
+        })
+            .then(response => response.json())
+            .then(response => {
+                console.log("API Status: ", response.code);
+                console.log("API Message: ", response.message);
+                if (!response.code) {
+                    localStorage.setItem('AuthToken', response.token);
+                    this.setState({token: localStorage.getItem("AuthToken")});
+                } else {
+                    this.setState({
+                        status: false
+                    });
+                }
+            });
+    }
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -43,7 +65,7 @@ class NewArtist extends React.Component {
 			//backgroundImage: "url(" + {artistsData.ProfileImage} + ")"
 		}
 		return (
-			<div className="Portal">
+			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData)}
 				<header>
 					Add a new Artist
@@ -97,7 +119,7 @@ class NewArtist extends React.Component {
 						</ul>
 					</form>
 				</div>
-			</div>
+			</section>
 		);
 	}
 }
