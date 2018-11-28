@@ -134,7 +134,7 @@ section.PortalStyle div.c {
   width: 80%;
   min-width: 990px;
 }
-section.PortalStyle div.c form.settingsLeft, section.PortalStyle div.c form.settingsRight {
+section.PortalStyle div.c div.settingsLeft, section.PortalStyle div.c form.settingsRight {
   width: 50%;
   display: inline-block;
   background-color: #fff;
@@ -142,21 +142,23 @@ section.PortalStyle div.c form.settingsLeft, section.PortalStyle div.c form.sett
   padding: 40px;
   box-sizing: border-box;
 }
-section.PortalStyle div.c form.settingsLeft i, section.PortalStyle div.c form.settingsRight i {
+section.PortalStyle div.c div.settingsLeft img, section.PortalStyle div.c form.settingsRight img {
   display: block;
-  width: 198px;
-  height: 198px;
-  border-radius: 200px;
-  background: #000;
+  width: 212px;
+  height: 212px;
+  border-radius: 212px;
   margin: 0 auto;
 }
-section.PortalStyle div.c form.settingsLeft h2, section.PortalStyle div.c form.settingsRight h2 {
+section.PortalStyle div.c div.settingsLeft h2, section.PortalStyle div.c form.settingsRight h2 {
   font-size: 20px;
   color: #000;
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: bold;
   margin-bottom: 40px;
+}
+section.PortalStyle div.c div.settingsLeft form, section.PortalStyle div.c form.settingsRight form {
+  display: none;
 }
 
 /*# sourceMappingURL=PortalStyle.css.map */

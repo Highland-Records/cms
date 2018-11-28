@@ -55,7 +55,7 @@ class Settings extends React.Component {
 						>
 							<h2>Change your Password</h2>
 							<input
-								className="password-input"
+								className="textInput"
 								name="password"
 								type="password"
 								placeholder="Your current Password"
@@ -63,7 +63,7 @@ class Settings extends React.Component {
 							/>
 							<br />
 							<input
-								className="password-input"
+								className="textInput"
 								name="password"
 								type="password"
 								placeholder="Your new Password"
@@ -71,7 +71,7 @@ class Settings extends React.Component {
 							/>
 							<br />
 							<input
-								className="password-input"
+								className="textInput"
 								name="passwordConfirm"
 								type="password"
 								placeholder="Confirm your new Password"
