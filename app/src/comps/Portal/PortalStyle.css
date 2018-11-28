@@ -45,6 +45,10 @@ section.PortalStyle nav ul li:nth-child(2) a:hover, section.PortalStyle nav ul l
   text-decoration: none;
   border-bottom-color: #000;
 }
+section.PortalStyle nav ul li:nth-child(2) a.s, section.PortalStyle nav ul li:nth-child(3) a.s {
+  text-decoration: none;
+  border-bottom-color: #000;
+}
 section.PortalStyle nav ul li:nth-child(4), section.PortalStyle nav ul li:nth-child(5) {
   text-align: right;
   float: right;
@@ -62,6 +66,7 @@ section.PortalStyle nav ul li:nth-child(5) {
   line-height: 20px;
 }
 section.PortalStyle nav ul li:nth-child(5) p, section.PortalStyle nav ul li:nth-child(5) a {
+  color: #000;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -102,7 +107,7 @@ section.PortalStyle header a:hover {
   color: #fff;
   text-decoration: none;
 }
-section.PortalStyle ul.artistList {
+section.PortalStyle ul.artistList, section.PortalStyle ul.userList {
   margin: 0;
   padding: 0;
   margin: 0 auto;
@@ -119,7 +124,7 @@ section.PortalStyle ul.artistList {
   -webkit-column-gap: 20px;
   -webkit-column-count: 3;
 }
-section.PortalStyle ul.artistList li {
+section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li {
   max-width: 400px;
   width: 100%;
   margin: 0;
@@ -129,6 +134,22 @@ section.PortalStyle ul.artistList li {
   display: inline-block;
   background: #fff;
 }
+section.PortalStyle ul.userList li {
+  padding: 40px;
+  text-align: center;
+}
+section.PortalStyle ul.userList li img {
+  width: 212px;
+  height: 212px;
+  border-radius: 212px;
+}
+section.PortalStyle ul.userList li h2 {
+  margin-top: 20px;
+  font-size: 24px;
+}
+section.PortalStyle ul.userList li p {
+  color: #999;
+}
 section.PortalStyle div.c {
   margin: 0 auto;
   width: 80%;
@@ -137,17 +158,40 @@ section.PortalStyle div.c {
 section.PortalStyle div.c div.settingsLeft, section.PortalStyle div.c form.settingsRight {
   width: 50%;
   display: inline-block;
+  position: relative;
   background-color: #fff;
   vertical-align: top;
   padding: 40px;
   box-sizing: border-box;
 }
-section.PortalStyle div.c div.settingsLeft img, section.PortalStyle div.c form.settingsRight img {
+section.PortalStyle div.c div.settingsLeft input.textInput.half, section.PortalStyle div.c form.settingsRight input.textInput.half {
+  width: 50%;
+}
+section.PortalStyle div.c div.settingsLeft img, section.PortalStyle div.c div.settingsLeft div.fileUploadOverlay, section.PortalStyle div.c form.settingsRight img, section.PortalStyle div.c form.settingsRight div.fileUploadOverlay {
   display: block;
   width: 212px;
   height: 212px;
   border-radius: 212px;
   margin: 0 auto;
+}
+section.PortalStyle div.c div.settingsLeft div.fileUploadOverlay, section.PortalStyle div.c form.settingsRight div.fileUploadOverlay {
+  opacity: 0;
+  z-index: 99;
+  position: absolute;
+  left: 50%;
+  margin-left: -106px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  line-height: 212px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+section.PortalStyle div.c div.settingsLeft div.fileUploadOverlay:hover, section.PortalStyle div.c form.settingsRight div.fileUploadOverlay:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 section.PortalStyle div.c div.settingsLeft h2, section.PortalStyle div.c form.settingsRight h2 {
   font-size: 20px;

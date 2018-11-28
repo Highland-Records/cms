@@ -54,10 +54,10 @@ class PortalHome extends React.Component {
 			);
 			return (
 				<section className="PortalStyle">
-					{PortalNavigation.DrawNavigation(userData)}
+					{PortalNavigation.DrawNavigation(userData, "home")}
 					<header>
 						Artists
-						<Link to="/new-artist">Add a new Artist</Link>
+						<Link to="/new">Add a new Artist</Link>
 					</header>
 					<ul className="artistList">
 						{artistsHtml}
