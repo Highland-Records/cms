@@ -79,7 +79,7 @@ class Users extends React.Component {
 					{PortalNavigation.DrawNavigation(userData, "users")}
 					<header>
 						Users
-						<Link to="/new-artist">Add a new User</Link>
+						<Link to="/users/new">Add a new User</Link>
 					</header>
 					<ul className="userList">{usersHtml}</ul>
 				</section>

@@ -78,8 +78,7 @@ class ImageUpload extends React.Component {
 		}
 
 		return (
-			<div className="settingsLeft">
-				<h2>Change your Profile Photo</h2>
+			<div>
 				<form>
 					<input
 						name="fileToUpload"

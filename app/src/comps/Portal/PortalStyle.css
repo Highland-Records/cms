@@ -164,6 +164,9 @@ section.PortalStyle div.c div.settingsLeft, section.PortalStyle div.c form.setti
   padding: 40px;
   box-sizing: border-box;
 }
+section.PortalStyle div.c div.settingsLeft input.textInput.half, section.PortalStyle div.c form.settingsRight input.textInput.half {
+  width: 50%;
+}
 section.PortalStyle div.c div.settingsLeft img, section.PortalStyle div.c div.settingsLeft div.fileUploadOverlay, section.PortalStyle div.c form.settingsRight img, section.PortalStyle div.c form.settingsRight div.fileUploadOverlay {
   display: block;
   width: 212px;
