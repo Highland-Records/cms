@@ -5,6 +5,7 @@ import PortalHome from './Home';
 
 import NewArtist from './Artists/newArtist';
 import Users from './Users/users';
+import NewUsers from './Users/newUser';
 import Settings from './settings/settings';
 
 class PortalController extends React.Component {
@@ -21,6 +22,8 @@ class PortalController extends React.Component {
 			return <NewArtist token={this.props.token} />;
 		} else if(this.props.request === "Users") {
 			return <Users token={this.props.token} />;
+		} else if(this.props.request === "NewUsers") {
+				return <NewUsers token={this.props.token} />;
 		} else if(this.props.request === "ChangeState") {
 			return <Redirect push to="/" />
 		} else if(this.props.request === "Settings") {

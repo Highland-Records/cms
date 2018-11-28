@@ -167,6 +167,9 @@ section.PortalStyle {
 			vertical-align: top;
 			padding: 40px;
 			box-sizing: border-box;
+			input.textInput.half {
+				width: 50%;
+			}
 			img, div.fileUploadOverlay {
 				display: block;
 				width: 212px;
