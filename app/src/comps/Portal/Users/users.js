@@ -60,7 +60,7 @@ class Users extends React.Component {
                 status ? <span> - (this is you)</span> : ""
             );
 			const usersHtml = usersData.map(user => {
-				let userImage = PortalFunctions.CoreURLImages() + user.profile_img;
+				let userImage = user.profile_img ? PortalFunctions.CoreURLImages() + user.profile_img : "https://placeimg.com/212/212/animals";
 				if(userData.id == user.id) {
 					this.state.status = true
 				} else {

@@ -11,6 +11,7 @@ const PortalNavigation = {
 		} else if(location === null) {
 			// IGNORE THIS
 		}
+		let profileUrl = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img : "https://placeimg.com/212/212/animals";
 		let navigation = (
 			<nav>
 				<ul>
@@ -25,10 +26,7 @@ const PortalNavigation = {
 					</li>
 					<li>
 						<img
-							src={
-								PortalFunctions.CoreURLImages() +
-								userData.profile_img
-							}
+							src={profileUrl}
 						/>
 					</li>
 					<li>
