@@ -46,7 +46,7 @@ class Settings extends React.Component {
 		} else {
 			return (
 				<section className="PortalStyle">
-					{PortalNavigation.DrawNavigation(userData)}
+					{PortalNavigation.DrawNavigation(userData, null)}
 					<header>Settings</header>
 					<div className="c">
 						<div className="settingsLeft">
