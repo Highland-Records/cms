@@ -70,7 +70,7 @@ class ImageUpload extends React.Component {
 		const {error, isLoaded, userData} = this.state;
 		let {imagePreviewUrl} = this.state;
 		let $imagePreview = null;
-		let currentPreview = PortalFunctions.CoreURLImages() + userData.profile_img;
+		let currentPreview = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img : "https://placeimg.com/212/212/animals";
 		if (imagePreviewUrl) {
 			$imagePreview = imagePreviewUrl
 		} else {
