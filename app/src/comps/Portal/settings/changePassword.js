@@ -1,4 +1,5 @@
 import React from "react";
+import PortalFunctions from "../PortalFunctions";
 
 class ChangePassword extends React.Component {
 	constructor(props) {
@@ -10,103 +11,77 @@ class ChangePassword extends React.Component {
 		};
 	}
 
-	_handleSubmit(e) {
-		e.preventDefault();
-		const data = new FormData();
-		data.append("fileToUpload", this.state.file, this.state.file.name);
-		fetch("http://highland.oliverrichman.uk/api/users/1/changepassword", {
-			method: "POST",
-			body: data,
-			headers: new Headers({
-				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-			})
-		})
+	// On change set the data states
+	handleChange = event => {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
+	};
+	// Handle the submit event
+	handleSubmit = event => {
+		event.preventDefault();
+		let formData = new FormData();
+		formData.append("password", this.state.password);
+		formData.append("new_password", this.state.new_password);
+		PortalFunctions.GetUserData()
 			.then(response => response.json())
-			.then(response => {
-				console.log("API Status: ", response.code);
-				console.log("API Message: ", response.message);
+			.then( response => {
+				// console.log(response);
+				this.changePassword(response.id, formData);
 			});
+	};
+
+	changePassword(userId,formData){
+		if (userId){
+			// console.log("test");
+			fetch("http://highland.oliverrichman.uk/api/users/"+userId+"/changepassword", {
+				method: "POST",
+				body: formData,
+				headers: new Headers({
+					Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				})
+			})
+				.then(response => response.json())
+				.then(response => {
+					console.log("API Status: ", response.code);
+					console.log("API Message: ", response.message);
+				});
+		}
 	}
 
 	render() {
-		// let {imagePreviewUrl} = this.state;
-		// let $imagePreview = null;
-		// if (imagePreviewUrl) {
-		// 	$imagePreview = <img src={imagePreviewUrl} />;
-		// } else {
-		// 	$imagePreview = (
-		// 		<div className="previewText">
-		// 			Please select an Image for Preview
-		// 		</div>
-		// 	);
-		// }
-
 		return (
-			<div className="previewComponent">
-				<form onSubmit={e => this._handleSubmit(e)}>
-					<input
-						name="password"
-						className="password-input"
-						type="password"
-					/>
-					<input
-						name="new_password"
-						className="password-input"
-						type="password"
-					/>
-					<input
-						name="confirm_password"
-						className="password-input"
-						type="password"
-					/>
-					<button
-						className="submitButton"
-						type="submit"
-						onClick={e => this._handleSubmit(e)}
-					>
+			<form
+				className="settingsRight"
+				onSubmit={e => this.handleSubmit(e)}
+			>
+				<h2>Change Password</h2>
+				<input
+					name="password"
+					className="textInput"
+					type="password"
+					placeholder="Current Password"
+					onChange={this.handleChange}
+				/>
+				<input
+					name="new_password"
+					className="textInput"
+					type="password"
+					placeholder="New Password"
+					onChange={this.handleChange}
+				/>
+				<input
+					name="confirm_password"
+					className="textInput"
+					type="password"
+					placeholder="Confirm Password"
+					onChange={this.handleChange}
+				/>
+				<button className="button" type="submit">
 					Change Password
-					</button>
-				</form>
-			</div>
+				</button>
+			</form>
 		);
 	}
 }
 export default ChangePassword;
-
-
-// <form
-// 	onSubmit={this.handleSubmit}
-// 	encType="multipart/form-data"
-// 	className="settingsRight"
-// >
-// 	<h2>Change your Password</h2>
-// 	<input
-// 		className="password-input"
-// 		name="password"
-// 		type="password"
-// 		placeholder="Your current Password"
-// 		value={this.state.passwordCurrent}
-// 	/>
-// 	<br />
-// 	<input
-// 		className="password-input"
-// 		name="new_password"
-// 		type="password"
-// 		placeholder="Your new Password"
-// 		value={this.state.password}
-// 	/>
-// 	<br />
-// 	<input
-// 		className="password-input"
-// 		name="passwordConfirm"
-// 		type="password"
-// 		placeholder="Confirm your new Password"
-// 		value={this.state.passwordConfirm}
-// 	/>
-// 	<br />
-// 	<input
-// 		className="button"
-// 		type="submit"
-// 		value="Change Password"
-// 	/>
-// </form>
