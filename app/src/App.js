@@ -22,6 +22,7 @@ class App extends React.Component {
 						<Route exact path='/api' />
 				    	<Route exact path='/' render={(props) => <PortalController {...props} token={this.state.token} request={"Home"} />} />
 						<Route exact path='/new-artist' render={(props) => <PortalController {...props} token={this.state.token} request={"NewArtist"} />} />
+						<Route exact path='/users' render={(props) => <PortalController {...props} token={this.state.token} request={"Users"} />} />
 						<Route exact path='/settings' render={(props) => <PortalController {...props} token={this.state.token} request={"Settings"} />} />
 						<Route path='/change-state' render={(props) => <PortalController {...props} token={this.state.token} request={"ChangeState"} />} />
 						<Route component={NotFound} />

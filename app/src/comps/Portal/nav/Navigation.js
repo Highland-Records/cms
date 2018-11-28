@@ -3,7 +3,12 @@ import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 
 const PortalNavigation = {
-	DrawNavigation(userData) {
+	DrawNavigation(userData, location) {
+		if (location === 'users') {
+			this.location = 'users';
+		} else if (location === 'home') {
+			this.location = 'home';
+		}
 		let navigation = (
 			<nav>
 				<ul>
@@ -11,10 +16,10 @@ const PortalNavigation = {
 						<Link to="/">Highland</Link>
 					</li>
 					<li>
-						<Link to="/">Artists</Link>
+						<Link to="/" className={this.location === 'home' ? 's' : ''}>Artists</Link>
 					</li>
 					<li>
-						<Link to="/users">Users</Link>
+						<Link to="/users" className={this.location === 'users' ? 's' : ''}>Users</Link>
 					</li>
 					<li>
 						<img

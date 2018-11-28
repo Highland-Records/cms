@@ -54,6 +54,18 @@ const PortalFunctions = {
 			}
 		)
 	},
+	GetAllUsers(){
+		return fetch(
+			"http://highland.oliverrichman.uk/api/users/",
+			{
+				method: "GET",
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
+	}
 };
 
 export default PortalFunctions;
