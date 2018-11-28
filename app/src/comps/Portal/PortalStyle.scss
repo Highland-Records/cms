@@ -136,19 +136,18 @@ section.PortalStyle {
 		margin: 0 auto;
 		width: 80%;
 		min-width: 990px;
-		form.settingsLeft, form.settingsRight {
+		div.settingsLeft, form.settingsRight {
 			width: 50%;
 			display: inline-block;
 			background-color: #fff;
 			vertical-align: top;
 			padding: 40px;
 			box-sizing: border-box;
-			i {
+			img {
 				display: block;
-				width: 198px;
-				height: 198px;
-				border-radius: 200px;
-				background: #000;
+				width: 212px;
+				height: 212px;
+				border-radius: 212px;
 				margin: 0 auto;
 			}
 			h2 {
@@ -158,6 +157,9 @@ section.PortalStyle {
 				letter-spacing: 3px;
 				font-weight: bold;
 				margin-bottom: 40px;
+			}
+			form {
+				display: none;
 			}
 		}
 	}
