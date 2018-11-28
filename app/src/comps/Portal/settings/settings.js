@@ -49,7 +49,10 @@ class Settings extends React.Component {
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>Settings</header>
 					<div className="c">
-						<ImageUpload />
+						<div className="settingsLeft">
+							<h2>Change your Profile Photo</h2>
+							<ImageUpload />
+						</div>
 						<ChangePassword />
 					</div>
 				</section>
