@@ -30,6 +30,7 @@ class ImageUpload extends React.Component {
 
 		const data = new FormData();
 		data.append("fileToUpload", file, file.name);
+		data.append("id",this.state.userData.id);
 		fetch("http://highland.oliverrichman.uk/api/upload/profile", {
 			method: "POST",
 			body: data,
@@ -70,7 +71,7 @@ class ImageUpload extends React.Component {
 		const {error, isLoaded, userData} = this.state;
 		let {imagePreviewUrl} = this.state;
 		let $imagePreview = null;
-		let currentPreview = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img : "https://placeimg.com/212/212/animals";
+		let currentPreview = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img :  PortalFunctions.CoreURLImages() + "default_profile.jpeg";
 		if (imagePreviewUrl) {
 			$imagePreview = imagePreviewUrl
 		} else {
