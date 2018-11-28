@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
 import ImageUpload from "./uploadImage";
+import ChangePassword from "./changePassword";
 
 class Settings extends React.Component {
 	constructor(props) {
@@ -14,7 +15,7 @@ class Settings extends React.Component {
 			formData: {
 				password: "",
 				passwordConfirm: ""
-			},
+			}
 		};
 	}
 	componentDidMount() {
@@ -32,10 +33,11 @@ class Settings extends React.Component {
 				}
 			);
 	}
+
 	render() {
 		const profileUploadPreview = {
 			//backgroundImage: "url(" + {this.state.imageURL} + ")"
-		}
+		};
 		const {error, isLoaded, userData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
@@ -47,46 +49,8 @@ class Settings extends React.Component {
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>Settings</header>
 					<div className="c">
-						<div className="settingsLeft">
-							<h2>Change your Profile Photo</h2>
-							<ImageUpload />
-						</div>
-						<form
-							onSubmit={this.handleSubmit}
-							encType="multipart/form-data"
-							className="settingsRight"
-						>
-							<h2>Change your Password</h2>
-							<input
-								className="textInput"
-								name="password"
-								type="password"
-								placeholder="Your current Password"
-								value={this.state.passwordCurrent}
-							/>
-							<br />
-							<input
-								className="textInput"
-								name="password"
-								type="password"
-								placeholder="Your new Password"
-								value={this.state.password}
-							/>
-							<br />
-							<input
-								className="textInput"
-								name="passwordConfirm"
-								type="password"
-								placeholder="Confirm your new Password"
-								value={this.state.passwordConfirm}
-							/>
-							<br />
-							<input
-								className="button"
-								type="submit"
-								value="Change Password"
-							/>
-						</form>
+						<ImageUpload />
+						<ChangePassword />
 					</div>
 				</section>
 			);

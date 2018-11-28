@@ -44,9 +44,17 @@ function uploadProfileImage($files, $post, $bearerToken = "")
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 1) {
         if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
+            $getProfileImgQuery = "SELECT `profile_img` FROM `users` WHERE `token` = '".$bearerToken."'";
+            $getProfileImgResult = mysqli_query($db, $getProfileImgQuery);
+            $profileImg = mysqli_fetch_assoc($getProfileImgResult)['profile_img'];
+            if (!empty($profileImg)) {
+                array_map('unlink', glob("images/".$profileImg));
+            }
             $profileURL = explode("/", $target_file)[1];
             $postImgUrlQuery = "UPDATE `users` SET `profile_img` = '". $profileURL."' WHERE `token` = '".$bearerToken."'";
             $postImgUrlResult = mysqli_query($db, $postImgUrlQuery);
+            // if profile_img != blank then array_map('unlink', glob("some/dir/*.txt"));
+
             response(200, "File uploaded");
         } else {
             header("HTTP/1.0 400 Bad Request");

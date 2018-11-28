@@ -225,25 +225,36 @@
 
     function changePassword($id, $password, $newPassword)
     {
-        $db = $GLOBALS['db'];
-        $checkExistsQuery = "SELECT `salt` FROM `users` WHERE `id` = ".$id;
-        $checkExistsResult = mysqli_query($db, $checkExistsQuery);
-        $exists = mysqli_num_rows($checkExistsResult);
-        $salt = mysqli_fetch_assoc($checkExistsResult)['salt'];
-        if (!empty($exists)) {
-            $encryptedPassword = encryptPwd($password, $salt);
-            $checkPasswordQuery = "SELECT `id` FROM `passwords` WHERE `id` = ".$id." AND `password` = '".$encryptedPassword."'";
-            $checkPasswordResult = mysqli_query($db, $checkPasswordQuery);
-            $passwordCorrect = mysqli_num_rows($checkPasswordResult);
-            if (!empty($passwordCorrect)) {
-                $newSalt = createSalt();
-                $changeSaltQuery = "UPDATE `users` SET `salt` = '".$newSalt."' WHERE `id` = ".$id;
-                $changeSaltResult = mysqli_query($db, $changeSaltQuery);
+        if (!empty($id) && !empty($password) && !empty($newPassword)) {
+            $db = $GLOBALS['db'];
+            $checkExistsQuery = "SELECT `salt` FROM `users` WHERE `id` = ".$id;
+            $checkExistsResult = mysqli_query($db, $checkExistsQuery);
+            $salt = mysqli_fetch_assoc($checkExistsResult)['salt'];
+            if (!empty($salt)) {
+                $encryptedPassword = encryptPwd($password, $salt);
+                $checkPasswordQuery = "SELECT `id` FROM `passwords` WHERE `id` = ".$id." AND `password` = '".$encryptedPassword."'";
+                $checkPasswordResult = mysqli_query($db, $checkPasswordQuery);
+                $passwordCorrect = mysqli_num_rows($checkPasswordResult);
+                if (!empty($passwordCorrect)) {
+                    $newSalt = createSalt();
+                    $changeSaltQuery = "UPDATE `users` SET `salt` = '".$newSalt."' WHERE `id` = ".$id;
+                    $changeSaltResult = mysqli_query($db, $changeSaltQuery);
 
-                $encryptedNewPassword = encryptPwd($newPassword, $newSalt);
-                $changePasswordQuery = "UPDATE `passwords` SET `password` = '".$encryptedNewPassword."' WHERE `id` = ".$id;
-                $changePasswordResult = mysqli_query($db, $changePasswordQuery);
+                    $encryptedNewPassword = encryptPwd($newPassword, $newSalt);
+                    $changePasswordQuery = "UPDATE `passwords` SET `password` = '".$encryptedNewPassword."' WHERE `id` = ".$id;
+                    $changePasswordResult = mysqli_query($db, $changePasswordQuery);
+                    response(200, "changed password", true);
+                } else {
+                    header("HTTP/1.0 400 Bad Request");
+                    response(400, "incorrect password", true);
+                }
+            } else {
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "no user", true);
             }
+        } else {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "invalid ID, password or new password sent", true);
         }
     }
 
