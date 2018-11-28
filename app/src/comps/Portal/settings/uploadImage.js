@@ -4,6 +4,8 @@ import PortalFunctions from "../PortalFunctions";
 class ImageUpload extends React.Component {
 	constructor(props) {
 		super(props);
+		this.inputElement = React.createRef();
+		this._handleClick = this._handleClick.bind(this);
 		this.state = {
 			file: "",
 			imagePreviewUrl: "",
@@ -43,10 +45,8 @@ class ImageUpload extends React.Component {
 			});
 	}
 
-	_handleClick(e) {
-		e.preventDefault();
-		var inputField = this.refs.fileField;
-		inputField.click()
+	_handleClick() {
+		this.inputElement.current.click();
 	}
 
 	componentDidMount() {
@@ -85,11 +85,14 @@ class ImageUpload extends React.Component {
 						name="fileToUpload"
 						className="fileInput"
 						type="file"
-						ref="fileField"
+						ref={this.inputElement}
 						onChange={e => this._handleImageChange(e)}
 					/>
 				</form>
-				<img src={$imagePreview} onClick={this._handleClick} />
+				<div className="fileUploadOverlay" onClick={this._handleClick} >
+					Edit
+				</div>
+				<img src={$imagePreview} />
 			</div>
 		);
 	}
