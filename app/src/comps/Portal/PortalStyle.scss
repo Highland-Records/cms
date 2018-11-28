@@ -43,6 +43,10 @@ section.PortalStyle {
 						border-bottom-color: #000;
 					}
 				}
+				a.s {
+					text-decoration: none;
+					border-bottom-color: #000;
+				}
 			}
 			li:nth-child(4), li:nth-child(5) {
 				text-align: right;
@@ -62,6 +66,7 @@ section.PortalStyle {
 				font-size: 20px;
 				line-height: 20px;
 				p, a {
+					color: #000;
 					margin: 0;
 					padding: 0;
 					display: inline-block;
@@ -105,7 +110,7 @@ section.PortalStyle {
 			}
 		}
 	}
-	ul.artistList {
+	ul.artistList, ul.userList {
 		margin: 0;
 		padding: 0;
 		margin: 0 auto;
@@ -130,6 +135,24 @@ section.PortalStyle {
 	      	page-break-inside: avoid;
 	      	display: inline-block;
 			background: #fff;
+		}
+	}
+	ul.userList {
+		li {
+			padding: 40px;
+			text-align: center;
+			img {
+				width: 212px;
+				height: 212px;
+				border-radius: 212px;
+			}
+			h2 {
+				margin-top: 20px;
+				font-size: 24px;
+			}
+			p {
+				color: #999;
+			}
 		}
 	}
 	div.c {

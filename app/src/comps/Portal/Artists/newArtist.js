@@ -66,7 +66,7 @@ class NewArtist extends React.Component {
 		}
 		return (
 			<section className="PortalStyle">
-				{PortalNavigation.DrawNavigation(userData)}
+				{PortalNavigation.DrawNavigation(userData, "home")}
 				<header>
 					Add a new Artist
 				</header>
