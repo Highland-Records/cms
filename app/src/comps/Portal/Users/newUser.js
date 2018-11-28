@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
-import ImageUpload from "../settings/uploadImage";
+// import ProfileImageUpload from "./profileUploadImage";
 
 // API NEEDS CHANGING //
 // IF THE USER GOES TO UPLOAD A IMAGE BUT NO USER EXISTS ASSUME INSERT A NEW ROW THEN ONCE THE REST OF THE FORM IS COMPLETE UPDATE THAT ROW ELSE IF THE USER ALREADY EXISTS THEN UPADTE THE PROFILE PHOTO COLOUMN
@@ -11,14 +11,19 @@ import ImageUpload from "../settings/uploadImage";
 class NewUser extends React.Component {
 	constructor(props) {
 		super(props);
+		this.inputElement = React.createRef();
+		this._handleClick = this._handleClick.bind(this);
 		this.state = {
 			error: null,
 			isLoaded: false,
 			userData: {},
-			artistFullName: "",
-			artistDescription: ""
+			file: "",
+			imagePreviewUrl: "",
 		};
 	}
+
+	imageFormData = {};
+
 	// On change set the data states
 	handleChange = event => {
 		this.setState({
@@ -27,26 +32,75 @@ class NewUser extends React.Component {
 	};
 	handleSubmit = event => {
 		event.preventDefault();
-		const data = new FormData(event.target);
+		const formData = new FormData(event.target);
 		// Post this to API
-		fetch("http://highland.oliverrichman.uk/api/login", {
+		fetch("http://highland.oliverrichman.uk/api/users", {
 			method: "POST",
-			body: data
+			body: formData,
+			headers: new Headers({
+				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+			})
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log("API Status: ", response.code);
-				console.log("API Message: ", response.message);
-				if (!response.code) {
-					localStorage.setItem("AuthToken", response.token);
-					this.setState({token: localStorage.getItem("AuthToken")});
-				} else {
-					this.setState({
-						status: false
-					});
+				if (this.imageFormData){
+					this.imageFormData.append("id",response.id);
+					fetch("http://highland.oliverrichman.uk/api/upload/profile", {
+						method: "POST",
+						body: this.imageFormData,
+						headers: new Headers({
+							Authorization: "Bearer " + localStorage.getItem("AuthToken")
+						})
+					})
+						.then(response => response.json())
+						.then(response => {
+							console.log("handle uploading-", this.file);
+							console.log("API Status: ", response.code);
+							console.log("API Message: ", response.message);
+						});
 				}
 			});
 	};
+
+
+	_handleImageChange(e) {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		this.file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				file: this.file,
+				imagePreviewUrl: reader.result
+			});
+		};
+
+		reader.readAsDataURL(this.file);
+
+		const data = new FormData();
+		data.append("fileToUpload", this.file, this.file.name);
+		this.imageFormData = data;
+
+		// fetch("http://highland.oliverrichman.uk/api/upload/profile", {
+		// 	method: "POST",
+		// 	body: data,
+		// 	headers: new Headers({
+		// 		Authorization: "Bearer " + localStorage.getItem("AuthToken")
+		// 	})
+		// })
+		// 	.then(response => response.json())
+		// 	.then(response => {
+		// 		console.log("handle uploading-", file);
+		// 		console.log("API Status: ", response.code);
+		// 		console.log("API Message: ", response.message);
+		// 	});
+	}
+
+	_handleClick() {
+		this.inputElement.current.click();
+	}
+
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -64,6 +118,16 @@ class NewUser extends React.Component {
 	}
 	render() {
 		const {error, isLoaded, userData} = this.state;
+
+		let {imagePreviewUrl} = this.state;
+		let imagePreview = null;
+		let currentPreview = PortalFunctions.CoreURLImages() + "default_profile.jpeg";
+		if (imagePreviewUrl) {
+			imagePreview = imagePreviewUrl
+		} else {
+			imagePreview = currentPreview
+		}
+
 		return (
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "users")}
@@ -71,7 +135,21 @@ class NewUser extends React.Component {
 				<div className="c">
 					<div className="settingsLeft">
 						<h2>Upload a Profile Photo</h2>
-						<ImageUpload />
+						<div>
+							<form>
+								<input
+									name="fileToUpload"
+									className="fileInput"
+									type="file"
+									ref={this.inputElement}
+									onChange={e => this._handleImageChange(e)}
+								/>
+							</form>
+							<div className="fileUploadOverlay" onClick={this._handleClick} >
+								Edit
+							</div>
+							<img src={imagePreview} />
+						</div>
 					</div>
 					<form
 						onSubmit={this.handleSubmit}
@@ -85,6 +163,7 @@ class NewUser extends React.Component {
 							type="text"
 							placeholder="First Name"
 							value={this.state.firstName}
+							autoFocus={true}
 						/>
 						<input
 							className="textInput half"
@@ -93,17 +172,23 @@ class NewUser extends React.Component {
 							placeholder="Last Name"
 							value={this.state.lastName}
 						/>
-						<br />
 						<input
 							className="textInput"
+							name="username"
+							type="text"
+							placeholder="Username"
+							value={this.state.username}
+						/>
+						<br />
+						<input
+							className="textInput half"
 							name="password"
 							type="password"
 							placeholder="Password"
 							value={this.state.password}
 						/>
-						<br />
 						<input
-							className="textInput"
+							className="textInput half"
 							name="passwordConfirm"
 							type="password"
 							placeholder="Confirm Password"

@@ -203,8 +203,11 @@
                     $postPasswordQuery = "INSERT INTO `passwords` (`password`,`id`) VALUES ('".$encryptedPassword."',".$userId.")";
                     $postPasswordResult = mysqli_query($db, $postPasswordQuery);
                 }
-                header("HTTP/1.0 201 Created");
-                response(201, "Created User");
+                $getUserQuery = "SELECT * FROM `users` WHERE `username` = '".$postData['username']."'";
+                $getUserResult = mysqli_query($db, $getUserQuery);
+                $row = mysqli_fetch_assoc($getUserResult);
+                header("Content-Type: application/json");
+                echo json_encode($row);
             } else {
                 header("HTTP/1.0 409 Conflict");
                 response(409, "Username already in use", true);

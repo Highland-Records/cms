@@ -16,6 +16,7 @@ class Users extends React.Component {
 		};
 	}
 
+
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -49,6 +50,27 @@ class Users extends React.Component {
 				}
 			);
 	}
+
+	deleteUser(userId){
+
+		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
+
+		// let password = prompt("Please enter the master password", "");
+		// if (password === 'timberlake') {
+		//     console.log('hello');
+		// }
+
+		// fetch("http://highland.oliverrichman.uk/api/users/"+userId+"/delete", {
+		// 	method: "POST",
+		// 	headers: new Headers({
+		// 		Authorization: "Bearer " + localStorage.getItem("AuthToken")
+		// 	})
+		// })
+		// 	.then(response => response.json())
+		// 	.then(response => {
+		// 	});
+	}
+
 	render() {
 		const {error, isLoaded, userData, usersData} = this.state;
 		if (error) {
@@ -60,7 +82,7 @@ class Users extends React.Component {
                 status ? <span> - (this is you)</span> : ""
             );
 			const usersHtml = usersData.map(user => {
-				let userImage = user.profile_img ? PortalFunctions.CoreURLImages() + user.profile_img : "https://placeimg.com/212/212/animals";
+				let userImage = user.profile_img ? PortalFunctions.CoreURLImages() + user.profile_img : PortalFunctions.CoreURLImages() + "default_profile.jpeg";
 				if(userData.id == user.id) {
 					this.state.status = true
 				} else {
@@ -71,6 +93,7 @@ class Users extends React.Component {
 						<img src={userImage} />
 						<h2>{user.first_name} {user.last_name}</h2>
 						<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
+						<a onClick={() => this.deleteUser(user.id)}>delete</a>
 					</li>
 				)
 			});
