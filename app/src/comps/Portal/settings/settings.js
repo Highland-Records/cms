@@ -15,7 +15,7 @@ class Settings extends React.Component {
 			formData: {
 				password: "",
 				passwordConfirm: ""
-			},
+			}
 		};
 	}
 	componentDidMount() {
@@ -37,7 +37,7 @@ class Settings extends React.Component {
 	render() {
 		const profileUploadPreview = {
 			//backgroundImage: "url(" + {this.state.imageURL} + ")"
-		}
+		};
 		const {error, isLoaded, userData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
@@ -49,8 +49,8 @@ class Settings extends React.Component {
 					{PortalNavigation.DrawNavigation(userData)}
 					<header>Settings</header>
 					<div className="c">
-						<ImageUpload></ImageUpload>
-						<ChangePassword></ChangePassword>
+						<ImageUpload />
+						<ChangePassword />
 					</div>
 				</section>
 			);

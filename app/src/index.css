@@ -39,6 +39,21 @@ input, textarea {
 	background: none;
 	color: #000;
 }
+.textInput {
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid #e9e9f0;
+	margin-bottom: 15px;
+	width: 470px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+.textInput:hover {
+	border-bottom: 2px solid #000;
+}
+.textInput:focus {
+	border-bottom: 2px solid #000;
+}
 /*h1,h2 {*/
 	/*margin: 0;*/
 	/*padding: 0;*/
