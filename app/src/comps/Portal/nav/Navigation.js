@@ -8,6 +8,8 @@ const PortalNavigation = {
 			this.location = 'users';
 		} else if (location === 'home') {
 			this.location = 'home';
+		} else if(location === null) {
+			// IGNORE THIS
 		}
 		let profileUrl = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img : "https://placeimg.com/212/212/animals";
 		let navigation = (
