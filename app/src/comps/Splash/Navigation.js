@@ -2,24 +2,26 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 const HomeNavigation = {
-	DrawNavigation(userData) {
+	DrawNavigation() {
 		let navigation = (
 			<nav>
-				<Link className="title" to="/">Highland Records</Link>
-				<Link className="adminLink" to="/sign-in">Admin</Link>
-				<ul>
-					<li>
-						<Link to="/artists">Artists</Link>
-					</li>
-					<span> &bull; </span>
-					<li>
-						<Link to="/about">About</Link>
-					</li>
-					<span> &bull; </span>
-					<li>
-						<Link to="/contact">Contact</Link>
-					</li>
-				</ul>
+				<div>
+					<Link className="title" to="/">
+						<h1>Highland</h1>
+					</Link>
+					<ul>
+						<li>
+							<Link to="/artists">Artists</Link>
+						</li>
+						<li>
+							<Link to="/about">About</Link>
+						</li>
+						<li>
+							<Link to="/contact">Contact</Link>
+						</li>
+					</ul>
+					<Link className="adminLink" to="/sign-in">Sign In</Link>
+				</div>
 			</nav>
 		);
 		return navigation;

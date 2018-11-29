@@ -73,53 +73,232 @@ Section.SignInStyle .submit-btn:hover {
 }
 
 Section.SplashStyle {
-  width: 80%;
-  margin: 0 auto;
-  background-color: #fff;
+  width: 100%;
+  background-color: #eee;
 }
 Section.SplashStyle nav {
-  width: 80%;
   position: fixed;
+  width: 100%;
+  z-index: 101;
 }
-Section.SplashStyle nav a.title {
-  font-size: 50px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: bold;
-  text-decoration: none;
-  color: #000;
-  text-align: center;
-  display: block;
+Section.SplashStyle nav div {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40px;
+  position: relative;
+  background: #000;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
-Section.SplashStyle nav a.adminLink {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px 15px;
+Section.SplashStyle nav a, Section.SplashStyle nav a:hover {
   color: #000;
+}
+Section.SplashStyle nav a h1, Section.SplashStyle nav a:hover h1 {
+  font-size: 28px;
+  background: #fff;
   text-transform: uppercase;
-  font-size: 13px;
   font-weight: bold;
+  letter-spacing: 3px;
+  padding: 7px 12px 7px 18px;
+  margin: 0;
+  display: inline-block;
 }
 Section.SplashStyle nav ul {
-  text-align: center;
+  display: inline-block;
+  list-style: none;
+  vertical-align: top;
   padding: 0;
   margin: 0;
+  height: 47px;
+  margin-left: 20px;
 }
 Section.SplashStyle nav ul li {
   display: inline-block;
-}
-Section.SplashStyle nav ul li a {
+  height: 47px;
+  line-height: 47px;
+  padding: 0 20px;
   text-transform: uppercase;
-  color: #000;
   font-weight: bold;
+  font-size: 14px;
 }
-Section.SplashStyle .banner {
-  width: 100%;
-  height: 100px;
+Section.SplashStyle nav ul li a, Section.SplashStyle nav ul li a:hover {
+  color: #fff;
+}
+Section.SplashStyle nav a.adminLink {
+  float: right;
+  color: #fff;
+  line-height: 47px;
+  padding: 0 20px;
+  border-left: 2px solid #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
+Section.SplashStyle nav a.adminLink:hover {
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+Section.SplashStyle div.banner {
+  min-height: 500px;
+  background-position: center center;
   background-size: cover;
-  background-position: bottom;
+  text-align: center;
+  color: #fff;
+  font-size: 90px;
+  letter-spacing: -4px;
+  line-height: 500px;
+}
+Section.SplashStyle div.banner.home {
+  background-image: url("../../assets/images/home.jpeg");
+}
+Section.SplashStyle ul.home {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+Section.SplashStyle ul.home li:first-child {
+  font-size: 60px;
+  width: 30%;
+  line-height: 60px;
+  font-weight: bold;
+  border-top: 10px #000 solid;
+  padding-top: 20px;
+  text-align: right;
+  letter-spacing: -2px;
+}
+Section.SplashStyle ul.home li {
+  width: 70%;
+  display: inline-block;
+  vertical-align: top;
+}
+Section.SplashStyle ul.home li:last-of-type {
+  padding-left: 40px;
+}
+Section.SplashStyle ul.home li:last-of-type div {
+  width: 100%;
+  height: 360px;
+  border-radius: 10px;
+  background-image: url("../../assets/images/feat1.jpeg");
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+Section.SplashStyle ul.home li:last-of-type div h1 {
+  font-weight: bold;
+  font-size: 60px;
+  letter-spacing: -2px;
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+}
+Section.SplashStyle ul.home li:last-of-type div ul {
+  width: 300px;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 40px;
+  background: #fff;
+  border-radius: 0 10px 10px 0;
+}
+Section.SplashStyle ul.home li:last-of-type div ul h1 {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 30px;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+Section.SplashStyle ul.home li:last-of-type div ul li:first-of-type {
+  border-top: 1px #eee solid;
+}
+Section.SplashStyle ul.home li:last-of-type div ul li:last-of-type {
+  padding: 10px 0;
+  border-bottom: 0;
+}
+Section.SplashStyle ul.home li:last-of-type div ul li {
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px #eee solid;
+}
+Section.SplashStyle div.list {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+Section.SplashStyle div.list h1 {
+  font-size: 60px;
+  line-height: 60px;
+  font-weight: bold;
+  border-top: 10px #000 solid;
+  padding: 20px 0;
+  text-align: left;
+  letter-spacing: -2px;
+}
+Section.SplashStyle div.list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-count: 4;
+  column-gap: 20px;
+  -moz-column-count: 4;
+  -moz-column-gap: 20px;
+  -webkit-column-gap: 20px;
+  -webkit-column-count: 4;
+}
+Section.SplashStyle div.list ul li {
+  box-sizing: border-box;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+  padding: 20px;
+  text-align: center;
+}
+Section.SplashStyle div.list ul li h2 {
+  margin-top: 20px;
+  font-size: 28px;
+}
+Section.SplashStyle div.list ul li img {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  background: #000;
+}
+Section.SplashStyle footer {
+  margin-top: 40px;
+  background: #000;
+}
+Section.SplashStyle footer div.c {
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+Section.SplashStyle footer div.c i {
+  font-size: 28px;
+  background: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding: 7px 12px 7px 18px;
+  display: inline-block;
+  font-style: normal;
+}
+Section.SplashStyle footer div.c p {
+  width: 185px;
+  margin-top: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 /*# sourceMappingURL=SplashStyle.css.map */
