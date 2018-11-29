@@ -368,8 +368,13 @@
                     // echo $postArtistQuery;
                     $postArtistResult = mysqli_query($db, $postArtistQuery);
                 }
-                header("HTTP/1.0 201 Created");
-                response(201, "Created Artist");
+                $getUserQuery = "SELECT * FROM `artists` WHERE `name` = '".$postData['name']."'";
+                $getUserResult = mysqli_query($db, $getUserQuery);
+                $row = mysqli_fetch_assoc($getUserResult);
+                header("Content-Type: application/json");
+                echo json_encode($row);
+            // header("HTTP/1.0 201 Created");
+                // response(201, "Created Artist");
             } else {
                 header("HTTP/1.0 409 Conflict");
                 response(409, "Artist name already in use", true);

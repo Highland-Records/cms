@@ -20,12 +20,19 @@ class NewArtist extends React.Component {
 			artist: {
 				name: "",
 				description: "",
-				bannerFile: "",
-				bannerImagePreviewUrl: "",
-				profileFile: "",
-				profileImagePreviewUrl: "",
+				"bannerFile": "",
+				"bannerImagePreviewUrl": "",
+				"profileFile": "",
+				"profileImagePreviewUrl": "",
 			}
 		};
+	}
+
+	bannerImageFormData = {};
+	profileImageFormData = {};
+
+	handleChange = event => {
+		this.setState({artist: {...this.state.artist, [event.target.name]: event.target.value}})
 	}
 
 	componentDidMount() {
@@ -48,23 +55,95 @@ class NewArtist extends React.Component {
 	}
 
 	// On change set the data states
-	handleBannerChange = event => {
-		// this.setState({
-		// 	[event.target.name]: event.target.value
-		// });
-		console.log('banner');
+	handleBannerChange = e => {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		let file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				artist: {...this.state.artist, "bannerFile": file, "bannerImagePreviewUrl": reader.result}
+			});
+		};
+
+		reader.readAsDataURL(file);
+		const data = new FormData();
+		data.append("banner_img", file, file.name);
+		this.bannerImageFormData = data;
 	};
 
 	// On change set the data states
-	handleProfileChange = event => {
-		// this.setState({
-		// 	[event.target.name]: event.target.value
-		// });
-		console.log('profile');
+	handleProfileChange = e => {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		let file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				artist: {...this.state.artist, "profileFile": file, "profileImagePreviewUrl": reader.result}
+			});
+		};
+
+		reader.readAsDataURL(file);
+		const data = new FormData();
+		data.append("profile_img", file, file.name);
+		this.profileImageFormData = data;
+	};
+
+	handleSubmit = event => {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		// Post this to API
+		fetch("http://highland.oliverrichman.uk/api/artists", {
+			method: "POST",
+			body: formData,
+			headers: new Headers({
+				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+			})
+		})
+			.then(response => response.json())
+			.then(response => {
+				if (this.bannerImageFormData){
+					this.bannerImageFormData.append("id",response.id);
+					fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
+						method: "POST",
+						body: this.bannerImageFormData,
+						headers: new Headers({
+							Authorization: "Bearer " + localStorage.getItem("AuthToken")
+						})
+					})
+						.then(response => response.json())
+						.then(response => {
+							// console.log("handle uploading-", this.file);
+							console.log("API Status: ", response.code);
+							console.log("API Message: ", response.message);
+						});
+				}
+
+				if (this.profileImageFormData){
+					this.profileImageFormData.append("id",response.id);
+					fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
+						method: "POST",
+						body: this.profileImageFormData,
+						headers: new Headers({
+							Authorization: "Bearer " + localStorage.getItem("AuthToken")
+						})
+					})
+						.then(response => response.json())
+						.then(response => {
+							// console.log("handle uploading-", this.file);
+							console.log("API Status: ", response.code);
+							console.log("API Message: ", response.message);
+						});
+				}
+			// }
+			});
 	};
 
 	render() {
-		const {error, isLoaded, userData} = this.state;
+		const {error, isLoaded, userData, artist} = this.state;
 		// let bannerURL = artistsData.banner_img? PortalFunctions.CoreURLImages() + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'default_banner.jpeg';
 		// const artistHeaderImage = {
 		// 	backgroundImage: "url(" + {bannerURL} + ")"
@@ -73,20 +152,36 @@ class NewArtist extends React.Component {
 		// 	//backgroundImage: "url(" + {artistsData.ProfileImage} + ")"
 		// }
 
-		let {bannerImagePreviewUrl} = this.state;
+		// let {bannerImagePreviewUrl} = this.state.artist.bannerImagePreviewUrl;
+		// let bannerImagePreview = null;
+		// let bannerCurrentPreview = PortalFunctions.CoreURLImages() + "banners/default_banner.jpeg";
+		// if (bannerImagePreviewUrl) {
+		// 	bannerImagePreview = bannerImagePreviewUrl
+		// } else {
+		// 	bannerImagePreview = bannerCurrentPreview
+		// }
+		//
+		// let {profileImagePreviewUrl} = this.state.artist.profileImagePreviewUrl;
+		// let profileImagePreview = null;
+		// let profileCurrentPreview = PortalFunctions.CoreURLImages() + "artists/default_artist_profile.jpeg";
+		// if (profileImagePreviewUrl) {
+		// 	profileImagePreview = profileImagePreviewUrl
+		// } else {
+		// 	profileImagePreview = profileCurrentPreview
+		// }
+
 		let bannerImagePreview = null;
-		let bannerCurrentPreview = PortalFunctions.CoreURLImages() + "banners/default_banner.jpeg";
-		if (bannerImagePreviewUrl) {
-			bannerImagePreview = bannerImagePreviewUrl
+		let bannerCurrentPreview = artist.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artist.banner_img : PortalFunctions.CoreURLImages() + '/banners/' + 'default_banner.jpeg';
+		if (artist.bannerImagePreviewUrl) {
+			bannerImagePreview = artist.bannerImagePreviewUrl
 		} else {
 			bannerImagePreview = bannerCurrentPreview
 		}
 
-		let {profileImagePreviewUrl} = this.state;
 		let profileImagePreview = null;
-		let profileCurrentPreview = PortalFunctions.CoreURLImages() + "artists/default_artist_profile.jpeg";
-		if (profileImagePreviewUrl) {
-			profileImagePreview = profileImagePreviewUrl
+		let profileCurrentPreview = artist.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artist.profile_img : PortalFunctions.CoreURLImages() + '/artists/' + 'default_artist_profile.jpeg';
+		if (artist.profileImagePreviewUrl) {
+			profileImagePreview = artist.profileImagePreviewUrl
 		} else {
 			profileImagePreview = profileCurrentPreview
 		}
@@ -144,6 +239,7 @@ class NewArtist extends React.Component {
 							placeholder="Full Name"
 							value={this.state.artist.name}
 							autoFocus={true}
+							onChange={this.handleChange}
 						/>
 						<input
 							className="textInput"
@@ -151,6 +247,7 @@ class NewArtist extends React.Component {
 							type="text"
 							placeholder="Description"
 							value={this.state.artist.description}
+							onChange={this.handleChange}
 						/>
 						<br />
 						<input
