@@ -14,10 +14,10 @@ const HomeNavigation = {
 							<Link to="/artists">Artists</Link>
 						</li>
 						<li>
-							<Link to="/about">About</Link>
+							<Link to="/releases">Releases</Link>
 						</li>
 						<li>
-							<Link to="/contact">Contact</Link>
+							<Link to="/about">About</Link>
 						</li>
 					</ul>
 					<Link className="adminLink" to="/sign-in">Sign In</Link>
