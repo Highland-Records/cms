@@ -119,6 +119,7 @@ section.PortalStyle ul.artistList, section.PortalStyle ul.userList {
   max-width: 1200px;
 }
 section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li {
+  vertical-align: top;
   display: inline-block;
   width: 33.3%;
   margin: 0;
@@ -133,17 +134,29 @@ section.PortalStyle ul.artistList li div, section.PortalStyle ul.userList li div
 section.PortalStyle ul.userList li {
   text-align: center;
 }
-section.PortalStyle ul.userList li img {
+section.PortalStyle ul.userList li div {
+  position: relative;
+}
+section.PortalStyle ul.userList li div img {
   width: 212px;
   height: 212px;
   border-radius: 212px;
 }
-section.PortalStyle ul.userList li h2 {
+section.PortalStyle ul.userList li div h2 {
   margin-top: 20px;
   font-size: 24px;
 }
-section.PortalStyle ul.userList li p {
+section.PortalStyle ul.userList li div p {
   color: #999;
+}
+section.PortalStyle ul.userList li div p a.deleteUser {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+section.PortalStyle ul.userList li div p a.deleteUser:hover {
+  color: #000;
+  cursor: pointer;
 }
 section.PortalStyle div.c {
   margin: 0 auto;

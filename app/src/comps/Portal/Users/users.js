@@ -92,8 +92,6 @@ class Users extends React.Component {
 		} else if (!isLoaded) {
 			return <div />;
 		} else {
-			const ThisIsMe = ({status}) =>
-				status ? <span> - (this is you)</span> : "";
 			const usersHtml = usersData.map(user => {
 				let userImage = user.profile_img
 					? PortalFunctions.CoreURLImages() + user.profile_img
@@ -104,13 +102,14 @@ class Users extends React.Component {
 				} else {
 					this.state.status = false;
 				}
+				const ThisIsMe = ({status}) =>
+					status ? <span> - (this is you)</span> : <a className="deleteUser" onClick={() => this.deleteUser(user.id)}>remove</a>;
 				return (
 					<li>
 						<div>
 							<img src={userImage} />
 							<h2>{user.first_name} {user.last_name}</h2>
 							<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
-							<a onClick={() => this.deleteUser(user.id)}>delete</a>
 						</div>
 					</li>
 				);
