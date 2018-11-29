@@ -16,7 +16,6 @@ class Users extends React.Component {
 		};
 	}
 
-
 	componentDidMount() {
 		PortalFunctions.GetUserData()
 			.then(res => {
@@ -51,24 +50,39 @@ class Users extends React.Component {
 			);
 	}
 
-	deleteUser(userId){
-
+	deleteUser(userId) {
 		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
 
-		// let password = prompt("Please enter the master password", "");
-		// if (password === 'timberlake') {
-		//     console.log('hello');
-		// }
+		let password = prompt("Please enter the master password", "");
+		if (password === "timberlake") {
+			fetch(
+				"http://highland.oliverrichman.uk/api/users/" +
+					userId +
+					"/delete",
+				{
+					method: "POST",
+					headers: new Headers({
+						Authorization:
+							"Bearer " + localStorage.getItem("AuthToken")
+					})
+				}
+			)
+				.then(response => response.json())
+				.then(response => {
+					if (response.code == 200) {
+						let userToRemove = this.state.usersData.find(
+							u => u.id == userId
+						);
 
-		// fetch("http://highland.oliverrichman.uk/api/users/"+userId+"/delete", {
-		// 	method: "POST",
-		// 	headers: new Headers({
-		// 		Authorization: "Bearer " + localStorage.getItem("AuthToken")
-		// 	})
-		// })
-		// 	.then(response => response.json())
-		// 	.then(response => {
-		// 	});
+						var array = [...this.state.usersData]; // make a separate copy of the array
+						var index = array.indexOf(userToRemove);
+						if (index !== -1) {
+							array.splice(index, 1);
+							this.setState({usersData: array});
+						}
+					}
+				});
+		}
 	}
 
 	render() {
@@ -78,24 +92,33 @@ class Users extends React.Component {
 		} else if (!isLoaded) {
 			return <div />;
 		} else {
-			const ThisIsMe = ({status}) => (
-                status ? <span> - (this is you)</span> : ""
-            );
+			const ThisIsMe = ({status}) =>
+				status ? <span> - (this is you)</span> : "";
 			const usersHtml = usersData.map(user => {
-				let userImage = user.profile_img ? PortalFunctions.CoreURLImages() + user.profile_img : PortalFunctions.CoreURLImages() + "default_profile.jpeg";
-				if(userData.id == user.id) {
-					this.state.status = true
+				let userImage = user.profile_img
+					? PortalFunctions.CoreURLImages() + user.profile_img
+					: PortalFunctions.CoreURLImages() +
+					  "default_profile.jpeg";
+				if (userData.id == user.id) {
+					this.state.status = true;
 				} else {
-					this.state.status = false
+					this.state.status = false;
 				}
 				return (
 					<li>
 						<img src={userImage} />
-						<h2>{user.first_name} {user.last_name}</h2>
-						<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
-						<a onClick={() => this.deleteUser(user.id)}>delete</a>
+						<h2>
+							{user.first_name} {user.last_name}
+						</h2>
+						<p>
+							@{user.username}{" "}
+							<ThisIsMe status={this.state.status} />
+						</p>
+						<a onClick={() => this.deleteUser(user.id)}>
+							delete
+						</a>
 					</li>
-				)
+				);
 			});
 			return (
 				<section className="PortalStyle">

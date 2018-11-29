@@ -272,6 +272,8 @@
                 $now = time();
                 $deleteQuery = "UPDATE `".$table."` SET `deleted` = 1, `deleted_timestamp` = '".$now."' WHERE `id` = ".$id;
                 $deleteResult = mysqli_query($db, $deleteQuery);
+                header("HTTP/1.0 200 OK");
+                response(200, "Deleted", true);
             } else {
                 header("HTTP/1.0 404 Not Found");
                 response(404, "No user found", true);
