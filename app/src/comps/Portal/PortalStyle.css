@@ -128,11 +128,13 @@ section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li {
   max-width: 400px;
   width: 100%;
   margin: 0;
+  margin-bottom: 20px;
   box-sizing: border-box;
   break-inside: avoid;
   page-break-inside: avoid;
   display: inline-block;
   background: #fff;
+  border-radius: 10px;
 }
 section.PortalStyle ul.userList li {
   padding: 40px;
