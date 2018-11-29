@@ -140,7 +140,7 @@ Section.SplashStyle nav a.adminLink:hover {
   text-decoration: none;
 }
 Section.SplashStyle div.banner {
-  min-height: 500px;
+  height: 500px;
   background-position: center center;
   background-size: cover;
   text-align: center;
@@ -151,6 +151,28 @@ Section.SplashStyle div.banner {
 }
 Section.SplashStyle div.banner.home {
   background-image: url("../../assets/images/home.jpeg");
+}
+Section.SplashStyle div.banner.other {
+  height: 320px;
+  line-height: 390px;
+}
+Section.SplashStyle div.banner.other p {
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 60px;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
+Section.SplashStyle div.banner.other.artist {
+  background-image: url("../../assets/images/artist.jpeg");
+}
+Section.SplashStyle div.banner.other.releases {
+  background-position: top;
+  background-image: url("../../assets/images/releases.jpeg");
+}
+Section.SplashStyle div.banner.other.about {
+  background-image: url("../../assets/images/about.jpeg");
 }
 Section.SplashStyle ul.home {
   list-style: none;
@@ -177,6 +199,9 @@ Section.SplashStyle ul.home li {
 }
 Section.SplashStyle ul.home li:last-of-type {
   padding-left: 40px;
+}
+Section.SplashStyle ul.home li:last-of-type h2 {
+  font-weight: bold;
 }
 Section.SplashStyle ul.home li:last-of-type div {
   width: 100%;
@@ -246,33 +271,57 @@ Section.SplashStyle div.list ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  column-count: 4;
-  column-gap: 20px;
-  -moz-column-count: 4;
-  -moz-column-gap: 20px;
-  -webkit-column-gap: 20px;
-  -webkit-column-count: 4;
 }
 Section.SplashStyle div.list ul li {
   box-sizing: border-box;
-  break-inside: avoid;
-  page-break-inside: avoid;
+  width: 25%;
   display: inline-block;
-  width: 100%;
+}
+Section.SplashStyle div.list ul li div {
   border-radius: 10px;
   background: #fff;
   padding: 20px;
   text-align: center;
+  margin: 0 10px;
+  margin-bottom: 20px;
 }
-Section.SplashStyle div.list ul li h2 {
+Section.SplashStyle div.list ul li div h2 {
   margin-top: 20px;
   font-size: 28px;
 }
-Section.SplashStyle div.list ul li img {
+Section.SplashStyle div.list ul li div img {
   width: 200px;
   height: 200px;
   border-radius: 200px;
   background: #000;
+}
+Section.SplashStyle div.list ul.album li div img {
+  border-radius: 0;
+}
+Section.SplashStyle div.list ul.about {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+Section.SplashStyle div.list ul.about li:first-child {
+  width: 70%;
+  display: inline-block;
+  vertical-align: top;
+}
+Section.SplashStyle div.list ul.about li:first-child iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+Section.SplashStyle div.list ul.about li {
+  width: 30%;
+}
+Section.SplashStyle div.list ul.about li ul {
+  padding-left: 20px;
+}
+Section.SplashStyle div.list ul.about li ul li {
+  width: 100%;
+  display: block;
 }
 Section.SplashStyle footer {
   margin-top: 40px;
