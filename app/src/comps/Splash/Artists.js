@@ -5,12 +5,54 @@ import HomeNavigation from "./Navigation";
 class Artists extends React.Component {
 	render() {
 		return (
-			<div className="App">
-				<section className="SplashStyle">
-					{HomeNavigation.DrawNavigation()}
-					<h1>artists</h1>
-				</section>
-			</div>
+			<section className="SplashStyle">
+				{HomeNavigation.DrawNavigation()}
+				<div class="banner other artist">
+					<p>
+						Our Artists
+					</p>
+				</div>
+				<div className="list">
+					<ul>
+						<li>
+							<div>
+								<img src="https://via.placeholder.com/200" />
+								<h2>Artist Name</h2>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="https://via.placeholder.com/200" />
+								<h2>Artist Name</h2>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="https://via.placeholder.com/200" />
+								<h2>Artist Name</h2>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="https://via.placeholder.com/200" />
+								<h2>Artist Name</h2>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="https://via.placeholder.com/200" />
+								<h2>Artist Name</h2>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<footer>
+					<div className="c">
+						<i>Highland</i>
+						<p>&copy; 2018 Highland Records</p>
+					</div>
+				</footer>
+			</section>
 		);
 	}
 }

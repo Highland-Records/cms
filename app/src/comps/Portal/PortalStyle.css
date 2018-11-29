@@ -117,40 +117,46 @@ section.PortalStyle ul.artistList, section.PortalStyle ul.userList {
   width: 80%;
   min-width: 990px;
   max-width: 1200px;
-  column-count: 3;
-  column-gap: 20px;
-  -moz-column-count: 3;
-  -moz-column-gap: 20px;
-  -webkit-column-gap: 20px;
-  -webkit-column-count: 3;
 }
 section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li {
-  max-width: 400px;
-  width: 100%;
+  vertical-align: top;
+  display: inline-block;
+  width: 33.3%;
   margin: 0;
   margin-bottom: 20px;
-  box-sizing: border-box;
-  break-inside: avoid;
-  page-break-inside: avoid;
-  display: inline-block;
+}
+section.PortalStyle ul.artistList li div, section.PortalStyle ul.userList li div {
   background: #fff;
+  padding: 40px;
   border-radius: 10px;
+  margin: 0 10px;
 }
 section.PortalStyle ul.userList li {
-  padding: 40px;
   text-align: center;
 }
-section.PortalStyle ul.userList li img {
+section.PortalStyle ul.userList li div {
+  position: relative;
+}
+section.PortalStyle ul.userList li div img {
   width: 212px;
   height: 212px;
   border-radius: 212px;
 }
-section.PortalStyle ul.userList li h2 {
+section.PortalStyle ul.userList li div h2 {
   margin-top: 20px;
   font-size: 24px;
 }
-section.PortalStyle ul.userList li p {
+section.PortalStyle ul.userList li div p {
   color: #999;
+}
+section.PortalStyle ul.userList li div p a.deleteUser {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+section.PortalStyle ul.userList li div p a.deleteUser:hover {
+  color: #000;
+  cursor: pointer;
 }
 section.PortalStyle div.c {
   margin: 0 auto;

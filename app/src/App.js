@@ -21,6 +21,7 @@ class App extends React.Component {
 				    <Switch>
 						<Route exact path='/api' />
 				    	<Route exact path='/' render={(props) => <PortalController {...props} token={this.state.token} request={"Home"} />} />
+						<Route exact path='/artist/' render={(props) => <PortalController {...props} token={this.state.token} request={"Home"} />} />
 						<Route exact path='/artists/new' render={(props) => <PortalController {...props} token={this.state.token} request={"NewArtist"} />} />
 						<Route exact path='/users' render={(props) => <PortalController {...props} token={this.state.token} request={"Users"} />} />
 						<Route exact path='/users/new' render={(props) => <PortalController {...props} token={this.state.token} request={"NewUsers"} />} />
@@ -41,7 +42,7 @@ class App extends React.Component {
 				    	<Route exact path='/' render={(props) => <SplashController {...props} token={this.state.token} request={"Home"} />} />
 				    	<Route exact path='/artists' render={(props) => <SplashController {...props} token={this.state.token} request={"Artists"} />} />
 				    	<Route exact path='/about' render={(props) => <SplashController {...props} token={this.state.token} request={"About"} />} />
-				    	<Route exact path='/contact' render={(props) => <SplashController {...props} token={this.state.token} request={"Contact"} />} />
+				    	<Route exact path='/releases' render={(props) => <SplashController {...props} token={this.state.token} request={"Releases"} />} />
 				    	<Route path='/sign-in' render={(props) => <SplashController {...props} token={this.state.token} request={"SignIn"} />} />
 						<Route path='/change-state' render={(props) => <SplashController {...props} token={this.state.token} request={"ChangeState"} />} />
 						<Route component={NotFound} />

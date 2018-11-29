@@ -5,7 +5,7 @@ import SplashHome from './Home';
 import SignInPage from './SignIn';
 import Artists from './Artists';
 import About from './About';
-import Contact from './Contact';
+import Releases from './Releases';
 
 class SplashController extends React.Component {
 	render() {
@@ -17,8 +17,8 @@ class SplashController extends React.Component {
 			return <Artists token={this.props.token} />;
 		} else if(this.props.request === "About") {
 			return <About token={this.props.token} />;
-		} else if(this.props.request === "Contact") {
-			return <Contact token={this.props.token} />;
+		} else if(this.props.request === "Releases") {
+			return <Releases token={this.props.token} />;
 		} else if(this.props.request === "ChangeState") {
 			return <Redirect push to="/" />
 		}
