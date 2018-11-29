@@ -90,10 +90,12 @@ class Users extends React.Component {
 				}
 				return (
 					<li>
-						<img src={userImage} />
-						<h2>{user.first_name} {user.last_name}</h2>
-						<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
-						<a onClick={() => this.deleteUser(user.id)}>delete</a>
+						<div>
+							<img src={userImage} />
+							<h2>{user.first_name} {user.last_name}</h2>
+							<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
+							<a onClick={() => this.deleteUser(user.id)}>delete</a>
+						</div>
 					</li>
 				)
 			});
