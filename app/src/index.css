@@ -1,24 +1,15 @@
-/* @font-face {*/
-  /*font-family: 'CircularStd';*/
-  /*src: url('assets/fonts/CircularStd-Book.eot');*/
-  /*src: url('assets/fonts/CircularStd-Book.eot?#iefix') format('embedded-opentype'), url('assets/fonts/CircularStd-Book.woff') format('woff'), url('assets/fonts/CircularStd-Book.ttf') format('truetype'), url('assets/fonts/CircularStd-Book.svg#bcc26993292869431e54c666aafa8fcd') format('svg');*/
-  /*font-weight: 400;*/
-  /*font-style: normal;*/
-/*}*/
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 
 body, html {
-    height: 100%;
     margin: 0;
 	padding: 0;
+	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
     color: #000;
     background: #eee;
-	overflow-x: hidden;
 }
 input, textarea {
-	/*font-family: 'CircularStd';*/
+	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
 	outline: none;
 	color: #000;
