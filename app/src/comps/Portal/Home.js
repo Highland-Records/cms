@@ -77,8 +77,6 @@ class PortalHome extends React.Component {
 		const {error, isLoaded, userData, artistsData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
-		} else if (!isLoaded) {
-			return <div></div>;
 		} else {
 
 			const artistsHtml = artistsData.map(artist => {

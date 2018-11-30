@@ -138,6 +138,7 @@ class NewArtist extends React.Component {
 							console.log("API Message: ", response.message);
 						});
 				}
+				window.location.href = "/";
 			// }
 			});
 	};

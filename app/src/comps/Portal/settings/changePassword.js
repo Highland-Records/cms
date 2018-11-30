@@ -50,6 +50,8 @@ class ChangePassword extends React.Component {
 	}
 
 	render() {
+		const isEnabled = this.state.password.length > 7 && this.state.password.length > 7;
+
 		return (
 			<form
 				className="settingsRight"
@@ -77,7 +79,7 @@ class ChangePassword extends React.Component {
 					placeholder="Confirm Password"
 					onChange={this.handleChange}
 				/>
-				<button className="button" type="submit">
+				<button className="button" type="submit" disabled={!isEnabled}>
 					Change Password
 				</button>
 			</form>
