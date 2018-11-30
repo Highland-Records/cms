@@ -85,6 +85,16 @@ ul.newArtist {
 						border-color: #000;
 					}
 				}
+				p.wrong-back-text {
+					margin: 0;
+					color: #c0392b;
+					margin-top: 15px;
+					height: 44px;
+					line-height: 44px;
+				}
+				p.green {
+					color: green;
+				}
 			}
 			div.fileUploadOverlay {
 				width: 180px;
