@@ -120,34 +120,18 @@ section.PortalStyle {
 		width: 80%;
 		min-width: 990px;
 		max-width: 1200px;
-		// column-count: 3;
-	    // column-gap: 20px;
-	    // -moz-column-count: 3;
-	    // -moz-column-gap: 20px;
-	    // -webkit-column-gap: 20px;
-	    // -webkit-column-count: 3;
 		li {
-			// float: left;
-			// box-sizing: border-box;
-	      	// break-inside: avoid;
-	      	// page-break-inside: avoid;
 			vertical-align: top;
 			display: inline-block;
 	      	width: 33.3%;
 	      	margin: 0;
 			margin-bottom: 20px;
+			text-align: center;
 			div {
 				background: #fff;
 				padding: 40px;
 				border-radius: 10px;
 				margin: 0 10px;
-			}
-		}
-	}
-	ul.userList {
-		li {
-			text-align: center;
-			div {
 				position: relative;
 				img {
 					width: 212px;
@@ -160,7 +144,7 @@ section.PortalStyle {
 				}
 				p {
 					color: #999;
-					a.deleteUser {
+					a.delete {
 						position: absolute;
 						top: 20px;
 						right: 20px;

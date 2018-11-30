@@ -124,37 +124,33 @@ section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li {
   width: 33.3%;
   margin: 0;
   margin-bottom: 20px;
+  text-align: center;
 }
 section.PortalStyle ul.artistList li div, section.PortalStyle ul.userList li div {
   background: #fff;
   padding: 40px;
   border-radius: 10px;
   margin: 0 10px;
-}
-section.PortalStyle ul.userList li {
-  text-align: center;
-}
-section.PortalStyle ul.userList li div {
   position: relative;
 }
-section.PortalStyle ul.userList li div img {
+section.PortalStyle ul.artistList li div img, section.PortalStyle ul.userList li div img {
   width: 212px;
   height: 212px;
   border-radius: 212px;
 }
-section.PortalStyle ul.userList li div h2 {
+section.PortalStyle ul.artistList li div h2, section.PortalStyle ul.userList li div h2 {
   margin-top: 20px;
   font-size: 24px;
 }
-section.PortalStyle ul.userList li div p {
+section.PortalStyle ul.artistList li div p, section.PortalStyle ul.userList li div p {
   color: #999;
 }
-section.PortalStyle ul.userList li div p a.deleteUser {
+section.PortalStyle ul.artistList li div p a.delete, section.PortalStyle ul.userList li div p a.delete {
   position: absolute;
   top: 20px;
   right: 20px;
 }
-section.PortalStyle ul.userList li div p a.deleteUser:hover {
+section.PortalStyle ul.artistList li div p a.delete:hover, section.PortalStyle ul.userList li div p a.delete:hover {
   color: #000;
   cursor: pointer;
 }
