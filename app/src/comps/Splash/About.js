@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
 
 class About extends React.Component {
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
 	render() {
 		return (
 			<section className="SplashStyle">

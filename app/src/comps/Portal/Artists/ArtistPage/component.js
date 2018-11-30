@@ -21,6 +21,7 @@ class Artist extends React.Component {
 		this.setState({artistsData: {...this.state.artistsData, [event.target.name]: event.target.value}})
 	}
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		PortalFunctions.GetUserData()
 		.then(res => {
 			if (!res.ok) throw new Error(res.status);
