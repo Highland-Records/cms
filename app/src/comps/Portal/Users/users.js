@@ -89,6 +89,8 @@ class Users extends React.Component {
 							}
 						}
 					});
+			} else {
+				alert("Incorrect Password, try again")
 			}
 		}
 	}

@@ -55,7 +55,7 @@ class Artist extends React.Component {
 	render() {
 		const {userData, artistsData} = this.state;
 		let bannerImagePreview = null;
-		let bannerCurrentPreview = artistsData.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artistsData.banner_img : PortalFunctions.CoreURLImages() + '/banners/' + 'default_banner.jpeg';
+		let bannerCurrentPreview = artistsData.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'banners/' + 'default_banner.jpeg';
 		if (artistsData.bannerImagePreviewUrl) {
 			bannerImagePreview = artistsData.bannerImagePreviewUrl
 		} else {
@@ -63,7 +63,7 @@ class Artist extends React.Component {
 		}
 
 		let profileImagePreview = null;
-		let profileCurrentPreview = artistsData.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artistsData.profile_img : PortalFunctions.CoreURLImages() + '/artists/' + 'default_artist_profile.jpeg';
+		let profileCurrentPreview = artistsData.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artistsData.profile_img : PortalFunctions.CoreURLImages() + 'artists/' + 'default_artist_profile.jpeg';
 		if (artistsData.profileImagePreviewUrl) {
 			profileImagePreview = artistsData.profileImagePreviewUrl
 		} else {

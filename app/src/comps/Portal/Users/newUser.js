@@ -16,6 +16,8 @@ class NewUser extends React.Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
+			status: null,
+			message: "",
 			userData: {},
 			file: "",
 			imagePreviewUrl: "",
@@ -27,7 +29,7 @@ class NewUser extends React.Component {
 		};
 	}
 
-	imageFormData = {};
+	imageFormData = null;
 
 	// On change set the data states
 	handleChange = event => {
@@ -37,43 +39,62 @@ class NewUser extends React.Component {
 	};
 	handleSubmit = event => {
 		event.preventDefault();
-		const formData = new FormData(event.target);
-		// Post this to API
-		fetch("http://highland.oliverrichman.uk/api/users", {
-			method: "POST",
-			body: formData,
-			headers: new Headers({
-				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-			})
-		})
-			.then(response => response.json())
-			.then(response => {
-
-				if (!Object.keys(this.imageFormData).length){
-					this.imageFormData.append("id",response.id);
-					fetch("http://highland.oliverrichman.uk/api/upload/profile", {
-						method: "POST",
-						body: this.imageFormData,
-						headers: new Headers({
-							Authorization: "Bearer " + localStorage.getItem("AuthToken")
-						})
-					})
-						.then(response => response.json())
-						.then(response => {
-							if (response.code === 201) {
-								window.location.href = "/users";
-							}
-							console.log("handle uploading-", this.file);
-							console.log("API Status: ", response.code);
-							console.log("API Message: ", response.message);
-						});
-				} else {
-					window.location.href = "/users";
-				}
-
+		if(!this.state.first_name || !this.state.last_name) {
+			this.setState({
+				status: false,
+				message: "A name is blank"
 			});
-
-		console.log(this.imageFormData);
+		} else if (this.state.username.length < 3) {
+			this.setState({
+				status: false,
+				message: "Username must be longer"
+			});
+		} else if (this.state.password.length < 8) {
+			this.setState({
+				status: false,
+				message: "Password must be longer"
+			});
+		} else if (this.state.password !== this.state.passwordConfirm) {
+			this.setState({
+				status: false,
+				message: "Passwords must match"
+			});
+		} else {
+			const formData = new FormData(event.target);
+			// Post this to API
+			fetch("http://highland.oliverrichman.uk/api/users", {
+				method: "POST",
+				body: formData,
+				headers: new Headers({
+					Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				})
+			})
+				.then(response => response.json())
+				.then(response => {
+					if (response.id){
+					if (this.imageFormData != null) {
+						this.imageFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/profile", {
+							method: "POST",
+							body: this.imageFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								console.log("handle uploading-", this.file);
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
+					this.setState({
+						status: true,
+						message: "User created!"
+					});
+}
+				});
+			}
 	};
 
 
@@ -95,20 +116,6 @@ class NewUser extends React.Component {
 		const data = new FormData();
 		data.append("fileToUpload", this.file, this.file.name);
 		this.imageFormData = data;
-
-		// fetch("http://highland.oliverrichman.uk/api/upload/profile", {
-		// 	method: "POST",
-		// 	body: data,
-		// 	headers: new Headers({
-		// 		Authorization: "Bearer " + localStorage.getItem("AuthToken")
-		// 	})
-		// })
-		// 	.then(response => response.json())
-		// 	.then(response => {
-		// 		console.log("handle uploading-", file);
-		// 		console.log("API Status: ", response.code);
-		// 		console.log("API Message: ", response.message);
-		// 	});
 	}
 
 	_handleClick() {
@@ -133,6 +140,17 @@ class NewUser extends React.Component {
 	render() {
 		const {error, isLoaded, userData} = this.state;
 
+		const Message = ({status,message}) =>
+			status ? (
+				<p className="wrong-back-text green">
+					{message}
+				</p>
+			) : (
+				<p className="wrong-back-text">
+					{message}
+				</p>
+			);
+
 		let {imagePreviewUrl} = this.state;
 		let imagePreview = null;
 		let currentPreview = PortalFunctions.CoreURLImages() + "default_profile.jpeg";
@@ -141,8 +159,6 @@ class NewUser extends React.Component {
 		} else {
 			imagePreview = currentPreview
 		}
-
-		const isEnabled = this.state.username.length >= 3 && this.state.password.length > 7;
 
 		return (
 			<section className="PortalStyle">
@@ -220,8 +236,8 @@ class NewUser extends React.Component {
 							className="button"
 							type="submit"
 							value="Add this User"
-							disabled={!isEnabled}
 						/>
+						<Message status={this.state.status} message={this.state.message}></Message>
 					</form>
 				</div>
 			</section>

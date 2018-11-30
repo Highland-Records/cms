@@ -16,6 +16,8 @@ class NewArtist extends React.Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
+			status: null,
+			message: "",
 			userData: {},
 			artist: {
 				name: "",
@@ -28,8 +30,8 @@ class NewArtist extends React.Component {
 		};
 	}
 
-	bannerImageFormData = {};
-	profileImageFormData = {};
+	bannerImageFormData = null;
+	profileImageFormData = null;
 
 	handleChange = event => {
 		this.setState({artist: {...this.state.artist, [event.target.name]: event.target.value}})
@@ -105,46 +107,65 @@ class NewArtist extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				if (this.bannerImageFormData){
-					this.bannerImageFormData.append("id",response.id);
-					fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
-						method: "POST",
-						body: this.bannerImageFormData,
-						headers: new Headers({
-							Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				if(response.id) {
+					if (this.bannerImageFormData != null){
+						this.bannerImageFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
+							method: "POST",
+							body: this.bannerImageFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
 						})
-					})
-						.then(response => response.json())
-						.then(response => {
-							// console.log("handle uploading-", this.file);
-							console.log("API Status: ", response.code);
-							console.log("API Message: ", response.message);
-						});
-				}
+							.then(response => response.json())
+							.then(response => {
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
 
-				if (this.profileImageFormData){
-					this.profileImageFormData.append("id",response.id);
-					fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
-						method: "POST",
-						body: this.profileImageFormData,
-						headers: new Headers({
-							Authorization: "Bearer " + localStorage.getItem("AuthToken")
+					if (this.profileImageFormData != null){
+						this.profileImageFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
+							method: "POST",
+							body: this.profileImageFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
 						})
-					})
-						.then(response => response.json())
-						.then(response => {
-							// console.log("handle uploading-", this.file);
-							console.log("API Status: ", response.code);
-							console.log("API Message: ", response.message);
-						});
+							.then(response => response.json())
+							.then(response => {
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
+					this.setState({
+						status: true,
+						message: "Created this artist"
+					});
+				} else {
+					this.setState({
+						status: false,
+						message: response.message
+					});
 				}
-				window.location.href = "/";
-			// }
 			});
 	};
 
 	render() {
 		const {error, isLoaded, userData, artist} = this.state;
+
+		const Message = ({status,message}) =>
+			status ? (
+				<p className="wrong-back-text green">
+					{message}
+				</p>
+			) : (
+				<p className="wrong-back-text">
+					{message}
+				</p>
+			);
+
 		let bannerImagePreview = null;
 		let bannerCurrentPreview = artist.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artist.banner_img : PortalFunctions.CoreURLImages() + '/banners/' + 'default_banner.jpeg';
 		if (artist.bannerImagePreviewUrl) {
@@ -226,6 +247,7 @@ class NewArtist extends React.Component {
 										type="submit"
 										value="Add this Artist"
 									/>
+									<Message status={this.state.status} message={this.state.message}></Message>
 								</form>
 							</div>
 						</li>
