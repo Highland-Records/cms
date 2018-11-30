@@ -40,9 +40,9 @@ class ImageUpload extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log("handle uploading-", file);
-				console.log("API Status: ", response.code);
-				console.log("API Message: ", response.message);
+				if (response.code === 201){
+					window.location.href = "/settings";
+				}
 			});
 	}
 
