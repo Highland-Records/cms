@@ -64,7 +64,7 @@
         return md5($salt.' '.$password);
     }
 
-    function isValid($string)
+    function isntValid($string)
     {
         if (preg_match($string, '/[^A-Za-z0-9]/i')) {
             return true;
@@ -162,7 +162,7 @@
             !empty($postData['username']) &&
             !empty($postData['password'])
         ) {
-            if (!isValid($postData['username']) && !isValid($postData['first_name']) && !isValid($postData['last_name'])) {
+            if (!isntValid($postData['username']) && !isntValid($postData['first_name']) && !isntValid($postData['last_name'])) {
                 $db = $GLOBALS['db'];
                 $checkUserExistsQuery = "SELECT `username` FROM `users` WHERE `deleted` = 0 AND `username` = '".$postData['username']."'";
                 $checkUserExistsResult = mysqli_query($db, $checkUserExistsQuery);
@@ -224,11 +224,17 @@
                     echo json_encode($row);
                 } else {
                     header("HTTP/1.0 409 Conflict");
-                    response(409, "Username already in use", true);
+                    response(409, "Username is already taken", true);
                 }
             } else {
                 header("HTTP/1.0 400 Bad Request");
-                response(400, "Username, first name and last name can't contain special characters", true);
+                if (!isntValid($postData['username'])) {
+                    response(400, "Username cannot contain special characters", true);
+                } elseif (!isValid($postData['first_name'])) {
+                    response(400, "First Name cannot contain special characters", true);
+                } elseif (!isValid($postData['last_name'])) {
+                    response(400, "Last Name cannot contain special characters", true);
+                }
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
@@ -236,10 +242,12 @@
                 response(400, "First name cannot be blank", true);
             } elseif (!empty($postData['last_name'])) {
                 response(400, "Last name cannot be blank", true);
+            } elseif (!empty($postData['username'])) {
+                response(400, "Username cannot be blank", true);
             } elseif (!empty($postData['password'])) {
                 response(400, "Password cannot be blank", true);
             } else {
-                response(400, "First Name, Last Name, Username and Password cannot be blank", true);
+                response(400, "All fields must be filled in", true);
             }
         }
     }
@@ -406,7 +414,7 @@
                     // echo $postArtistQuery;
                     $postArtistResult = mysqli_query($db, $postArtistQuery);
                 }
-                $getUserQuery = "SELECT * FROM `artists` WHERE `name` = '".$postData['name']."'";
+                $getUserQuery = "SELECT * FROM `artists` WHERE `deleted` = 0 AND `name` = '".$postData['name']."'";
                 $getUserResult = mysqli_query($db, $getUserQuery);
                 $row = mysqli_fetch_assoc($getUserResult);
                 header("Content-Type: application/json");
