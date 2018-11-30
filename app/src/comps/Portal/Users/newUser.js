@@ -49,7 +49,7 @@ class NewUser extends React.Component {
 			.then(response => response.json())
 			.then(response => {
 
-				if (Object.keys(this.imageFormData).length){
+				if (!Object.keys(this.imageFormData).length){
 					this.imageFormData.append("id",response.id);
 					fetch("http://highland.oliverrichman.uk/api/upload/profile", {
 						method: "POST",
@@ -60,12 +60,15 @@ class NewUser extends React.Component {
 					})
 						.then(response => response.json())
 						.then(response => {
+							window.location.href = "/users";
 							console.log("handle uploading-", this.file);
 							console.log("API Status: ", response.code);
 							console.log("API Message: ", response.message);
 						});
+				} else {
+					window.location.href = "/users";
 				}
-				window.location.href = "/users";
+
 			});
 
 		console.log(this.imageFormData);
