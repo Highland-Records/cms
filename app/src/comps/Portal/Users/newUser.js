@@ -19,6 +19,11 @@ class NewUser extends React.Component {
 			userData: {},
 			file: "",
 			imagePreviewUrl: "",
+			first_name: "",
+			last_name: "",
+			username: "",
+			password: "",
+			passwordConfirm: ""
 		};
 	}
 
@@ -43,7 +48,8 @@ class NewUser extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				if (this.imageFormData){
+
+				if (Object.keys(this.imageFormData).length){
 					this.imageFormData.append("id",response.id);
 					fetch("http://highland.oliverrichman.uk/api/upload/profile", {
 						method: "POST",
@@ -59,7 +65,10 @@ class NewUser extends React.Component {
 							console.log("API Message: ", response.message);
 						});
 				}
+				window.location.href = "/users";
 			});
+
+		console.log(this.imageFormData);
 	};
 
 
@@ -128,6 +137,8 @@ class NewUser extends React.Component {
 			imagePreview = currentPreview
 		}
 
+		const isEnabled = this.state.username.length >= 3 && this.state.password.length > 7;
+
 		return (
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "users")}
@@ -162,15 +173,17 @@ class NewUser extends React.Component {
 							name="first_name"
 							type="text"
 							placeholder="First Name"
-							value={this.state.firstName}
+							value={this.state.first_name}
 							autoFocus={true}
+							onChange={this.handleChange}
 						/>
 						<input
 							className="textInput half"
 							name="last_name"
 							type="text"
 							placeholder="Last Name"
-							value={this.state.lastName}
+							value={this.state.last_name}
+							onChange={this.handleChange}
 						/>
 						<input
 							className="textInput"
@@ -178,6 +191,7 @@ class NewUser extends React.Component {
 							type="text"
 							placeholder="Username"
 							value={this.state.username}
+							onChange={this.handleChange}
 						/>
 						<br />
 						<input
@@ -186,6 +200,7 @@ class NewUser extends React.Component {
 							type="password"
 							placeholder="Password"
 							value={this.state.password}
+							onChange={this.handleChange}
 						/>
 						<input
 							className="textInput half"
@@ -193,12 +208,14 @@ class NewUser extends React.Component {
 							type="password"
 							placeholder="Confirm Password"
 							value={this.state.passwordConfirm}
+							onChange={this.handleChange}
 						/>
 						<br />
 						<input
 							className="button"
 							type="submit"
 							value="Add this User"
+							disabled={!isEnabled}
 						/>
 					</form>
 				</div>

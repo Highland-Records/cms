@@ -64,11 +64,18 @@
         return md5($salt.' '.$password);
     }
 
+    function isValid($string)
+    {
+        if (preg_match($string, '/[^A-Za-z0-9]/i')) {
+            return true;
+        }
+    }
+
     function login($username, $password)
     {
         if (!empty($username) || !empty($password)) {
             $db = $GLOBALS['db'];
-            $userQuery = "SELECT `id`,`token`,`salt` FROM `users` WHERE `username` = '".$username."'";
+            $userQuery = "SELECT `id`,`token`,`salt` FROM `users` WHERE `deleted` = 0 AND `username` = '".$username."'";
             $userResult = mysqli_query($db, $userQuery);
             $userExists = mysqli_num_rows($userResult);
             $userData = mysqli_fetch_assoc($userResult);
@@ -151,66 +158,71 @@
             !empty($postData['username']) &&
             !empty($postData['password'])
         ) {
-            $db = $GLOBALS['db'];
-            $checkUserExistsQuery = "SELECT `username` FROM `users` WHERE `deleted` = 0 AND `username` = '".$postData['username']."'";
-            $checkUserExistsResult = mysqli_query($db, $checkUserExistsQuery);
-            $userExists = mysqli_num_rows($checkUserExistsResult);
-            if (empty($userExists)) {
-                $validKeys = ['first_name','last_name','username'];
-                foreach ($postData as $key=>$value) {
-                    if (in_array($key, $validKeys)) {
-                        $postKeys[] = "`".$key."`";
-                        $postValues[] = "'".$value."'";
+            if (!isValid($postData['username']) && !isValid($postData['first_name']) && !isValid($postData['last_name'])) {
+                $db = $GLOBALS['db'];
+                $checkUserExistsQuery = "SELECT `username` FROM `users` WHERE `deleted` = 0 AND `username` = '".$postData['username']."'";
+                $checkUserExistsResult = mysqli_query($db, $checkUserExistsQuery);
+                $userExists = mysqli_num_rows($checkUserExistsResult);
+                if (empty($userExists)) {
+                    $validKeys = ['first_name','last_name','username'];
+                    foreach ($postData as $key=>$value) {
+                        if (in_array($key, $validKeys)) {
+                            $postKeys[] = "`".$key."`";
+                            $postValues[] = "'".$value."'";
+                        }
                     }
-                }
-                $postKeys[] = '`salt`';
-                $salt = createSalt();
-                $postValues[] = "'".$salt."'";
-                // $thirtySecondsAgo = time() - (30);
-                $thirtyDaysAgo = time() - (86400*30); // 86400 is one day in seconds
+                    $postKeys[] = '`salt`';
+                    $salt = createSalt();
+                    $postValues[] = "'".$salt."'";
+                    // $thirtySecondsAgo = time() - (30);
+                $thirtyDaysAgo = time() - (86400); // 86400 is one day in seconds
                 $getDeletedUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 1";
-                $getDeletedUsersResult = mysqli_query($db, $getDeletedUsersQuery);
-                while ($row = mysqli_fetch_assoc($getDeletedUsersResult)) {
-                    if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
-                        $idToRecycle = "'".$row['id']."'";
-                        break;
+                    $getDeletedUsersResult = mysqli_query($db, $getDeletedUsersQuery);
+                    while ($row = mysqli_fetch_assoc($getDeletedUsersResult)) {
+                        if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
+                            $idToRecycle = "'".$row['id']."'";
+                            break;
+                        }
                     }
-                }
 
-                if (isset($idToRecycle)) {
-                    $postKeys[] = '`deleted`';
-                    $postValues[] = 0;
-                    $postKeys[] = '`deleted_timestamp`';
-                    $postValues[] = 0;
-                    $setValue = "";
+                    if (isset($idToRecycle)) {
+                        $postKeys[] = '`deleted`';
+                        $postValues[] = 0;
+                        $postKeys[] = '`deleted_timestamp`';
+                        $postValues[] = 0;
+                        $setValue = "";
 
-                    foreach ($postKeys as $i=>$key) {
-                        $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+                        foreach ($postKeys as $i=>$key) {
+                            $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+                        }
+                        $setValue = rtrim($setValue, ', ');
+                        $recycleUserQuery = "UPDATE `users` SET ".$setValue." WHERE `id` = ".$idToRecycle;
+                        $recycleUserResult = mysqli_query($db, $recycleUserQuery);
+                        $encryptedPassword = encryptPwd($postData['password'], $salt);
+                        $recyclePasswordQuery = "UPDATE `passwords` SET `password` = '".$encryptedPassword."' WHERE `id` = ".$idToRecycle;
+                        $recyclePasswordResult = mysqli_query($db, $recyclePasswordQuery);
+                    } else {
+                        $postUserQuery = 'INSERT INTO `users` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
+                        $postUserResult = mysqli_query($db, $postUserQuery);
+                        $getUserQuery = "SELECT `id` FROM `users` WHERE `username` = '".$postData['username']."'";
+                        $getUserResult = mysqli_query($db, $getUserQuery);
+                        $userId = mysqli_fetch_assoc($getUserResult)['id'];
+                        $encryptedPassword = encryptPwd($postData['password'], $salt);
+                        $postPasswordQuery = "INSERT INTO `passwords` (`password`,`id`) VALUES ('".$encryptedPassword."',".$userId.")";
+                        $postPasswordResult = mysqli_query($db, $postPasswordQuery);
                     }
-                    $setValue = rtrim($setValue, ', ');
-                    $recycleUserQuery = "UPDATE `users` SET ".$setValue." WHERE `id` = ".$idToRecycle;
-                    $recycleUserResult = mysqli_query($db, $recycleUserQuery);
-                    $encryptedPassword = encryptPwd($postData['password'], $salt);
-                    $recyclePasswordQuery = "UPDATE `passwords` SET `password` = '".$encryptedPassword."' WHERE `id` = ".$idToRecycle;
-                    $recyclePasswordResult = mysqli_query($db, $recyclePasswordQuery);
-                } else {
-                    $postUserQuery = 'INSERT INTO `users` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
-                    $postUserResult = mysqli_query($db, $postUserQuery);
-                    $getUserQuery = "SELECT `id` FROM `users` WHERE `username` = '".$postData['username']."'";
+                    $getUserQuery = "SELECT * FROM `users` WHERE `username` = '".$postData['username']."'";
                     $getUserResult = mysqli_query($db, $getUserQuery);
-                    $userId = mysqli_fetch_assoc($getUserResult)['id'];
-                    $encryptedPassword = encryptPwd($postData['password'], $salt);
-                    $postPasswordQuery = "INSERT INTO `passwords` (`password`,`id`) VALUES ('".$encryptedPassword."',".$userId.")";
-                    $postPasswordResult = mysqli_query($db, $postPasswordQuery);
+                    $row = mysqli_fetch_assoc($getUserResult);
+                    header("Content-Type: application/json");
+                    echo json_encode($row);
+                } else {
+                    header("HTTP/1.0 409 Conflict");
+                    response(409, "Username already in use", true);
                 }
-                $getUserQuery = "SELECT * FROM `users` WHERE `username` = '".$postData['username']."'";
-                $getUserResult = mysqli_query($db, $getUserQuery);
-                $row = mysqli_fetch_assoc($getUserResult);
-                header("Content-Type: application/json");
-                echo json_encode($row);
             } else {
-                header("HTTP/1.0 409 Conflict");
-                response(409, "Username already in use", true);
+                header("HTTP/1.0 400 Bad Request");
+                response(400, "Username, first name and last name can't contain special characters", true);
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
@@ -287,7 +299,7 @@
     function getAllUsers()
     {
         $db = $GLOBALS['db'];
-        $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0";
+        $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0 ORDER BY username ASC";
         $getUsersResult = mysqli_query($db, $getUsersQuery);
         $data = [];
         while ($row = mysqli_fetch_assoc($getUsersResult)) {
@@ -340,7 +352,7 @@
                     }
                 }
                 // $thirtySecondsAgo = time() - (30);
-                 $thirtyDaysAgo = time() - (86400*30); // 86400 is one day in seconds
+                 $thirtyDaysAgo = time() - (86400); // 86400 is one day in seconds
                  $getDeletedArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 1";
                 $getDeletedArtistsResult = mysqli_query($db, $getDeletedArtistsQuery);
                 while ($row = mysqli_fetch_assoc($getDeletedArtistsResult)) {
@@ -388,7 +400,7 @@
     function getAllArtists()
     {
         $db = $GLOBALS['db'];
-        $getArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 0";
+        $getArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 0 ORDER BY name ASC";
         $getArtistsResult = mysqli_query($db, $getArtistsQuery);
         $data = [];
         while ($row = mysqli_fetch_assoc($getArtistsResult)) {
