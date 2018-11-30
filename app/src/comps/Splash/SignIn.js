@@ -59,9 +59,6 @@ class SignInPage extends React.Component {
 						Something went wrong, try again...
 					</p>
 				);
-			const isEnabled =
-				this.state.username.length >= 3 &&
-				this.state.password.length > 7;
 			return (
 				<div className="SignIn">
 					<section className="SignInStyle">
@@ -100,7 +97,6 @@ class SignInPage extends React.Component {
 										className="button"
 										type="submit"
 										value="Sign In"
-										disabled={!isEnabled}
 									/>
 									<br />
 									<Link to="/">&lt; Go Home</Link>
