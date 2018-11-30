@@ -17,6 +17,7 @@ class PortalHome extends React.Component {
 	}
 
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		PortalFunctions.GetUserData()
 			.then(res => {
 				if (!res.ok) {
