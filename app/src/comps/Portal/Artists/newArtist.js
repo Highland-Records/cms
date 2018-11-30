@@ -144,32 +144,6 @@ class NewArtist extends React.Component {
 
 	render() {
 		const {error, isLoaded, userData, artist} = this.state;
-		// let bannerURL = artistsData.banner_img? PortalFunctions.CoreURLImages() + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'default_banner.jpeg';
-		// const artistHeaderImage = {
-		// 	backgroundImage: "url(" + {bannerURL} + ")"
-		// }
-		// const artistProfileImage = {
-		// 	//backgroundImage: "url(" + {artistsData.ProfileImage} + ")"
-		// }
-
-		// let {bannerImagePreviewUrl} = this.state.artist.bannerImagePreviewUrl;
-		// let bannerImagePreview = null;
-		// let bannerCurrentPreview = PortalFunctions.CoreURLImages() + "banners/default_banner.jpeg";
-		// if (bannerImagePreviewUrl) {
-		// 	bannerImagePreview = bannerImagePreviewUrl
-		// } else {
-		// 	bannerImagePreview = bannerCurrentPreview
-		// }
-		//
-		// let {profileImagePreviewUrl} = this.state.artist.profileImagePreviewUrl;
-		// let profileImagePreview = null;
-		// let profileCurrentPreview = PortalFunctions.CoreURLImages() + "artists/default_artist_profile.jpeg";
-		// if (profileImagePreviewUrl) {
-		// 	profileImagePreview = profileImagePreviewUrl
-		// } else {
-		// 	profileImagePreview = profileCurrentPreview
-		// }
-
 		let bannerImagePreview = null;
 		let bannerCurrentPreview = artist.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artist.banner_img : PortalFunctions.CoreURLImages() + '/banners/' + 'default_banner.jpeg';
 		if (artist.bannerImagePreviewUrl) {
@@ -191,71 +165,70 @@ class NewArtist extends React.Component {
 				{PortalNavigation.DrawNavigation(userData, "home")}
 				<header>Add a new Artist</header>
 				<div className="c">
-					<div className="settingsLeft">
-						<h2>Upload a Banner Photo</h2>
-						<div>
-							<form>
-								<input
-									name="banner_img"
-									className="fileInput"
-									type="file"
-									ref={this.bannerInputElement}
-									onChange={e => this.handleBannerChange(e)}
-								/>
-							</form>
-							<div className="fileUploadOverlay" onClick={this.handleBannerClick} >
-								Edit
+					<ul className="newArtist">
+						<li>
+							<div className="banner">
+								<form>
+									<input
+										name="banner_img"
+										className="fileInput"
+										type="file"
+										ref={this.bannerInputElement}
+										onChange={e => this.handleBannerChange(e)}
+									/>
+								</form>
+								<div className="fileUploadOverlay" onClick={this.handleBannerClick} >
+									Edit
+								</div>
+								<img src={bannerImagePreview} />
 							</div>
-							<img src={bannerImagePreview} />
-						</div>
-						<br/>
-						<h2>Upload a Artist Photo</h2>
-						<div>
-							<form>
-								<input
-									name="profile_img"
-									className="fileInput"
-									type="file"
-									ref={this.profileInputElement}
-									onChange={e => this.handleProfileChange(e)}
-								/>
-							</form>
-							<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
-								Edit
+						</li>
+						<li>
+							<div className="profileName">
+								<form>
+									<input
+										name="profile_img"
+										className="fileInput"
+										type="file"
+										ref={this.profileInputElement}
+										onChange={e => this.handleProfileChange(e)}
+									/>
+								</form>
+								<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
+									Edit
+								</div>
+								<img src={profileImagePreview} />
+								<form
+									onSubmit={this.handleSubmit}
+									encType="multipart/form-data"
+									className="visableForm"
+								>
+									<input
+										className="artistFullName-input"
+										name="name"
+										type="text"
+										placeholder="Full Name"
+										value={this.state.artist.name}
+										autoFocus={true}
+										onChange={this.handleChange}
+									/>
+									<TextareaAutosize
+										className="artistDescription-input"
+									 	name="description"
+									 	placeholder="Describe this Artist"
+										value={this.state.artist.description}
+									 	onChange={this.handleChange}
+									 />
+									<br />
+									<input
+										className="button"
+										type="submit"
+										value="Add this User"
+									/>
+								</form>
 							</div>
-							<img src={profileImagePreview} />
-						</div>
-					</div>
-					<form
-						onSubmit={this.handleSubmit}
-						encType="multipart/form-data"
-						className="settingsRight"
-					>
-						<h2>Artist Details</h2>
-						<input
-							className="textInput"
-							name="name"
-							type="text"
-							placeholder="Full Name"
-							value={this.state.artist.name}
-							autoFocus={true}
-							onChange={this.handleChange}
-						/>
-						<input
-							className="textInput"
-							name="description"
-							type="text"
-							placeholder="Description"
-							value={this.state.artist.description}
-							onChange={this.handleChange}
-						/>
-						<br />
-						<input
-							className="button"
-							type="submit"
-							value="Add this User"
-						/>
-					</form>
+						</li>
+					</ul>
 				</div>
 			</section>
 		);

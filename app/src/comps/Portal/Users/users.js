@@ -103,7 +103,7 @@ class Users extends React.Component {
 					this.state.status = false;
 				}
 				const ThisIsMe = ({status}) =>
-					status ? <span> - (this is you)</span> : <a className="deleteUser" onClick={() => this.deleteUser(user.id)}>remove</a>;
+					status ? <span> - (this is you)</span> : <a className="delete" onClick={() => this.deleteUser(user.id)}>remove</a>;
 				return (
 					<li>
 						<div>
