@@ -7,6 +7,8 @@ class SignInPage extends React.Component {
 		super(props);
 		this.state = {
 			status: true,
+			message: "",
+			token: "",
 			username: "",
 			password: ""
 		};
@@ -21,27 +23,34 @@ class SignInPage extends React.Component {
 	// Handle the submit event
 	handleSubmit = event => {
 		event.preventDefault();
-		const data = new FormData(event.target);
-		// Post this to API
-		fetch("http://highland.oliverrichman.uk/api/login", {
-			method: "POST",
-			body: data
-		})
-			.then(response => response.json())
-			.then(response => {
-				console.log("API Status: ", response.code);
-				console.log("API Message: ", response.message);
-				if (!response.code) {
-					localStorage.setItem("AuthToken", response.token);
-					this.setState({
-						token: localStorage.getItem("AuthToken")
-					});
-				} else {
-					this.setState({
-						status: false
-					});
-				}
+		if(this.state.username.length >= 3 && this.state.password.length > 7) {
+			const data = new FormData(event.target);
+			// Post this to API
+			fetch("http://highland.oliverrichman.uk/api/login", {
+				method: "POST",
+				body: data
+			})
+				.then(response => response.json())
+				.then(response => {
+					if (response.token) {
+						localStorage.setItem("AuthToken", response.token);
+						this.setState({
+							token: localStorage.getItem("AuthToken")
+						});
+					} else {
+						console.log("API Status: ", response.code);
+						console.log("API Message: ", response.message);
+						this.setState({
+							status: false,
+							message: response.message
+						});
+					}
+				});
+		} else {
+			this.setState({
+				status: false
 			});
+		}
 	};
 
 	// Render element
@@ -49,19 +58,16 @@ class SignInPage extends React.Component {
 		if (this.state.token) {
 			window.location.href = "/";
 		} else {
-			const SignInMessage = ({status}) =>
+			const SignInMessage = ({status,message}) =>
 				status ? (
 					<p className="welcome-back-text">
 						Welcome back! Please login to your account
 					</p>
 				) : (
 					<p className="wrong-back-text">
-						Something went wrong, try again...
+						{message}
 					</p>
 				);
-			const isEnabled =
-				this.state.username.length >= 3 &&
-				this.state.password.length > 7;
 			return (
 				<div className="SignIn">
 					<section className="SignInStyle">
@@ -78,6 +84,7 @@ class SignInPage extends React.Component {
 									</h1>
 									<SignInMessage
 										status={this.state.status}
+										message={this.state.message}
 									/>
 									<input
 										className="username-input"
@@ -100,7 +107,6 @@ class SignInPage extends React.Component {
 										className="button"
 										type="submit"
 										value="Sign In"
-										disabled={!isEnabled}
 									/>
 									<br />
 									<Link to="/">&lt; Go Home</Link>
