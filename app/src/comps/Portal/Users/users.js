@@ -89,8 +89,6 @@ class Users extends React.Component {
 		const {error, isLoaded, userData, usersData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
-		} else if (!isLoaded) {
-			return <div />;
 		} else {
 			const usersHtml = usersData.map(user => {
 				let userImage = user.profile_img
