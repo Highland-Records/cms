@@ -136,12 +136,12 @@ section.PortalStyle ul.artistList li div, section.PortalStyle ul.userList li div
 section.PortalStyle ul.artistList li div a, section.PortalStyle ul.userList li div a {
   color: #000;
 }
-section.PortalStyle ul.artistList li div a img, section.PortalStyle ul.userList li div a img {
+section.PortalStyle ul.artistList li div img, section.PortalStyle ul.userList li div img {
   width: 212px;
   height: 212px;
   border-radius: 212px;
 }
-section.PortalStyle ul.artistList li div a h2, section.PortalStyle ul.userList li div a h2 {
+section.PortalStyle ul.artistList li div h2, section.PortalStyle ul.userList li div h2 {
   margin-top: 20px;
   font-size: 24px;
 }
