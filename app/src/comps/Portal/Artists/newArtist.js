@@ -224,7 +224,7 @@ class NewArtist extends React.Component {
 									<input
 										className="button"
 										type="submit"
-										value="Add this User"
+										value="Add this Artist"
 									/>
 								</form>
 							</div>
@@ -233,64 +233,6 @@ class NewArtist extends React.Component {
 				</div>
 			</section>
 		);
-
-		// return (
-		// 	<section className="PortalStyle">
-		// 		{PortalNavigation.DrawNavigation(userData, "home")}
-		// 		<header>
-		// 			Add a new Artist
-		// 		</header>
-		// 		<div className="c">
-		// 			<form
-		// 				className="newArtist-form"
-		// 				onSubmit={this.handleSubmit}
-		// 				encType="multipart/form-data"
-		// 			>
-		// 				<ul className="artistOutline">
-		// 					<li style={artistHeaderImage}>
-		// 						<div>
-		// 							<i style={artistProfileImage}></i>
-		// 							<input className="artistFullName-input"
-	     //                                name="artistFullName"
-	     //                                type="text"
-	     //                                placeholder="Full Name"
-	     //                                value={this.state.artistFullName}
-	     //                                onChange={this.handleChange}
-	     //                                autoFocus={true}
-		// 							/>
-		// 						</div>
-		// 					</li>
-		// 					<li>
-		// 						<center>
-		// 							<TextareaAutosize
-		// 								className="artistDescription-input"
-		// 								name="artistDescription"
-		// 								placeholder="Describe this Artist"
-		// 								onChange={this.handleChange}
-		// 							/>
-		// 						</center>
-		// 					</li>
-		// 					<li>
-		// 						<ul className="artistAlbums">
-		// 							Albums
-		// 							<li>
-		// 								+
-		// 							</li>
-		// 						</ul>
-		// 					</li>
-		// 					<li>
-		// 						<ul className="artistVideos">
-		// 							Videos
-		// 							<li>
-		// 								+
-		// 							</li>
-		// 						</ul>
-		// 					</li>
-		// 				</ul>
-		// 			</form>
-		// 		</div>
-		// 	</section>
-		// );
 	}
 }
 

@@ -133,12 +133,15 @@ section.PortalStyle ul.artistList li div, section.PortalStyle ul.userList li div
   margin: 0 10px;
   position: relative;
 }
-section.PortalStyle ul.artistList li div img, section.PortalStyle ul.userList li div img {
+section.PortalStyle ul.artistList li div a, section.PortalStyle ul.userList li div a {
+  color: #000;
+}
+section.PortalStyle ul.artistList li div a img, section.PortalStyle ul.userList li div a img {
   width: 212px;
   height: 212px;
   border-radius: 212px;
 }
-section.PortalStyle ul.artistList li div h2, section.PortalStyle ul.userList li div h2 {
+section.PortalStyle ul.artistList li div a h2, section.PortalStyle ul.userList li div a h2 {
   margin-top: 20px;
   font-size: 24px;
 }
@@ -146,6 +149,7 @@ section.PortalStyle ul.artistList li div p, section.PortalStyle ul.userList li d
   color: #999;
 }
 section.PortalStyle ul.artistList li div p a.delete, section.PortalStyle ul.userList li div p a.delete {
+  color: #999;
   position: absolute;
   top: 20px;
   right: 20px;

@@ -43,7 +43,6 @@ class PortalHome extends React.Component {
 	}
 
 	deleteArtist(artistId) {
-		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
 		fetch(
 			"http://highland.oliverrichman.uk/api/artists/" +
 				artistId +
@@ -87,8 +86,10 @@ class PortalHome extends React.Component {
 				return (
 					<li>
 						<div>
-							<img src={artistImage} />
-							<h2>{artist.name}</h2>
+							<Link to={"/artist/"+artist.id}>
+								<img src={artistImage} />
+								<h2>{artist.name}</h2>
+							</Link>
 							<p>
 								<a className="delete" onClick={() => this.deleteArtist(artist.id)}>remove</a>
 							</p>
