@@ -61,7 +61,7 @@ class Users extends React.Component {
 			}
 		} else {
 			let password = prompt("Please enter the master password", "");
-			if (password === "timberlake") {
+			if (password === "cry me a river") {
 				fetch(
 					"http://highland.oliverrichman.uk/api/users/" +
 						userId +
