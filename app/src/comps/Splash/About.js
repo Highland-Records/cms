@@ -32,7 +32,7 @@ class About extends React.Component {
 						<li>
 							<ul>
 								<li>
-									hello@highland-records.co.uk
+									hello@highlandrecords.com
 								</li>
 								<li>
 									9 Derry Street<br/>
