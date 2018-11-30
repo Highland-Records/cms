@@ -53,35 +53,43 @@ class Users extends React.Component {
 	deleteUser(userId) {
 		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
 
-		let password = prompt("Please enter the master password", "");
-		if (password === "timberlake") {
-			fetch(
-				"http://highland.oliverrichman.uk/api/users/" +
-					userId +
-					"/delete",
-				{
-					method: "POST",
-					headers: new Headers({
-						Authorization:
-							"Bearer " + localStorage.getItem("AuthToken")
-					})
-				}
-			)
-				.then(response => response.json())
-				.then(response => {
-					if (response.code == 200) {
-						let userToRemove = this.state.usersData.find(
-							u => u.id == userId
-						);
-
-						var array = [...this.state.usersData]; // make a separate copy of the array
-						var index = array.indexOf(userToRemove);
-						if (index !== -1) {
-							array.splice(index, 1);
-							this.setState({usersData: array});
-						}
+		if(userId == 1 || userId == 2) {
+			if(userId == 1) {
+				alert("This ain't it chief");
+			} else if(userId == 2) {
+				alert("Ha, nice try");
+			}
+		} else {
+			let password = prompt("Please enter the master password", "");
+			if (password === "timberlake") {
+				fetch(
+					"http://highland.oliverrichman.uk/api/users/" +
+						userId +
+						"/delete",
+					{
+						method: "POST",
+						headers: new Headers({
+							Authorization:
+								"Bearer " + localStorage.getItem("AuthToken")
+						})
 					}
-				});
+				)
+					.then(response => response.json())
+					.then(response => {
+						if (response.code == 200) {
+							let userToRemove = this.state.usersData.find(
+								u => u.id == userId
+							);
+
+							var array = [...this.state.usersData]; // make a separate copy of the array
+							var index = array.indexOf(userToRemove);
+							if (index !== -1) {
+								array.splice(index, 1);
+								this.setState({usersData: array});
+							}
+						}
+					});
+			}
 		}
 	}
 
@@ -95,7 +103,7 @@ class Users extends React.Component {
 					? PortalFunctions.CoreURLImages() + user.profile_img
 					: PortalFunctions.CoreURLImages() +
 					  "default_profile.jpeg";
-				if (userData.id == user.id) {
+				if (userData.id === user.id) {
 					this.state.status = true;
 				} else {
 					this.state.status = false;
