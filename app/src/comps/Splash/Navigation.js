@@ -14,6 +14,9 @@ const HomeNavigation = {
 							<Link to="/artists">Artists</Link>
 						</li>
 						<li>
+							<Link to="/videos">Videos</Link>
+						</li>
+						<li>
 							<Link to="/releases">Releases</Link>
 						</li>
 						<li>
