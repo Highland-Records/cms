@@ -5,6 +5,8 @@ class ChangePassword extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			status: null,
+			message: "",
 			password: "",
 			new_password: "",
 			confirm_password: ""
@@ -32,8 +34,12 @@ class ChangePassword extends React.Component {
 	};
 
 	changePassword(userId,formData){
-		if (userId){
-			// console.log("test");
+		if (
+			userId &&
+			this.state.password.length > 7 &&
+			this.state.new_password.length > 7 &&
+			this.state.new_password == this.state.confirm_password
+		) {
 			fetch("http://highland.oliverrichman.uk/api/users/"+userId+"/changepassword", {
 				method: "POST",
 				body: formData,
@@ -45,13 +51,38 @@ class ChangePassword extends React.Component {
 				.then(response => {
 					console.log("API Status: ", response.code);
 					console.log("API Message: ", response.message);
+					if(response.code === 200) {
+						this.setState({
+							status: true,
+							message: response.message
+						});
+						console.log(this.state.status);
+					} else {
+						this.setState({
+							status: false,
+							message: response.message
+						});
+					}
 				});
+		} else {
+			this.setState({
+				status: false,
+				message: "Check your Password(s)"
+			});
 		}
 	}
 
 	render() {
-		const isEnabled = this.state.password.length > 7 && this.state.password.length > 7;
-
+		const Message = ({status,message}) =>
+			status ? (
+				<p className="wrong-back-text green">
+					{message}
+				</p>
+			) : (
+				<p className="wrong-back-text">
+					{message}
+				</p>
+			);
 		return (
 			<form
 				className="settingsRight"
@@ -79,9 +110,10 @@ class ChangePassword extends React.Component {
 					placeholder="Confirm Password"
 					onChange={this.handleChange}
 				/>
-				<button className="button" type="submit" disabled={!isEnabled}>
+				<button className="button" type="submit">
 					Change Password
 				</button>
+				<Message status={this.state.status} message={this.state.message}></Message>
 			</form>
 		);
 	}
