@@ -84,6 +84,7 @@
             $salt = $userData['salt'];
             if (!empty($userExists)) {
                 if (!empty($userToken)) {
+                    //here
                     $encryptedPassword = encryptPwd($password, $salt);
                     $passwordQuery = "SELECT `id` FROM `passwords` WHERE `id` = '".$userId."' AND `password` = '".$encryptedPassword."'";
                     $passwordResult = mysqli_query($db, $passwordQuery);
@@ -96,6 +97,9 @@
                         ];
                         header("Content-Type: application/json");
                         echo json_encode($loggedIn);
+                    } else {
+                        header("HTTP/1.0 400 Bad Request");
+                        response(400, "Incorrect password, please try again.", true);
                     }
                 } else {
                     $encryptedPassword = encryptPwd($password, $salt);
@@ -115,16 +119,16 @@
                         echo json_encode($loggedIn);
                     } else {
                         header("HTTP/1.0 400 Bad Request");
-                        response(400, "Invalid Password", true);
+                        response(400, "Incorrect password, please try again.", true);
                     }
                 }
             } else {
                 header("HTTP/1.0 400 Bad Request");
-                response(400, "Incorrect username", true);
+                response(400, "Incorrect username, please try again.", true);
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
-            response(400, "Blank username/password provided", true);
+            response(400, "Both a username and a password must be provided, please try again.", true);
         }
     }
 
@@ -260,18 +264,18 @@
                     $encryptedNewPassword = encryptPwd($newPassword, $newSalt);
                     $changePasswordQuery = "UPDATE `passwords` SET `password` = '".$encryptedNewPassword."' WHERE `id` = ".$id;
                     $changePasswordResult = mysqli_query($db, $changePasswordQuery);
-                    response(200, "changed password", true);
+                    response(200, "Changed password!", true);
                 } else {
                     header("HTTP/1.0 400 Bad Request");
-                    response(400, "incorrect password", true);
+                    response(400, "Incorrect password.", true);
                 }
             } else {
                 header("HTTP/1.0 400 Bad Request");
-                response(400, "no user", true);
+                response(400, "User doesn't exist.", true);
             }
         } else {
             header("HTTP/1.0 400 Bad Request");
-            response(400, "invalid ID, password or new password sent", true);
+            response(400, "Invalid ID, password or new password", true);
         }
     }
 
@@ -322,7 +326,7 @@
     function getAllUsers()
     {
         $db = $GLOBALS['db'];
-        $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0 ORDER BY username ASC";
+        $getUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 0";
         $getUsersResult = mysqli_query($db, $getUsersQuery);
         $data = [];
         while ($row = mysqli_fetch_assoc($getUsersResult)) {
