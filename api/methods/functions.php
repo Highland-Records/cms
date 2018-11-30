@@ -174,9 +174,11 @@
                     $postKeys[] = '`salt`';
                     $salt = createSalt();
                     $postValues[] = "'".$salt."'";
-                    // $thirtySecondsAgo = time() - (30);
-                $thirtyDaysAgo = time() - (86400); // 86400 is one day in seconds
-                $getDeletedUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 1";
+                    $postKeys[] = '`profile_img`';
+                    // $salt = createSalt();
+                    $postValues[] = "''";
+                    $thirtyDaysAgo = time() - (1);
+                    $getDeletedUsersQuery = "SELECT * FROM `users` WHERE `deleted` = 1";
                     $getDeletedUsersResult = mysqli_query($db, $getDeletedUsersQuery);
                     while ($row = mysqli_fetch_assoc($getDeletedUsersResult)) {
                         if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
@@ -277,13 +279,34 @@
     {
         $db = $GLOBALS['db'];
         if (!empty($id) && !empty($table)) {
-            $checkExistsQuery = "SELECT `id` FROM `".$table."` WHERE `id` = ".$id;
+            if ($table === 'users') {
+                $columnName = "`profile_img`";
+            } elseif ($table === 'artists') {
+                $columnName = "`profile_img`, `banner_img`";
+            } elseif ($table === 'albums') {
+            }
+            $checkExistsQuery = "SELECT ".$columnName." FROM `".$table."` WHERE `id` = ".$id;
             $checkExistsResult = mysqli_query($db, $checkExistsQuery);
             $exists = mysqli_num_rows($checkExistsResult);
+            if ($table === 'users') {
+                $profileImg = mysqli_fetch_assoc($checkExistsResult)['profile_img'];
+            } elseif ($table === 'artists') {
+                $profileImg = mysqli_fetch_assoc($checkExistsResult)['profile_img'];
+                $bannerImg = mysqli_fetch_assoc($checkExistsResult)['banner_img'];
+            }
             if (!empty($exists)) {
                 $now = time();
-                $deleteQuery = "UPDATE `".$table."` SET `deleted` = 1, `deleted_timestamp` = '".$now."' WHERE `id` = ".$id;
-                $deleteResult = mysqli_query($db, $deleteQuery);
+                $setDeleteQuery = "UPDATE `".$table."` SET `deleted` = 1, `deleted_timestamp` = '".$now."' WHERE `id` = ".$id;
+                $setDeleteResult = mysqli_query($db, $setDeleteQuery);
+                if ($table === 'users' && !empty($profileImg)) {
+                    array_map('unlink', glob("images/".$profileImg));
+                }
+                if ($table === 'artists' && !empty($profileImg)) {
+                    array_map('unlink', glob("images/artists/".$profileImg));
+                }
+                if ($table === 'artists' && !empty($bannerImg)) {
+                    array_map('unlink', glob("images/banners/".$bannerImg));
+                }
                 header("HTTP/1.0 200 OK");
                 response(200, "Deleted", true);
             } else {
@@ -351,9 +374,8 @@
                         $postValues[] = "'".$value."'";
                     }
                 }
-                // $thirtySecondsAgo = time() - (30);
-                 $thirtyDaysAgo = time() - (86400); // 86400 is one day in seconds
-                 $getDeletedArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 1";
+                $thirtyDaysAgo = time() - (1);
+                $getDeletedArtistsQuery = "SELECT * FROM `artists` WHERE `deleted` = 1";
                 $getDeletedArtistsResult = mysqli_query($db, $getDeletedArtistsQuery);
                 while ($row = mysqli_fetch_assoc($getDeletedArtistsResult)) {
                     if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {

@@ -44,18 +44,18 @@ function uploadProfileImage($files, $post, $bearerToken = "")
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 1) {
         if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
-            $getProfileImgQuery = "SELECT `profile_img` FROM `users` WHERE `id` = ".$post['id'];
+            $getProfileImgQuery = "SELECT `profile_img` FROM `users` WHERE `deleted` = 0 AND `id` = ".$post['id'];
             $getProfileImgResult = mysqli_query($db, $getProfileImgQuery);
             $profileImg = mysqli_fetch_assoc($getProfileImgResult)['profile_img'];
             if (!empty($profileImg)) {
                 array_map('unlink', glob("images/".$profileImg));
             }
             $profileURL = explode("/", $target_file)[1];
-            $postImgUrlQuery = "UPDATE `users` SET `profile_img` = '". $profileURL."' WHERE `id` = ".$post['id'];
+            $postImgUrlQuery = "UPDATE `users` SET `profile_img` = '". $profileURL."' WHERE `deleted` = 0 AND `id` = ".$post['id'];
             $postImgUrlResult = mysqli_query($db, $postImgUrlQuery);
             // if profile_img != blank then array_map('unlink', glob("some/dir/*.txt"));
 
-            response(200, "File uploaded");
+            response(201, "File uploaded ".$postImgUrlQuery);
         } else {
             header("HTTP/1.0 400 Bad Request");
             response(400, "File failed to upload", true);

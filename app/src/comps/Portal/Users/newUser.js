@@ -60,7 +60,9 @@ class NewUser extends React.Component {
 					})
 						.then(response => response.json())
 						.then(response => {
-							window.location.href = "/users";
+							if (response.code === 201) {
+								window.location.href = "/users";
+							}
 							console.log("handle uploading-", this.file);
 							console.log("API Status: ", response.code);
 							console.log("API Message: ", response.message);
