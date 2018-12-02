@@ -71,6 +71,9 @@ Section.SignInStyle .submit-btn:hover {
   color: #000;
   border: 3px #000 solid;
 }
+Section.SignInStyle a:hover {
+  color: #000;
+}
 
 Section.SplashStyle {
   width: 100%;
@@ -174,7 +177,10 @@ Section.SplashStyle div.banner.other.releases {
 Section.SplashStyle div.banner.other.about {
   background-image: url("../../assets/images/about.jpeg");
 }
-Section.SplashStyle ul.home {
+Section.SplashStyle div.banner.other.video {
+  background-image: url("../../assets/images/videos.jpeg");
+}
+Section.SplashStyle ul.home, Section.SplashStyle ul.home-flip {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -182,7 +188,7 @@ Section.SplashStyle ul.home {
   margin: 0 auto;
   margin-top: 40px;
 }
-Section.SplashStyle ul.home li:first-child {
+Section.SplashStyle ul.home li:first-child, Section.SplashStyle ul.home-flip li:first-child {
   font-size: 60px;
   width: 30%;
   line-height: 60px;
@@ -192,18 +198,18 @@ Section.SplashStyle ul.home li:first-child {
   text-align: right;
   letter-spacing: -2px;
 }
-Section.SplashStyle ul.home li {
+Section.SplashStyle ul.home li, Section.SplashStyle ul.home-flip li {
   width: 70%;
   display: inline-block;
   vertical-align: top;
 }
-Section.SplashStyle ul.home li:last-of-type {
+Section.SplashStyle ul.home li:last-of-type, Section.SplashStyle ul.home-flip li:last-of-type {
   padding-left: 40px;
 }
-Section.SplashStyle ul.home li:last-of-type h2 {
+Section.SplashStyle ul.home li:last-of-type h2, Section.SplashStyle ul.home-flip li:last-of-type h2 {
   font-weight: bold;
 }
-Section.SplashStyle ul.home li:last-of-type div {
+Section.SplashStyle ul.home li:last-of-type div, Section.SplashStyle ul.home-flip li:last-of-type div {
   width: 100%;
   height: 360px;
   border-radius: 10px;
@@ -212,7 +218,7 @@ Section.SplashStyle ul.home li:last-of-type div {
   background-position: center center;
   position: relative;
 }
-Section.SplashStyle ul.home li:last-of-type div h1 {
+Section.SplashStyle ul.home li:last-of-type div h1, Section.SplashStyle ul.home-flip li:last-of-type div h1 {
   font-weight: bold;
   font-size: 60px;
   letter-spacing: -2px;
@@ -220,7 +226,7 @@ Section.SplashStyle ul.home li:last-of-type div h1 {
   bottom: 10px;
   left: 30px;
 }
-Section.SplashStyle ul.home li:last-of-type div ul {
+Section.SplashStyle ul.home li:last-of-type div ul, Section.SplashStyle ul.home-flip li:last-of-type div ul {
   width: 300px;
   position: absolute;
   margin: 0;
@@ -232,7 +238,7 @@ Section.SplashStyle ul.home li:last-of-type div ul {
   background: #fff;
   border-radius: 0 10px 10px 0;
 }
-Section.SplashStyle ul.home li:last-of-type div ul h1 {
+Section.SplashStyle ul.home li:last-of-type div ul h1, Section.SplashStyle ul.home-flip li:last-of-type div ul h1 {
   position: relative;
   left: 0;
   bottom: 0;
@@ -241,17 +247,44 @@ Section.SplashStyle ul.home li:last-of-type div ul h1 {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-Section.SplashStyle ul.home li:last-of-type div ul li:first-of-type {
+Section.SplashStyle ul.home li:last-of-type div ul li:first-of-type, Section.SplashStyle ul.home-flip li:last-of-type div ul li:first-of-type {
   border-top: 1px #eee solid;
 }
-Section.SplashStyle ul.home li:last-of-type div ul li:last-of-type {
+Section.SplashStyle ul.home li:last-of-type div ul li:last-of-type, Section.SplashStyle ul.home-flip li:last-of-type div ul li:last-of-type {
   padding: 10px 0;
   border-bottom: 0;
 }
-Section.SplashStyle ul.home li:last-of-type div ul li {
+Section.SplashStyle ul.home li:last-of-type div ul li, Section.SplashStyle ul.home-flip li:last-of-type div ul li {
   padding: 10px 0;
   width: 100%;
   border-bottom: 1px #eee solid;
+}
+Section.SplashStyle ul.home-flip li:first-child {
+  width: 70%;
+  display: inline-block;
+  vertical-align: top;
+  border-top: none;
+  padding: 0;
+  padding-right: 40px;
+  text-align: left;
+}
+Section.SplashStyle ul.home-flip li:first-child div {
+  width: 100%;
+  height: 360px;
+  border-radius: 10px;
+  background-image: url("../../assets/images/feat1.jpeg");
+  background-size: cover;
+  background-position: center center;
+}
+Section.SplashStyle ul.home-flip li:last-child {
+  font-size: 60px;
+  width: 30%;
+  line-height: 60px;
+  font-weight: bold;
+  border-top: 10px #000 solid;
+  padding-top: 20px;
+  padding-left: 0;
+  letter-spacing: -2px;
 }
 Section.SplashStyle div.list {
   width: 80%;
@@ -317,11 +350,18 @@ Section.SplashStyle div.list ul.about li {
   width: 30%;
 }
 Section.SplashStyle div.list ul.about li ul {
-  padding-left: 20px;
+  padding-left: 40px;
 }
-Section.SplashStyle div.list ul.about li ul li {
+Section.SplashStyle div.list ul.about li ul li, Section.SplashStyle div.list ul.about li ul li:first-child {
   width: 100%;
   display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+Section.SplashStyle div.list ul.about li ul li i, Section.SplashStyle div.list ul.about li ul li:first-child i {
+  height: 100%;
+  width: 20px;
+  margin-right: 10px;
 }
 Section.SplashStyle footer {
   margin-top: 40px;

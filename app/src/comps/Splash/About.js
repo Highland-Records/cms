@@ -35,15 +35,27 @@ class About extends React.Component {
 						<li>
 							<ul>
 								<li>
+									<i class="fas fa-at"></i>
 									hello@highlandrecords.com
 								</li>
 								<li>
+									<i class="fas fa-map-marker-alt"></i>
 									9 Derry Street<br/>
-									London<br/>
-									W8 5HY
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;London<br/>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W8 5HY
+								</li>
+								<li>&nbsp;</li>
+								<li>
+									<i class="fab fa-facebook"></i>
+									/HighlandRecords
 								</li>
 								<li>
-									Social Media Icons
+									<i class="fab fa-twitter"></i>
+									@HighlandRecords
+								</li>
+								<li>
+									<i class="fab fa-instagram"></i>
+									@HighlandRecords
 								</li>
 							</ul>
 						</li>

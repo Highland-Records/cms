@@ -4,6 +4,7 @@ import './SplashStyle.css';
 import SplashHome from './Home';
 import SignInPage from './SignIn';
 import Artists from './Artists';
+import Videos from './Videos';
 import About from './About';
 import Releases from './Releases';
 
@@ -15,6 +16,8 @@ class SplashController extends React.Component {
 			return <SignInPage token={this.props.token} />;
 		} else if(this.props.request === "Artists") {
 			return <Artists token={this.props.token} />;
+		} else if(this.props.request === "Videos") {
+				return <Videos token={this.props.token} />;
 		} else if(this.props.request === "About") {
 			return <About token={this.props.token} />;
 		} else if(this.props.request === "Releases") {

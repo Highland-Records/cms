@@ -39,7 +39,7 @@ class PortalHome extends React.Component {
 				})
 			.then(
 				r => {this.setState({isLoaded: true,artistsData: r})},
-				e => {this.setState({isLoaded: true,e})}
+				e => {this.setState({isLoaded: true,error: e})}
 			);
 	}
 

@@ -72,6 +72,9 @@ Section.SignInStyle {
 			border: 3px #000 solid;
 		}
 	}
+	a:hover {
+		color: #000;
+	}
 }
 
 Section.SplashStyle {
@@ -175,7 +178,10 @@ Section.SplashStyle {
 	div.banner.other.about {
 		background-image: url("../../assets/images/about.jpeg");
 	}
-	ul.home {
+	div.banner.other.video {
+		background-image: url("../../assets/images/videos.jpeg");
+	}
+	ul.home, ul.home-flip {
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -254,6 +260,35 @@ Section.SplashStyle {
 			}
 		}
 	}
+	ul.home-flip {
+		li:first-child {
+			width: 70%;
+			display: inline-block;
+			vertical-align: top;
+			border-top: none;
+			padding: 0;
+			padding-right: 40px;
+			text-align: left;
+			div {
+				width: 100%;
+				height: 360px;
+				border-radius: 10px;
+				background-image: url("../../assets/images/feat1.jpeg");
+				background-size: cover;
+				background-position: center center;
+			}
+		}
+		li:last-child {
+			font-size: 60px;
+			width: 30%;
+			line-height: 60px;
+			font-weight: bold;
+			border-top: 10px #000 solid;
+			padding-top: 20px;
+			padding-left: 0;
+			letter-spacing: -2px;
+		}
+	}
 	div.list {
 		width: 80%;
 		margin: 0 auto;
@@ -321,10 +356,17 @@ Section.SplashStyle {
 			li {
 				width: 30%;
 				ul {
-					padding-left: 20px;
-					li {
+					padding-left: 40px;
+					li, li:first-child {
 						width: 100%;
 						display: block;
+						font-size: 20px;
+						margin-bottom: 10px;
+						i {
+							height: 100%;
+							width: 20px;
+							margin-right: 10px;
+						}
 					}
 				}
 			}
