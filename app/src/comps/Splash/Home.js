@@ -38,7 +38,7 @@ class SplashHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const artistsHtml = apiData.slice(0,4).map(artist => {
+			const apiRender = apiData.slice(0,4).map(artist => {
 				let artistImage = artist.profile_img
 					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
 					: "http://highland.oliverrichman.uk/api/images/" +
@@ -95,7 +95,7 @@ class SplashHome extends React.Component {
 							Our Artists
 						</h1>
 						<ul className="list">
-							{artistsHtml}
+							{apiRender}
 						</ul>
 					</div>
 					<footer>
