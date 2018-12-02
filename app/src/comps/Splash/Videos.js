@@ -2,8 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
 
-// - Home Splash Page
-class SplashHome extends React.Component {
+class Videos extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,9 +12,9 @@ class SplashHome extends React.Component {
 	}
 	componentDidMount() {
 		window.scrollTo(0, 0);
-		// Get all artists
+		// Get all videos
 		fetch(
-			"http://highland.oliverrichman.uk/api/artists/",
+			"http://highland.oliverrichman.uk/api/videos/",
 			{
 				method: "GET",
 				headers: new Headers({
@@ -38,7 +37,7 @@ class SplashHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const artistsHtml = apiData.slice(0,4).map(artist => {
+			const apiRender = apiData.slice(0,4).map(artist => {
 				let artistImage = artist.profile_img
 					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
 					: "http://highland.oliverrichman.uk/api/images/" +
@@ -57,45 +56,14 @@ class SplashHome extends React.Component {
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
-					<div class="banner home">
-						feel <b>something</b>
+					<div class="banner other video">
+						<p>
+							Highland Videos
+						</p>
 					</div>
-					<ul className="home">
-						<li>
-							Today's featured Artist
-						</li>
-						<li>
-							<div>
-								<h1>
-									Artist name
-								</h1>
-								<ul>
-									<h1>Recent releases</h1>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-								</ul>
-							</div>
-						</li>
-					</ul>
-					<ul className="home-flip">
-						<li>
-							<div>
-								VIDEO HERE
-							</div>
-						</li>
-						<li>
-							Today's featured Video
-						</li>
-					</ul>
 					<div className="list">
-						<h1>
-							Our Artists
-						</h1>
-						<ul className="list">
-							{artistsHtml}
+						<ul>
+							{apiRender}
 						</ul>
 					</div>
 					<footer>
@@ -110,4 +78,4 @@ class SplashHome extends React.Component {
 	}
 }
 
-export default SplashHome;
+export default Videos;

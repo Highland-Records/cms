@@ -109,7 +109,7 @@ class SignInPage extends React.Component {
 										value="Sign In"
 									/>
 									<br />
-									<Link to="/">&lt; Go Home</Link>
+									<Link to="/">&lt; Go Home</Link>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
 									<Link to="/">Reset Password</Link>
 								</form>
 							</div>

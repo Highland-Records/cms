@@ -42,6 +42,7 @@ class App extends React.Component {
 						<Route exact path='/api' />
 				    	<Route exact path='/' render={(props) => <SplashController {...props} token={this.state.token} request={"Home"} />} />
 				    	<Route exact path='/artists' render={(props) => <SplashController {...props} token={this.state.token} request={"Artists"} />} />
+						<Route exact path='/videos' render={(props) => <SplashController {...props} token={this.state.token} request={"Videos"} />} />
 				    	<Route exact path='/about' render={(props) => <SplashController {...props} token={this.state.token} request={"About"} />} />
 				    	<Route exact path='/releases' render={(props) => <SplashController {...props} token={this.state.token} request={"Releases"} />} />
 				    	<Route path='/sign-in' render={(props) => <SplashController {...props} token={this.state.token} request={"SignIn"} />} />
