@@ -26,7 +26,7 @@ class App extends React.Component {
 						<Route exact path='/artists/new' render={(props) => <PortalController {...props} token={this.state.token} request={"NewArtist"} />} />
 						<Route exact path='/album/:id' render={(props) => <PortalController {...props} token={this.state.token} request={"Album"} />} />
 						<Route exact path='/albums/' render={(props) => <PortalController {...props} token={this.state.token} request={"Albums"} />} />
-						<Route exact path='/album/new/' render={(props) => <PortalController {...props} token={this.state.token} request={"NewAlbum"} />} />
+						<Route exact path='/albums/new/' render={(props) => <PortalController {...props} token={this.state.token} request={"NewAlbum"} />} />
 						<Route exact path='/users' render={(props) => <PortalController {...props} token={this.state.token} request={"Users"} />} />
 						<Route exact path='/users/new' render={(props) => <PortalController {...props} token={this.state.token} request={"NewUsers"} />} />
 						<Route exact path='/settings' render={(props) => <PortalController {...props} token={this.state.token} request={"Settings"} />} />
