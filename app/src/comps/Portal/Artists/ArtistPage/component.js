@@ -173,7 +173,7 @@ class Artist extends React.Component {
 		});
 	}
 	render() {
-		const {userData, artistsData} = this.state;
+		const {userData, artistsData, artist} = this.state;
 		let bannerImagePreview = null;
 		let bannerCurrentPreview = artistsData.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'banners/' + 'default_banner.jpeg';
 		if (artistsData.bannerImagePreviewUrl) {
