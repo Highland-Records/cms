@@ -31,42 +31,42 @@ section.PortalStyle nav ul li:nth-child(1) a {
   color: #fff;
   text-decoration: none;
 }
-section.PortalStyle nav ul li:nth-child(2), section.PortalStyle nav ul li:nth-child(3) {
+section.PortalStyle nav ul li:nth-child(2), section.PortalStyle nav ul li:nth-child(3), section.PortalStyle nav ul li:nth-child(4) {
   padding: 23px 20px;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
 }
-section.PortalStyle nav ul li:nth-child(2) a, section.PortalStyle nav ul li:nth-child(3) a {
+section.PortalStyle nav ul li:nth-child(2) a, section.PortalStyle nav ul li:nth-child(3) a, section.PortalStyle nav ul li:nth-child(4) a {
   color: #000;
   border-bottom: 2px transparent solid;
 }
-section.PortalStyle nav ul li:nth-child(2) a:hover, section.PortalStyle nav ul li:nth-child(3) a:hover {
+section.PortalStyle nav ul li:nth-child(2) a:hover, section.PortalStyle nav ul li:nth-child(3) a:hover, section.PortalStyle nav ul li:nth-child(4) a:hover {
   text-decoration: none;
   border-bottom-color: #000;
 }
-section.PortalStyle nav ul li:nth-child(2) a.s, section.PortalStyle nav ul li:nth-child(3) a.s {
+section.PortalStyle nav ul li:nth-child(2) a.s, section.PortalStyle nav ul li:nth-child(3) a.s, section.PortalStyle nav ul li:nth-child(4) a.s {
   text-decoration: none;
   border-bottom-color: #000;
 }
-section.PortalStyle nav ul li:nth-child(4), section.PortalStyle nav ul li:nth-child(5) {
+section.PortalStyle nav ul li:nth-child(5), section.PortalStyle nav ul li:nth-child(6) {
   text-align: right;
   float: right;
 }
-section.PortalStyle nav ul li:nth-child(4) img {
+section.PortalStyle nav ul li:nth-child(5) img {
   border-radius: 70px;
   margin-top: 10px;
   width: 50px;
   height: 50px;
   object-fit: cover;
 }
-section.PortalStyle nav ul li:nth-child(5) {
+section.PortalStyle nav ul li:nth-child(6) {
   padding-top: 15px;
   margin-right: 20px;
   font-size: 20px;
   line-height: 20px;
 }
-section.PortalStyle nav ul li:nth-child(5) p, section.PortalStyle nav ul li:nth-child(5) a {
+section.PortalStyle nav ul li:nth-child(6) p, section.PortalStyle nav ul li:nth-child(6) a {
   color: #000;
   margin: 0;
   padding: 0;
@@ -74,10 +74,10 @@ section.PortalStyle nav ul li:nth-child(5) p, section.PortalStyle nav ul li:nth-
   font-size: 12px;
   margin-left: 10px;
 }
-section.PortalStyle nav ul li:nth-child(5) p:last-child {
+section.PortalStyle nav ul li:nth-child(6) p:last-child {
   cursor: pointer;
 }
-section.PortalStyle nav ul li:nth-child(5) p:last-child:hover {
+section.PortalStyle nav ul li:nth-child(6) p:last-child:hover {
   text-decoration: underline;
 }
 section.PortalStyle header {

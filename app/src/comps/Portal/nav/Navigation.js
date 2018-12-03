@@ -8,6 +8,8 @@ const PortalNavigation = {
 			this.location = 'users';
 		} else if (location === 'home') {
 			this.location = 'home';
+		} else if (location === 'albums') {
+			this.location = 'albums';
 		} else if(location === null) {
 			// IGNORE THIS
 		}
@@ -20,6 +22,9 @@ const PortalNavigation = {
 					</li>
 					<li>
 						<Link to="/" className={this.location === 'home' ? 's' : ''}>Artists</Link>
+					</li>
+					<li>
+						<Link to="/albums" className={this.location === 'albums' ? 's' : ''}>Albums</Link>
 					</li>
 					<li>
 						<Link to="/users" className={this.location === 'users' ? 's' : ''}>Users</Link>
