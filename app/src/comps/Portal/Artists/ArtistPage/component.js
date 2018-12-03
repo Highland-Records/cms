@@ -222,6 +222,7 @@ class Artist extends React.Component {
 				this.setState({
 					artist: {...this.state.artist, "videoPreviewUrl": videoURL}
 				});
+
 			} else {
 				console.log("Page failed to load API data");
 			}
@@ -247,30 +248,19 @@ class Artist extends React.Component {
 				</p>
 			);
 
-			// console.log(String(artistsData.video_links).split(','));
-
 			let showVideoList = null;
-			let videoSrcs = String(artistsData.video_links).split(',')
-
+			let videoSrcs = String(artistsData.video_links).split(',');
 			if (String(artistsData.video_links).length){
 				showVideoList = videoSrcs.map(videoSrc => {
-					// let artistVideos = artist.video_links
-					const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
-
-					return (
-						<video width="320" height="240" controls>
-							<source src={srcURL} type="video/mp4"/>
-							Your browser does not support the video tag.
-						</video>
-					)
+						const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
+						return (
+							<video width="320" height="240" controls>
+								<source src={srcURL} type="video/mp4"/>
+								Your browser does not support the video tag.
+							</video>
+						)
 				});
 			}
-
-
-
-			// for (let videoSrc of videoSrcs){
-			// 	videoHtml += '<li>' + videoSrc + '</li>';
-			// }
 
 		return(
 			<section className="PortalStyle">
@@ -340,10 +330,26 @@ class Artist extends React.Component {
 									</form>
 								</div>
 							</li>
-							
 						</ul>
 						<ul>
 							{showVideoList}
+							<li>
+							<div className="video">
+								<form>
+									<input
+										name="video"
+										className="fileInput"
+										type="file"
+										ref={this.videoInputElement}
+										onChange={e => this.handleVideoChange(e)}
+									/>
+								</form>
+								<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
+									Add a new video
+								</div>
+
+							</div>
+							</li>
 						</ul>
 					</div>
 			</section>
