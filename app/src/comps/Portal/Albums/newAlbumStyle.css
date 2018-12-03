@@ -1,0 +1,225 @@
+ul.newArtist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 40px;
+}
+ul.newArtist li {
+  background: #fff;
+}
+ul.newArtist li div form {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+ul.newArtist li div.banner {
+  position: relative;
+}
+ul.newArtist li div.banner img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+ul.newArtist li div.banner div.fileUploadOverlay {
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  opacity: 0;
+  z-index: 99;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  line-height: 500px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+ul.newArtist li div.banner div.fileUploadOverlay:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+ul.newArtist li div.profileName {
+  padding: 40px;
+  position: relative;
+}
+ul.newArtist li div.profileName img {
+  width: 180px;
+  height: 180px;
+  border-radius: 180px;
+  z-index: 98;
+  display: inline-block;
+  vertical-align: top;
+  object-fit: cover;
+}
+ul.newArtist li div.profileName form.visableForm {
+  opacity: 1;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 40px;
+}
+ul.newArtist li div.profileName form.visableForm input.artistFullName-input {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-bottom: 2px #ccc solid;
+  width: 100%;
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 10px;
+}
+ul.newArtist li div.profileName form.visableForm input.artistFullName-input:focus {
+  border-bottom-color: #000;
+}
+ul.newArtist li div.profileName form.visableForm textarea.artistDescription-input {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  padding: 7px 13px;
+  border: 2px #ccc solid;
+  width: 100%;
+  resize: none;
+  box-sizing: border-box;
+}
+ul.newArtist li div.profileName form.visableForm textarea.artistDescription-input:focus {
+  border-color: #000;
+}
+ul.newArtist li div.profileName form.visableForm p.wrong-back-text {
+  margin: 0;
+  color: #c0392b;
+  margin-top: 15px;
+  height: 44px;
+  line-height: 44px;
+}
+ul.newArtist li div.profileName form.visableForm p.green {
+  color: green;
+}
+ul.newArtist li div.profileName div.fileUploadOverlay {
+  width: 180px;
+  height: 180px;
+  border-radius: 180px;
+  opacity: 0;
+  z-index: 99;
+  position: absolute;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  line-height: 180px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+ul.newArtist li div.profileName div.fileUploadOverlay:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+ul.artistOutline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 40px;
+  z-index: 99;
+}
+ul.artistOutline li {
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+ul.artistOutline li div {
+  width: 100%;
+}
+ul.artistOutline li div form {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+ul.artistOutline li div img {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  background: #000;
+  border-radius: 150px;
+  margin-left: 50px;
+}
+ul.artistOutline li div img.bannerImagePreview {
+  width: 100%;
+  height: 500px;
+  margin: 0;
+  border-radius: 0;
+  display: block;
+}
+ul.artistOutline li div input.artistFullName-input {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-bottom: 2px #ccc solid;
+  position: absolute;
+  bottom: 0;
+  left: 200px;
+  right: 50px;
+  font-size: 32px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 10px;
+}
+ul.artistOutline li div input.artistFullName-input:focus {
+  border-bottom-color: #000;
+}
+ul.artistOutline li textarea.artistDescription-input {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  padding: 7px 13px;
+  border: 2px #ccc solid;
+  width: 90%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  resize: none;
+  box-sizing: border-box;
+}
+ul.artistOutline li textarea.artistDescription-input:focus {
+  border-color: #000;
+}
+ul.artistOutline li ul.artistAlbums, ul.artistOutline li ul.artistVideos {
+  list-style: none;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0;
+  padding-bottom: 20px;
+}
+ul.artistOutline li ul.artistAlbums li:first-child {
+  width: 200px;
+  height: 200px;
+  border: 4px #000 dashed;
+  line-height: 190px;
+  text-align: center;
+  font-size: 72px;
+  margin-top: 20px;
+}
+ul.artistOutline li ul.artistVideos li:first-child {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 200px;
+  height: 120px;
+  border: 4px #000 dashed;
+  line-height: 110px;
+  text-align: center;
+  font-size: 72px;
+}
+ul.artistOutline li:first-child {
+  height: 400px;
+}
+
+/*# sourceMappingURL=newArtistStyle.css.map */
