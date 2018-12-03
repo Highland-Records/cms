@@ -453,10 +453,42 @@
         echo json_encode(mysqli_fetch_assoc($getArtistResult));
     }
 
-    function editArtist()
+    function editArtist($artistId, $postData)
     {
-        header("HTTP/1.0 400 Bad Request");
-        response(400, "can you read me", true);
+        $db = $GLOBALS['db'];
+        $getArtistQuery = "SELECT `id` FROM `artists` WHERE `deleted` = 0 AND `id` = ".$artistId;
+        $getArtistResult = mysqli_query($db, $getArtistQuery);
+        $artistExists = mysqli_num_rows($getArtistResult);
+        if (!empty($artistExists)) {
+            $postKeys = [];
+            $postValues = [];
+
+            $invalidKeys = ['id', 'deleted', 'deleted_timestamp'];
+            $validKeys = ['name','description'];
+            foreach ($postData as $key=>$value) {
+                if (!in_array($key, $invalidKeys) && in_array($key, $validKeys)) {
+                    $postKeys[] = "`".$key."`";
+                    $postValues[] = "'".$value."'";
+                }
+            }
+            foreach ($postKeys as $i=>$key) {
+                $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+            }
+            $setValue = rtrim($setValue, ', ');
+            $changeQuery = "UPDATE `artists` SET ".$setValue." WHERE `deleted` = 0 AND `id` = ".$artistId;
+            $changeResult = mysqli_query($db, $changeQuery);
+
+            $getArtistQuery = "SELECT * FROM `artists` WHERE `deleted` = 0 AND `id` = ".$artistId;
+            $getArtistResult = mysqli_query($db, $getArtistQuery);
+            $row = mysqli_fetch_assoc($getArtistResult);
+            header("Content-Type: application/json");
+            echo json_encode($row);
+        // print_r($postKeys);
+            // print_r($postValues);
+        } else {
+            header("HTTP/1.0 404 Not Found");
+            response(404, "Artist not found", true);
+        }
     }
 
     function getMe($bearerToken)
