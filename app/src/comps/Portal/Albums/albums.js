@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PortalFunctions from "./PortalFunctions";
-import PortalNavigation from "./nav/Navigation";
+import PortalFunctions from "../PortalFunctions";
+import PortalNavigation from "../nav/Navigation";
 
 // - Home Portal Page
 class Albums extends React.Component {
@@ -116,4 +116,4 @@ class Albums extends React.Component {
 // 	{artistsHtml}
 // </ul>
 
-export default PortalHome;
+export default Albums;
