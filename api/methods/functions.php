@@ -455,6 +455,8 @@
 
     function editArtist()
     {
+        header("HTTP/1.0 400 Bad Request");
+        response(400, "can you read me", true);
     }
 
     function getMe($bearerToken)

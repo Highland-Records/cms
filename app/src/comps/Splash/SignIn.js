@@ -23,7 +23,10 @@ class SignInPage extends React.Component {
 	// Handle the submit event
 	handleSubmit = event => {
 		event.preventDefault();
-		if(this.state.username.length >= 3 && this.state.password.length > 7) {
+		if (
+			this.state.username.length >= 3 &&
+			this.state.password.length > 7
+		) {
 			const data = new FormData(event.target);
 			// Post this to API
 			fetch("http://highland.oliverrichman.uk/api/login", {
@@ -58,15 +61,13 @@ class SignInPage extends React.Component {
 		if (this.state.token) {
 			window.location.href = "/";
 		} else {
-			const SignInMessage = ({status,message}) =>
+			const SignInMessage = ({status, message}) =>
 				status ? (
 					<p className="welcome-back-text">
 						Welcome back! Please login to your account
 					</p>
 				) : (
-					<p className="wrong-back-text">
-						{message}
-					</p>
+					<p className="wrong-back-text">{message}</p>
 				);
 			return (
 				<div className="SignIn">
@@ -109,7 +110,8 @@ class SignInPage extends React.Component {
 										value="Sign In"
 									/>
 									<br />
-									<Link to="/">&lt; Go Home</Link>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+									<Link to="/">&lt; Go Home</Link>
+									&nbsp;&nbsp;&bull;&nbsp;&nbsp;
 									<Link to="/">Reset Password</Link>
 								</form>
 							</div>
