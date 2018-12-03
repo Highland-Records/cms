@@ -52,7 +52,6 @@ class Artist extends React.Component {
 				artist: {...this.state.artist, "bannerFile": file, "bannerImagePreviewUrl": reader.result}
 			});
 		};
-
 		reader.readAsDataURL(file);
 		const data = new FormData();
 		data.append("banner_img", file, file.name);
@@ -167,6 +166,14 @@ class Artist extends React.Component {
 				this.setState({
 					artistsData: response
 				});
+				let bannerImageURL = PortalFunctions.CoreURLImages() + '/banners/' + this.state.artistsData.banner_img;
+				this.setState({
+					artist: {...this.state.artist, "bannerImagePreviewUrl": bannerImageURL}
+				});
+				let profileImageURL = PortalFunctions.CoreURLImages() + '/artists/' + this.state.artistsData.profile_img;
+				this.setState({
+					artist: {...this.state.artist, "profileImagePreviewUrl": profileImageURL}
+				});
 			} else {
 				console.log("Page failed to load API data");
 			}
@@ -174,21 +181,11 @@ class Artist extends React.Component {
 	}
 	render() {
 		const {userData, artistsData, artist} = this.state;
-		let bannerImagePreview = null;
-		let bannerCurrentPreview = artistsData.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'banners/' + 'default_banner.jpeg';
-		if (artistsData.bannerImagePreviewUrl) {
-			bannerImagePreview = artistsData.bannerImagePreviewUrl
-		} else {
-			bannerImagePreview = bannerCurrentPreview
-		}
 
-		let profileImagePreview = null;
-		let profileCurrentPreview = artistsData.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artistsData.profile_img : PortalFunctions.CoreURLImages() + 'artists/' + 'default_artist_profile.jpeg';
-		if (artistsData.profileImagePreviewUrl) {
-			profileImagePreview = artistsData.profileImagePreviewUrl
-		} else {
-			profileImagePreview = profileCurrentPreview
-		}
+		let bannerImagePreview = artist.bannerImagePreviewUrl;
+
+		let profileImagePreview = artist.profileImagePreviewUrl;
+
 		return(
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "home")}
