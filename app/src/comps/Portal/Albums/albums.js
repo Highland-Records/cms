@@ -72,7 +72,6 @@ class Albums extends React.Component {
 	}
 
 	render() {
-
 		const {error, isLoaded, userData, albumsData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
