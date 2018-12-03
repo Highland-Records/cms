@@ -32,6 +32,7 @@ class Artist extends React.Component {
 				"profileImagePreviewUrl": "",
 				"videoFile": "",
 				"videoPreviewUrl": "",
+				"videoActualUrl": ""
 			}
 		}
 	}
@@ -222,11 +223,15 @@ class Artist extends React.Component {
 				this.setState({
 					artist: {...this.state.artist, "videoPreviewUrl": videoURL}
 				});
-
+				let videoSrcs = String(this.state.artistsData.video_links).split(',');
+				this.setState({
+					artist: {...this.state.artist, "videoActualUrl": videoSrcs}
+				});
 			} else {
 				console.log("Page failed to load API data");
 			}
 		});
+
 	}
 	render() {
 		const {userData, artistsData, artist} = this.state;
@@ -247,20 +252,20 @@ class Artist extends React.Component {
 					{message}
 				</p>
 			);
-
-			let showVideoList = null;
-			let videoSrcs = String(artistsData.video_links).split(',');
-			if (String(artistsData.video_links).length){
-				showVideoList = videoSrcs.map(videoSrc => {
-						const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
-						return (
-							<video width="320" height="240" controls>
-								<source src={srcURL} type="video/mp4"/>
-								Your browser does not support the video tag.
-							</video>
-						)
-				});
-			}
+		let showVideoList = null;
+		if (this.state.artist.videoActualUrl){
+			showVideoList = this.state.artist.videoActualUrl.map(videoSrc => {
+				const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
+				return (
+					<li>
+						<video width="320" height="240" controls>
+							<source src={srcURL} type="video/mp4"/>
+							Your browser does not support the video tag.
+						</video>
+					</li>
+				)
+			});
+		}
 
 		return(
 			<section className="PortalStyle">
