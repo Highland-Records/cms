@@ -100,7 +100,7 @@ class Albums extends React.Component {
 			// });
 			return (
 				<section className="PortalStyle">
-					{PortalNavigation.DrawNavigation(userData, "home")}
+					{PortalNavigation.DrawNavigation(userData, "albums")}
 					<header>
 						Albums
 						<Link to="/albums/new">Add a new Album</Link>

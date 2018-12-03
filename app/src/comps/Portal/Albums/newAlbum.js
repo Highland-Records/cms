@@ -9,6 +9,13 @@ import PortalNavigation from "../nav/Navigation";
 class NewAlbum extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			error: null,
+			isLoaded: false,
+			status: null,
+			message: "",
+			userData: {},
+		}
 	}
 
 	componentDidMount() {
