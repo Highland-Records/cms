@@ -5,6 +5,9 @@ import PortalHome from './Home';
 
 import NewArtist from './Artists/newArtist';
 import Artist from './Artists/ArtistPage/component';
+import Album from './Albums/AlbumPage/component';
+import NewAlbum from './Albums/newAlbum';
+import Albums from './Albums/albums';
 import Users from './Users/users';
 import NewUsers from './Users/newUser';
 import Settings from './settings/settings';
@@ -23,6 +26,12 @@ class PortalController extends React.Component {
 			return <NewArtist token={this.props.token} />;
 		} else if(this.props.request === "Artist" && match.params.id) {
 			return <Artist token={this.props.token} id={match.params.id} />;
+		} else if(this.props.request === "Albums") {
+			return <Albums token={this.props.token} />;
+		} else if(this.props.request === "NewAlbum") {
+			return <NewAlbum token={this.props.token} />;
+		} else if(this.props.request === "Album" && match.params.id) {
+			return <Album token={this.props.token} id={match.params.id} />;
 		} else if(this.props.request === "Users") {
 			return <Users token={this.props.token} />;
 		} else if(this.props.request === "NewUsers") {
