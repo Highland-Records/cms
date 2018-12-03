@@ -8,6 +8,8 @@ const PortalNavigation = {
 			this.location = 'users';
 		} else if (location === 'home') {
 			this.location = 'home';
+		} else if (location === 'albums') {
+			this.location = 'albums';
 		} else if(location === null) {
 			// IGNORE THIS
 		}

@@ -54,6 +54,18 @@ const PortalFunctions = {
 			}
 		)
 	},
+	GetAllAlbums(){
+		return fetch(
+			"http://highland.oliverrichman.uk/api/albums/",
+			{
+				method: "GET",
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
+	},
 	GetAllUsers(){
 		return fetch(
 			"http://highland.oliverrichman.uk/api/users/",
