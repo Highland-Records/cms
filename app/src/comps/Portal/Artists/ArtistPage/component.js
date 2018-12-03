@@ -95,48 +95,49 @@ class Artist extends React.Component {
 
 				//change API so that when an artist's data is edited it returns the artist back, as the new artist does
 
-				// if(response.id) {
-				// 	if (this.bannerImageFormData != null){
-				// 		this.bannerImageFormData.append("id",response.id);
-				// 		fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
-				// 			method: "POST",
-				// 			body: this.bannerImageFormData,
-				// 			headers: new Headers({
-				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-				// 			})
-				// 		})
-				// 			.then(response => response.json())
-				// 			.then(response => {
-				// 				console.log("API Status: ", response.code);
-				// 				console.log("API Message: ", response.message);
-				// 			});
-				// 	}
-				//
-				// 	if (this.profileImageFormData != null){
-				// 		this.profileImageFormData.append("id",response.id);
-				// 		fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
-				// 			method: "POST",
-				// 			body: this.profileImageFormData,
-				// 			headers: new Headers({
-				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-				// 			})
-				// 		})
-				// 			.then(response => response.json())
-				// 			.then(response => {
-				// 				console.log("API Status: ", response.code);
-				// 				console.log("API Message: ", response.message);
-				// 			});
-				// 	}
-				// 	this.setState({
-				// 		status: true,
-				// 		message: "Created this artist"
-				// 	});
-				// } else {
-				// 	this.setState({
-				// 		status: false,
-				// 		message: response.message
-				// 	});
-				// }
+				if(response.id) {
+					if (this.bannerImageFormData != null){
+						this.bannerImageFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
+							method: "POST",
+							body: this.bannerImageFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
+
+					if (this.profileImageFormData != null){
+						this.profileImageFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
+							method: "POST",
+							body: this.profileImageFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
+
+					this.setState({
+						status: true,
+						message: "Created this artist"
+					});
+				} else {
+					this.setState({
+						status: false,
+						message: response.message
+					});
+				}
 			});
 	};
 
