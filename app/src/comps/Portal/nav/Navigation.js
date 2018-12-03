@@ -24,6 +24,9 @@ const PortalNavigation = {
 						<Link to="/" className={this.location === 'home' ? 's' : ''}>Artists</Link>
 					</li>
 					<li>
+						<Link to="/albums" className={this.location === 'albums' ? 's' : ''}>Albums</Link>
+					</li>
+					<li>
 						<Link to="/users" className={this.location === 'users' ? 's' : ''}>Users</Link>
 					</li>
 					<li>
