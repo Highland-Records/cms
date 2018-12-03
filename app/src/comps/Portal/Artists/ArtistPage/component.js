@@ -223,7 +223,7 @@ class Artist extends React.Component {
 				this.setState({
 					artist: {...this.state.artist, "videoPreviewUrl": videoURL}
 				});
-				let videoSrcs = String(this.state.artistsData.video_links).split(',');
+				let videoSrcs = this.state.artistsData.video_links ? String(this.state.artistsData.video_links).split(',') : [];
 				this.setState({
 					artist: {...this.state.artist, "videoActualUrl": videoSrcs}
 				});
@@ -253,8 +253,9 @@ class Artist extends React.Component {
 				</p>
 			);
 		let showVideoList = null;
-		if (this.state.artist.videoActualUrl){
-			showVideoList = this.state.artist.videoActualUrl.map(videoSrc => {
+		console.log(artist.videoActualUrl);
+		if (artist.videoActualUrl.length){
+			showVideoList = artist.videoActualUrl.map(videoSrc => {
 				const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
 				return (
 					<li>
