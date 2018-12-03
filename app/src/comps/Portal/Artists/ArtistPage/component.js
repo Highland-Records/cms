@@ -16,6 +16,8 @@ class Artist extends React.Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
+			status: null,
+			message: "",
 			userData: {},
 			artistId: this.props.id,
 			artistsData: {},
@@ -187,6 +189,17 @@ class Artist extends React.Component {
 
 		let profileImagePreview = artist.profileImagePreviewUrl;
 
+		const Message = ({status,message}) =>
+			status ? (
+				<p className="wrong-back-text green">
+					{message}
+				</p>
+			) : (
+				<p className="wrong-back-text">
+					{message}
+				</p>
+			);
+
 		return(
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "home")}
@@ -251,6 +264,7 @@ class Artist extends React.Component {
 											type="submit"
 											value="Update this Artist"
 										/>
+										<Message status={this.state.status} message={this.state.message}></Message>
 									</form>
 								</div>
 							</li>
