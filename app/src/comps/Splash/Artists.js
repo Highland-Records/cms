@@ -17,10 +17,6 @@ class Artists extends React.Component {
 			"http://highland.oliverrichman.uk/api/artists/",
 			{
 				method: "GET",
-				headers: new Headers({
-					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken")
-				})
 			}
 		)
 		.then(res => {

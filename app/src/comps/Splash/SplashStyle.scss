@@ -328,6 +328,7 @@ Section.SplashStyle {
 						height: 200px;
 						border-radius: 200px;
 						background: #000;
+						object-fit: cover;
 					}
 				}
 			}
@@ -337,6 +338,7 @@ Section.SplashStyle {
 				div {
 					img {
 						border-radius: 0;
+						object-fit: cover;
 					}
 				}
 			}

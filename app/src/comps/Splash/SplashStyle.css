@@ -329,9 +329,11 @@ Section.SplashStyle div.list ul li div img {
   height: 200px;
   border-radius: 200px;
   background: #000;
+  object-fit: cover;
 }
 Section.SplashStyle div.list ul.album li div img {
   border-radius: 0;
+  object-fit: cover;
 }
 Section.SplashStyle div.list ul.about {
   list-style: none;
