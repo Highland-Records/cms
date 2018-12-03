@@ -79,10 +79,12 @@ Section.SignInStyle {
 
 Section.SplashStyle {
 	width: 100%;
+	min-width: 990px;
 	background-color: #eee;
 	nav {
 		position: fixed;
 		width: 100%;
+		min-width: 990px;
 		z-index: 101;
 		div {
 			width: 80%;
@@ -367,6 +369,28 @@ Section.SplashStyle {
 							width: 20px;
 							margin-right: 10px;
 						}
+					}
+				}
+			}
+		}
+		ul.about-list {
+			li {
+				width: 20%;
+				vertical-align: top;
+				div {
+					background: none;
+					vertical-align: top;
+					img {
+						width: 100px;
+						height: 100px;
+						border-radius: 100px;
+					}
+					h2 {
+						font-size: 24px;
+					}
+					span {
+						font-size: 16px;
+						color: #999;
 					}
 				}
 			}

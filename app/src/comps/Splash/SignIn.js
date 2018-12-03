@@ -111,8 +111,6 @@ class SignInPage extends React.Component {
 									/>
 									<br />
 									<Link to="/">&lt; Go Home</Link>
-									&nbsp;&nbsp;&bull;&nbsp;&nbsp;
-									<Link to="/">Reset Password</Link>
 								</form>
 							</div>
 						</div>

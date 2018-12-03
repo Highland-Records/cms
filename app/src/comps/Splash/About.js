@@ -61,6 +61,48 @@ class About extends React.Component {
 						</li>
 					</ul>
 				</div>
+				<div className="list">
+					<h1>
+						People behind Highland
+					</h1>
+					<ul className="about-list">
+						<li>
+							<div>
+								<img src="http://highland.oliverrichman.uk/api/images/people/1.jpg" />
+								<h2>Oliver Richman</h2>
+								<span>Developer &amp; Designer</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="http://highland.oliverrichman.uk/api/images/people/2.jpg" />
+								<h2>Tom Smedley</h2>
+								<span>Developer &amp; Designer</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="http://highland.oliverrichman.uk/api/images/people/3.jpg" />
+								<h2>Yudi Chen</h2>
+								<span>Video Producer</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="http://highland.oliverrichman.uk/api/images/people/4.jpg" />
+								<h2>Fletcher Alderson</h2>
+								<span>Developer &amp; Designer</span>
+							</div>
+						</li>
+						<li>
+							<div>
+								<img src="http://highland.oliverrichman.uk/api/images/people/5.jpg" />
+								<h2>Joe Robinson</h2>
+								<span>Media Producer</span>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<footer>
 					<div className="c">
 						<i>Highland</i>
