@@ -11,8 +11,10 @@ class Artist extends React.Component {
 		super(props);
 		this.bannerInputElement = React.createRef();
 		this.profileInputElement = React.createRef();
+		this.videoInputElement = React.createRef();
 		this.handleBannerClick = this.handleBannerClick.bind(this);
 		this.handleProfileClick = this.handleProfileClick.bind(this);
+		this.handleVideoClick = this.handleVideoClick.bind(this);
 		this.state = {
 			error: null,
 			isLoaded: false,
@@ -28,6 +30,8 @@ class Artist extends React.Component {
 				"bannerImagePreviewUrl": "",
 				"profileFile": "",
 				"profileImagePreviewUrl": "",
+				"videoFile": "",
+				"videoPreviewUrl": "",
 			}
 		}
 	}
@@ -41,6 +45,27 @@ class Artist extends React.Component {
 	handleProfileClick() {
 		this.profileInputElement.current.click();
 	}
+	handleVideoClick() {
+		this.videoInputElement.current.click();
+	}
+
+	// On change set the data states
+	handleVideoChange = e => {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		let file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				artist: {...this.state.artist, "videoFile": file, "videoPreviewUrl": reader.result}
+			});
+		};
+		reader.readAsDataURL(file);
+		const data = new FormData();
+		data.append("video", file, file.name);
+		this.videoFormData = data;
+	};
 
 	// On change set the data states
 	handleBannerChange = e => {
@@ -128,6 +153,22 @@ class Artist extends React.Component {
 							});
 					}
 
+					if (this.videoFormData != null){
+						this.videoFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/artist/video", {
+							method: "POST",
+							body: this.videoFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								console.log("API Status: ", response.code);
+								console.log("API Message: ", response.message);
+							});
+					}
+
 					this.setState({
 						status: true,
 						message: "Created this artist"
@@ -177,6 +218,10 @@ class Artist extends React.Component {
 				this.setState({
 					artist: {...this.state.artist, "profileImagePreviewUrl": profileImageURL}
 				});
+				let videoURL = PortalFunctions.CoreURLImages() + '/videos/' + this.state.artistsData.video_links;
+				this.setState({
+					artist: {...this.state.artist, "videoPreviewUrl": videoURL}
+				});
 			} else {
 				console.log("Page failed to load API data");
 			}
@@ -189,6 +234,8 @@ class Artist extends React.Component {
 
 		let profileImagePreview = artist.profileImagePreviewUrl;
 
+		let videoPreview = artist.videoPreviewUrl;
+
 		const Message = ({status,message}) =>
 			status ? (
 				<p className="wrong-back-text green">
@@ -199,6 +246,31 @@ class Artist extends React.Component {
 					{message}
 				</p>
 			);
+
+			// console.log(String(artistsData.video_links).split(','));
+
+			let showVideoList = null;
+			let videoSrcs = String(artistsData.video_links).split(',')
+
+			if (String(artistsData.video_links).length){
+				showVideoList = videoSrcs.map(videoSrc => {
+					// let artistVideos = artist.video_links
+					const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
+
+					return (
+						<video width="320" height="240" controls>
+							<source src={srcURL} type="video/mp4"/>
+							Your browser does not support the video tag.
+						</video>
+					)
+				});
+			}
+
+
+
+			// for (let videoSrc of videoSrcs){
+			// 	videoHtml += '<li>' + videoSrc + '</li>';
+			// }
 
 		return(
 			<section className="PortalStyle">
@@ -268,11 +340,33 @@ class Artist extends React.Component {
 									</form>
 								</div>
 							</li>
+							
+						</ul>
+						<ul>
+							{showVideoList}
 						</ul>
 					</div>
 			</section>
 		);
 	}
 }
+
+// <li>
+// <div className="video">
+// 	<form>
+// 		'<input
+// 			name="video"
+// 			className="fileInput"
+// 			type="file"
+// 			ref={this.videoInputElement}
+// 			onChange={e => this.handleVideoChange(e)}
+// 		/>'
+// 	</form>
+// 	<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
+// 		Add a new video
+// 	</div>
+// 	<img src={videoPreview} />
+// </div>
+// </li>
 
 export default Artist;
