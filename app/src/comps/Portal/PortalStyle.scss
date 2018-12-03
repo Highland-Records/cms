@@ -30,7 +30,7 @@ section.PortalStyle {
 					text-decoration: none;
 				}
 			}
-			li:nth-child(2), li:nth-child(3) {
+			li:nth-child(2), li:nth-child(3), li:nth-child(4) {
 				padding: 23px 20px;
 				text-transform: uppercase;
 				font-weight: bold;
@@ -48,11 +48,11 @@ section.PortalStyle {
 					border-bottom-color: #000;
 				}
 			}
-			li:nth-child(4), li:nth-child(5) {
+			li:nth-child(5), li:nth-child(6) {
 				text-align: right;
 				float: right;
 			}
-			li:nth-child(4) {
+			li:nth-child(5) {
 				img {
 					border-radius: 70px;
 					margin-top: 10px;
@@ -61,7 +61,7 @@ section.PortalStyle {
 					object-fit: cover;
 				}
 			}
-			li:nth-child(5) {
+			li:nth-child(6) {
 				padding-top: 15px;
 				margin-right: 20px;
 				font-size: 20px;
