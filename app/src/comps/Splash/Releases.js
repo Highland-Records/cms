@@ -17,10 +17,6 @@ class Releases extends React.Component {
 			"http://highland.oliverrichman.uk/api/videos/",
 			{
 				method: "GET",
-				headers: new Headers({
-					Authorization:
-						"Bearer " + localStorage.getItem("AuthToken")
-				})
 			}
 		)
 		.then(res => {
