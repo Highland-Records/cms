@@ -483,8 +483,6 @@
             $row = mysqli_fetch_assoc($getArtistResult);
             header("Content-Type: application/json");
             echo json_encode($row);
-        // print_r($postKeys);
-            // print_r($postValues);
         } else {
             header("HTTP/1.0 404 Not Found");
             response(404, "Artist not found", true);
