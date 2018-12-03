@@ -189,10 +189,10 @@ function uploadBanner($files, $post)
 
 function uploadVideo($files, $post)
 {
-    $files["fileToUpload"]["name"] = uniqid('');
+    $files["video"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "videos/";
-    //$target_file = $target_dir . basename($files["fileToUpload"]["name"]);
+    //$target_file = $target_dir . basename($files["video"]["name"]);
     $target_file = $target_dir . uniqid('') . ".mp4";
     $uploadOk = 1;
     $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -204,7 +204,7 @@ function uploadVideo($files, $post)
         $uploadOk = 0;
     }
     // Check file size
-    if ($files["fileToUpload"]["size"] > 5000000000) {
+    if ($files["video"]["size"] > 5000000000) {
         header("HTTP/1.0 400 Bad Request");
         response(400, "File too large", true);
         $uploadOk = 0;
@@ -217,21 +217,22 @@ function uploadVideo($files, $post)
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 1) {
-        if (move_uploaded_file($files["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "The file ". basename($files["fileToUpload"]["name"]). " has been uploaded.";
+        if (move_uploaded_file($files["video"]["tmp_name"], $target_file)) {
+            echo "The file ". basename($files["video"]["name"]). " has been uploaded.";
             $getVideoUrlQuery = "SELECT `video_links` FROM `artists` WHERE `id` = ".$post['id'];
             $getVideoUrlResult = mysqli_query($db, $getVideoUrlQuery);
             $videoLinks = mysqli_fetch_assoc($getVideoUrlResult)['video_links'];
-            $videoURL = $files["fileToUpload"]["name"];
+            // $profileURL = explode("/", $target_file)[1];
+            $videoURL = explode("/", $target_file)[1];
 
             if (empty($videoLinks)) {
-                $uploadVideoLinks = "'".$videoURL.".mp4'";
+                $uploadvideoLinks = "'".$videoURL."'";
             } else {
-                $uploadVideoLinks = "'".$videoLinks.",".$videoURL.".mp4'";
+                $uploadvideoLinks = "'".$videoLinks.",".$videoURL."'";
             }
 
-            $postVideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadVideoLinks." WHERE `id` = ".$post['id'];
-            $postVideoLinksResult = mysqli_query($db, $postVideoLinksQuery);
+            $postvideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadvideoLinks." WHERE `id` = ".$post['id'];
+            $postvideoLinksResult = mysqli_query($db, $postvideoLinksQuery);
         } else {
             header("HTTP/1.0 400 Bad Request");
             response(400, "File failed to upload", true);
