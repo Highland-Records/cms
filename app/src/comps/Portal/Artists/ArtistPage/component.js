@@ -9,17 +9,136 @@ import PortalNavigation from "../../nav/Navigation";
 class Artist extends React.Component {
 	constructor(props) {
 		super(props);
+		this.bannerInputElement = React.createRef();
+		this.profileInputElement = React.createRef();
+		this.handleBannerClick = this.handleBannerClick.bind(this);
+		this.handleProfileClick = this.handleProfileClick.bind(this);
 		this.state = {
 			error: null,
 			isLoaded: false,
 			userData: {},
 			artistId: this.props.id,
-			artistsData: {}
+			artistsData: {},
+			artist: {
+				name: "",
+				description: "",
+				"bannerFile": "",
+				"bannerImagePreviewUrl": "",
+				"profileFile": "",
+				"profileImagePreviewUrl": "",
+			}
 		}
 	}
 	handleChange = event => {
 		this.setState({artistsData: {...this.state.artistsData, [event.target.name]: event.target.value}})
 	}
+
+	handleBannerClick() {
+		this.bannerInputElement.current.click();
+	}
+	handleProfileClick() {
+		this.profileInputElement.current.click();
+	}
+
+	// On change set the data states
+	handleBannerChange = e => {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		let file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				artist: {...this.state.artist, "bannerFile": file, "bannerImagePreviewUrl": reader.result}
+			});
+		};
+
+		reader.readAsDataURL(file);
+		const data = new FormData();
+		data.append("banner_img", file, file.name);
+		this.bannerImageFormData = data;
+	};
+
+	// On change set the data states
+	handleProfileChange = e => {
+		e.preventDefault();
+
+		let reader = new FileReader();
+		let file = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				artist: {...this.state.artist, "profileFile": file, "profileImagePreviewUrl": reader.result}
+			});
+		};
+
+		reader.readAsDataURL(file);
+		const data = new FormData();
+		data.append("profile_img", file, file.name);
+		this.profileImageFormData = data;
+	};
+
+	handleSubmit = event => {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		// Post this to API
+		fetch("http://highland.oliverrichman.uk/api/artists/"+this.state.artistId+"/edit", {
+			method: "POST",
+			body: formData,
+			headers: new Headers({
+				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+			})
+		})
+			.then(response => response.json())
+			.then(response => {
+
+				//change API so that when an artist's data is edited it returns the artist back, as the new artist does
+
+				// if(response.id) {
+				// 	if (this.bannerImageFormData != null){
+				// 		this.bannerImageFormData.append("id",response.id);
+				// 		fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
+				// 			method: "POST",
+				// 			body: this.bannerImageFormData,
+				// 			headers: new Headers({
+				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				// 			})
+				// 		})
+				// 			.then(response => response.json())
+				// 			.then(response => {
+				// 				console.log("API Status: ", response.code);
+				// 				console.log("API Message: ", response.message);
+				// 			});
+				// 	}
+				//
+				// 	if (this.profileImageFormData != null){
+				// 		this.profileImageFormData.append("id",response.id);
+				// 		fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
+				// 			method: "POST",
+				// 			body: this.profileImageFormData,
+				// 			headers: new Headers({
+				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				// 			})
+				// 		})
+				// 			.then(response => response.json())
+				// 			.then(response => {
+				// 				console.log("API Status: ", response.code);
+				// 				console.log("API Message: ", response.message);
+				// 			});
+				// 	}
+				// 	this.setState({
+				// 		status: true,
+				// 		message: "Created this artist"
+				// 	});
+				// } else {
+				// 	this.setState({
+				// 		status: false,
+				// 		message: response.message
+				// 	});
+				// }
+			});
+	};
+
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		PortalFunctions.GetUserData()
@@ -54,7 +173,7 @@ class Artist extends React.Component {
 		});
 	}
 	render() {
-		const {userData, artistsData} = this.state;
+		const {userData, artistsData, artist} = this.state;
 		let bannerImagePreview = null;
 		let bannerCurrentPreview = artistsData.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artistsData.banner_img : PortalFunctions.CoreURLImages() + 'banners/' + 'default_banner.jpeg';
 		if (artistsData.bannerImagePreviewUrl) {

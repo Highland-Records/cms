@@ -169,6 +169,13 @@
                         header("HTTP/1.0 403 Forbidden");
                         response(403, "Invalid Request Method", true);
                     }
+                } elseif ($command === 'edit') {
+                    if ($rMethod === 'post') {
+                        editArtist($endpointId, $_POST);
+                    } else {
+                        header("HTTP/1.0 403 Forbidden");
+                        response(403, "Invalid Request Method", true);
+                    }
                 } elseif (empty($command)) {
                     if ($rMethod === 'get') {
                         getArtist($endpointId);
