@@ -77,11 +77,13 @@ Section.SignInStyle a:hover {
 
 Section.SplashStyle {
   width: 100%;
+  min-width: 990px;
   background-color: #eee;
 }
 Section.SplashStyle nav {
   position: fixed;
   width: 100%;
+  min-width: 990px;
   z-index: 101;
 }
 Section.SplashStyle nav div {
@@ -362,6 +364,26 @@ Section.SplashStyle div.list ul.about li ul li i, Section.SplashStyle div.list u
   height: 100%;
   width: 20px;
   margin-right: 10px;
+}
+Section.SplashStyle div.list ul.about-list li {
+  width: 20%;
+  vertical-align: top;
+}
+Section.SplashStyle div.list ul.about-list li div {
+  background: none;
+  vertical-align: top;
+}
+Section.SplashStyle div.list ul.about-list li div img {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+}
+Section.SplashStyle div.list ul.about-list li div h2 {
+  font-size: 24px;
+}
+Section.SplashStyle div.list ul.about-list li div span {
+  font-size: 16px;
+  color: #999;
 }
 Section.SplashStyle footer {
   margin-top: 40px;
