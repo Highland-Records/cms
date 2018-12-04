@@ -50,6 +50,9 @@
             if ($rMethod === 'post') {
                 if (authorised($bearerToken)) {
                     createAlbum();
+                } else {
+                    header("HTTP/1.0 401 Unauthorized");
+                    response(401, "You aren't authorised to do this", true);
                 }
             } elseif ($rMethod === 'get') {
                 getAllAlbums();
