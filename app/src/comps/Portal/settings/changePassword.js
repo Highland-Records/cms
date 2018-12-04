@@ -38,7 +38,7 @@ class ChangePassword extends React.Component {
 			userId &&
 			this.state.password.length > 7 &&
 			this.state.new_password.length > 7 &&
-			this.state.new_password == this.state.confirm_password
+			this.state.new_password === this.state.confirm_password
 		) {
 			fetch("http://highland.oliverrichman.uk/api/users/"+userId+"/changepassword", {
 				method: "POST",

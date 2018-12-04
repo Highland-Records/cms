@@ -10,7 +10,6 @@ class PortalHome extends React.Component {
 		super(props);
 		this.state = {
 			error: null,
-			isLoaded: false,
 			userData: {},
 			artistsData: []
 		};
@@ -58,9 +57,9 @@ class PortalHome extends React.Component {
 		)
 		.then(response => response.json())
 		.then(response => {
-			if (response.code == 200) {
+			if (response.code === 200) {
 				let artistToRemove = this.state.artistsData.find(
-					a => a.id == artistId
+					a => a.id === artistId
 				);
 				var array = [...this.state.artistsData]; // make a separate copy of the array
 				var index = array.indexOf(artistToRemove);
@@ -74,7 +73,7 @@ class PortalHome extends React.Component {
 
 	render() {
 
-		const {error, isLoaded, userData, artistsData} = this.state;
+		const {error, userData, artistsData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
@@ -88,11 +87,11 @@ class PortalHome extends React.Component {
 					<li>
 						<div>
 							<Link to={"/artist/"+artist.id}>
-								<img src={artistImage} />
+								<img src={artistImage} alt={artist.name} />
 								<h2>{artist.name}</h2>
 							</Link>
 							<p>
-								<a className="delete" onClick={() => this.deleteArtist(artist.id)}>remove</a>
+								<span className="delete" onClick={() => this.deleteArtist(artist.id)}>remove</span>
 							</p>
 						</div>
 					</li>

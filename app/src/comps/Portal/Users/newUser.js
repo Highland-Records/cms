@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
 // import ProfileImageUpload from "./profileUploadImage";
@@ -14,8 +13,6 @@ class NewUser extends React.Component {
 		this.inputElement = React.createRef();
 		this._handleClick = this._handleClick.bind(this);
 		this.state = {
-			error: null,
-			isLoaded: false,
 			status: null,
 			message: "",
 			userData: {},
@@ -139,7 +136,7 @@ class NewUser extends React.Component {
 			);
 	}
 	render() {
-		const {error, isLoaded, userData} = this.state;
+		const {userData} = this.state;
 
 		const Message = ({status,message}) =>
 			status ? (
@@ -181,7 +178,7 @@ class NewUser extends React.Component {
 							<div className="fileUploadOverlay" onClick={this._handleClick} >
 								Edit
 							</div>
-							<img src={imagePreview} />
+							<img src={imagePreview} alt="" />
 						</div>
 					</div>
 					<form

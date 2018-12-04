@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import TextareaAutosize from 'react-textarea-autosize';
 import './style.css';
 import PortalFunctions from "../../PortalFunctions";
@@ -240,7 +239,7 @@ class Artist extends React.Component {
 
 		let profileImagePreview = artist.profileImagePreviewUrl;
 
-		let videoPreview = artist.videoPreviewUrl;
+		//let videoPreview = artist.videoPreviewUrl;
 
 		const Message = ({status,message}) =>
 			status ? (
@@ -288,7 +287,7 @@ class Artist extends React.Component {
 									<div className="fileUploadOverlay" onClick={this.handleBannerClick} >
 										Edit
 									</div>
-									<img src={bannerImagePreview} />
+									<img src={bannerImagePreview} alt="" />
 								</div>
 							</li>
 							<li>
@@ -305,7 +304,7 @@ class Artist extends React.Component {
 									<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
 										Edit
 									</div>
-									<img src={profileImagePreview} />
+									<img src={profileImagePreview} alt="" />
 									<form
 										onSubmit={this.handleSubmit}
 										encType="multipart/form-data"

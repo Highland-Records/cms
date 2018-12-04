@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
 
 class About extends React.Component {
@@ -30,7 +29,7 @@ class About extends React.Component {
 					</h1>
 					<ul className="about">
 						<li>
-							<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2483.6651012515667!2d-0.191262!3d51.5010129!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760ff6f1f6178f%3A0x701a62d3dea882c1!2s9+Derry+St%2C+Kensington%2C+London+W8+5HY!5e0!3m2!1sen!2suk!4v1430156567286" frameborder="0"></iframe>
+							<iframe title="aboutMap" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2483.6651012515667!2d-0.191262!3d51.5010129!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760ff6f1f6178f%3A0x701a62d3dea882c1!2s9+Derry+St%2C+Kensington%2C+London+W8+5HY!5e0!3m2!1sen!2suk!4v1430156567286" frameborder="0"></iframe>
 						</li>
 						<li>
 							<ul>
@@ -68,35 +67,35 @@ class About extends React.Component {
 					<ul className="about-list">
 						<li>
 							<div>
-								<img src="http://highland.oliverrichman.uk/api/images/people/1.jpg" />
+								<img src="http://highland.oliverrichman.uk/api/images/people/1.jpg" alt="Oliver Richman" />
 								<h2>Oliver Richman</h2>
 								<span>Developer &amp; Designer</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<img src="http://highland.oliverrichman.uk/api/images/people/2.jpg" />
+								<img src="http://highland.oliverrichman.uk/api/images/people/2.jpg" alt="Tom Smedley" />
 								<h2>Tom Smedley</h2>
 								<span>Developer &amp; Designer</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<img src="http://highland.oliverrichman.uk/api/images/people/3.jpg" />
+								<img src="http://highland.oliverrichman.uk/api/images/people/3.jpg" alt="Yudi Chen" />
 								<h2>Yudi Chen</h2>
 								<span>Video Producer</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<img src="http://highland.oliverrichman.uk/api/images/people/4.jpg" />
+								<img src="http://highland.oliverrichman.uk/api/images/people/4.jpg" alt="Fletcher Alderson" />
 								<h2>Fletcher Alderson</h2>
 								<span>Developer &amp; Designer</span>
 							</div>
 						</li>
 						<li>
 							<div>
-								<img src="http://highland.oliverrichman.uk/api/images/people/5.jpg" />
+								<img src="http://highland.oliverrichman.uk/api/images/people/5.jpg" alt="Joe Robinson" />
 								<h2>Joe Robinson</h2>
 								<span>Media Producer</span>
 							</div>
