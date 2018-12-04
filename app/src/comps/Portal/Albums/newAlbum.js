@@ -9,6 +9,12 @@ import PortalNavigation from "../nav/Navigation";
 class NewAlbum extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			error: null,
+			isLoaded: false,
+			userData: {},
+			albumsData: []
+		};
 	}
 
 	componentDidMount() {
@@ -25,7 +31,7 @@ class NewAlbum extends React.Component {
 	}
 
 	render() {
-		const {error, isLoaded, userData, album} = this.state;
+		const {error, isLoaded, userData} = this.state;
 
 		return (
 			<section className="PortalStyle">
