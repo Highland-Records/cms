@@ -43,32 +43,32 @@ class Albums extends React.Component {
 	}
 
 	deleteAlbum(albumId) {
-		// fetch(
-		// 	"http://highland.oliverrichman.uk/api/artists/" +
-		// 		artistId +
-		// 		"/delete",
-		// 	{
-		// 		method: "POST",
-		// 		headers: new Headers({
-		// 			Authorization:
-		// 				"Bearer " + localStorage.getItem("AuthToken")
-		// 		})
-		// 	}
-		// )
-		// .then(response => response.json())
-		// .then(response => {
-		// 	if (response.code == 200) {
-		// 		let artistToRemove = this.state.artistsData.find(
-		// 			a => a.id == artistId
-		// 		);
-		// 		var array = [...this.state.artistsData]; // make a separate copy of the array
-		// 		var index = array.indexOf(artistToRemove);
-		// 		if (index !== -1) {
-		// 			array.splice(index, 1);
-		// 			this.setState({artistsData: array});
-		// 		}
-		// 	}
-		// });
+		fetch(
+			"http://highland.oliverrichman.uk/api/albums/" +
+				albumId +
+				"/delete",
+			{
+				method: "POST",
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
+		.then(response => response.json())
+		.then(response => {
+			if (response.code == 200) {
+				let albumToRemove = this.state.albumsData.find(
+					a => a.id == albumId
+				);
+				var array = [...this.state.albumsData]; // make a separate copy of the array
+				var index = array.indexOf(albumToRemove);
+				if (index !== -1) {
+					array.splice(index, 1);
+					this.setState({albumsData: array});
+				}
+			}
+		});
 	}
 
 	render() {
@@ -78,15 +78,14 @@ class Albums extends React.Component {
 		} else {
 
 			const albumsHtml = albumsData.map(album => {
-				let albumImage = album.profile_img
+				let albumImage = album.album_art
 					? PortalFunctions.CoreURLImages() + "albums/" + album.album_art
-					: PortalFunctions.CoreURLImages() +
-					  "album_art.jpeg";
+					: PortalFunctions.CoreURLImages() + "albums/default_album.jpg";
 				return (
 					<li>
 						<div>
-							<Link to={"/album/"+album.id}>
-								<img src={albumImage} />
+							<Link to={"/albums/"+album.id}>
+								<img src={albumImage} alt={album.title} />
 								<h2>{album.title}</h2>
 							</Link>
 							<p>
@@ -103,17 +102,12 @@ class Albums extends React.Component {
 						Albums
 						<Link to="/albums/new">Add a new Album</Link>
 					</header>
-					<ul className="albumsList">
-						{albumsHtml}
-					</ul>
+					<ul className="albumsList">{albumsHtml}</ul>
 				</section>
 			);
 		}
 	}
 }
 
-// <ul className="artistList">
-// 	{artistsHtml}
-// </ul>
 
 export default Albums;
