@@ -151,13 +151,13 @@ section.PortalStyle ul.artistList li div h2, section.PortalStyle ul.userList li 
 section.PortalStyle ul.artistList li div p, section.PortalStyle ul.userList li div p {
   color: #999;
 }
-section.PortalStyle ul.artistList li div p a.delete, section.PortalStyle ul.userList li div p a.delete {
+section.PortalStyle ul.artistList li div p span.delete, section.PortalStyle ul.userList li div p span.delete {
   color: #999;
   position: absolute;
   top: 20px;
   right: 20px;
 }
-section.PortalStyle ul.artistList li div p a.delete:hover, section.PortalStyle ul.userList li div p a.delete:hover {
+section.PortalStyle ul.artistList li div p span.delete:hover, section.PortalStyle ul.userList li div p span.delete:hover {
   color: #000;
   cursor: pointer;
 }
