@@ -164,6 +164,15 @@ section.PortalStyle {
 			}
 		}
 	}
+	ul.albumsList {
+		li {
+			div {
+				img {
+					border-radius: 0;
+				}
+			}
+		}
+	}
 	div.c {
 		margin: 0 auto;
 		width: 80%;

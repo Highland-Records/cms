@@ -161,6 +161,9 @@ section.PortalStyle ul.artistList li div p span.delete:hover, section.PortalStyl
   color: #000;
   cursor: pointer;
 }
+section.PortalStyle ul.albumsList li div img {
+  border-radius: 0;
+}
 section.PortalStyle div.c {
   margin: 0 auto;
   width: 80%;
