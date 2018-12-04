@@ -498,3 +498,45 @@
         header("Content-Type: application/json");
         echo json_encode($row);
     }
+
+    function createAlbum()
+    {
+        //create
+    }
+
+    function getAllAlbums()
+    {
+        $db = $GLOBALS['db'];
+        $getAlbumsQuery = "SELECT * FROM `albums` WHERE `deleted` = 0";
+        $getAlbumsResult = mysqli_query($db, $getAlbumsQuery);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getAlbumsResult)) {
+            array_push($data, $row);
+        }
+        header("Content-Type: application/json");
+        echo json_encode($data);
+    }
+
+
+    function getAlbum($albumId)
+    {
+        $db = $GLOBALS['db'];
+        $getAlbumsQuery = "SELECT * FROM `albums` WHERE `deleted` = 0  AND `id` = ".$albumId;
+        $getAlbumsResult = mysqli_query($db, $getAlbumsQuery);
+        $row = mysqli_fetch_assoc($getAlbumsResult);
+        header("Content-Type: application/json");
+        echo json_encode($row);
+    }
+
+    function editAlbum($albumId, $postData)
+    {
+        $db = $GLOBALS['db'];
+        $currentAlbum = $GLOBALS['currentAlbum'];
+        $checkAlbumQuery = "SELECT `account_type` FROM `albums` WHERE `id` = ".$currentAlbum;
+        $checkAlbumResult = mysqli_query($db, $checkAlbumQuery);
+        $exists = mysqli_num_rows($checkAlbumResult);
+        $accountType = mysqli_fetch_assoc($checkAlbumResult)['account_type'];
+        if (!empty($exists)) {
+            //edit album
+        }
+    }

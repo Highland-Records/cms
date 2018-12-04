@@ -49,10 +49,10 @@
         if (empty($endpointId)) {
             if ($rMethod === 'post') {
                 if (authorised($bearerToken)) {
-                    // Create Album
+                    createAlbum();
                 }
             } elseif ($rMethod === 'get') {
-                // Get All Albums
+                getAllAlbums();
             } else {
                 header("HTTP/1.0 403 Forbidden");
                 response(403, "Invalid Request Method", true);
@@ -69,11 +69,11 @@
                 }
             } elseif (empty($command)) {
                 if ($rMethod === 'get') {
-                    // Get Album
+                    getAlbum($endpointId);
                 } elseif ($rMethod === 'post') {
                     if (authorised($bearerToken)) {
                         if (!empty($_POST)) {
-                            // Edit Album
+                            editAlbum($endpointId, $_POST);
                         }
                     } else {
                         header("HTTP/1.0 400 Bad Request");
