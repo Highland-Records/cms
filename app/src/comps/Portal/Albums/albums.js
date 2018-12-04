@@ -84,7 +84,7 @@ class Albums extends React.Component {
 				return (
 					<li>
 						<div>
-							<Link to={"/albums/"+album.id}>
+							<Link to={"/album/"+album.id}>
 								<img src={albumImage} alt={album.title} />
 								<h2>{album.title}</h2>
 							</Link>

@@ -145,7 +145,7 @@ Section.SplashStyle {
 			}
 		}
 	}
-	div.banner {
+	div.banner, div.artist {
 		height: 500px;
 		background-position: center center;
 		background-size: cover;
@@ -154,6 +154,22 @@ Section.SplashStyle {
 		font-size: 90px;
 		letter-spacing: -4px;
 		line-height: 500px;
+	}
+	div.artist {
+		p {
+			width: 80%;
+			margin: 0 auto;
+			text-align: left;
+			margin-top: -500px;
+			font-weight: bold;
+			line-height: 800px;
+		}
+		img {
+			width: 100%;
+			height: 500px;
+			margin-top: -20px;
+			object-fit: cover;
+		}
 	}
 	div.banner.home {
 		background-image: url("../../assets/images/home.jpeg");
@@ -172,6 +188,9 @@ Section.SplashStyle {
 	}
 	div.banner.other.artist {
 		background-image: url("../../assets/images/artist.jpeg");
+		p {
+			line-height: 390px;
+		}
 	}
 	div.banner.other.releases {
 		background-position: top;
