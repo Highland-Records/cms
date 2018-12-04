@@ -8,6 +8,7 @@ import ArtistPage from './SubLevel/Artist';
 import Videos from './Videos';
 import About from './About';
 import Releases from './Releases';
+import AlbumPage from './SubLevel/Album';
 
 class SplashController extends React.Component {
 	render() {
@@ -26,6 +27,8 @@ class SplashController extends React.Component {
 			return <About token={this.props.token} />;
 		} else if(this.props.request === "Releases") {
 			return <Releases token={this.props.token} />;
+		} else if(this.props.request === "AlbumPage" && match.params.id) {
+			return <AlbumPage token={this.props.token} id={match.params.id} />;
 		} else if(this.props.request === "ChangeState") {
 			return <Redirect push to="/" />
 		}
