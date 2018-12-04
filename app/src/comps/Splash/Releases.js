@@ -14,9 +14,9 @@ class Releases extends React.Component {
 		window.scrollTo(0, 0);
 		// Get all releases
 		fetch(
-			"http://highland.oliverrichman.uk/api/videos/",
+			"http://highland.oliverrichman.uk/api/albums/",
 			{
-				method: "GET",
+				method: "GET"
 			}
 		)
 		.then(res => {
@@ -24,7 +24,7 @@ class Releases extends React.Component {
 				else return res.json();
 			})
 		.then(
-			r => {this.setState({isLoaded: true,artistsData: r})},
+			r => {this.setState({isLoaded: true,apiData: r})},
 			e => {this.setState({isLoaded: true,e})}
 		);
 	}
@@ -33,17 +33,14 @@ class Releases extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const apiRender = apiData.slice(0,4).map(artist => {
-				let artistImage = artist.profile_img
-					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
-					: "http://highland.oliverrichman.uk/api/images/" +
-					  "default_profile.jpeg";
+			const apiRender = apiData.map(album => {
+				let albumImage = "http://highland.oliverrichman.uk/api/images/albums/" + album.album_art;
 				return (
 					<li>
 						<div>
-							<Link to={"/artist/"+artist.id}>
-								<img src={artistImage} alt="" />
-								<h2>{artist.name}</h2>
+							<Link to={"/albums/"+album.id}>
+								<img src={albumImage} alt="" />
+								<h2>{album.title}</h2>
 							</Link>
 						</div>
 					</li>

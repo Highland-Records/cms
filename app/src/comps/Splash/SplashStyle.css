@@ -177,6 +177,7 @@ Section.SplashStyle div.banner.other {
 }
 Section.SplashStyle div.banner.other p {
   width: 80%;
+  height: 320px;
   margin: 0 auto;
   text-align: left;
   font-size: 60px;
@@ -187,6 +188,7 @@ Section.SplashStyle div.banner.other.artist {
   background-image: url("../../assets/images/artist.jpeg");
 }
 Section.SplashStyle div.banner.other.artist p {
+  height: 320px;
   line-height: 390px;
 }
 Section.SplashStyle div.banner.other.releases {

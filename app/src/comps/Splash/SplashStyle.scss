@@ -179,6 +179,7 @@ Section.SplashStyle {
 		line-height: 390px;
 		p {
 			width: 80%;
+			height: 320px;
 			margin: 0 auto;
 			text-align: left;
 			font-size: 60px;
@@ -189,6 +190,7 @@ Section.SplashStyle {
 	div.banner.other.artist {
 		background-image: url("../../assets/images/artist.jpeg");
 		p {
+			height: 320px;
 			line-height: 390px;
 		}
 	}
