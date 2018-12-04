@@ -7,6 +7,12 @@ import PortalNavigation from "../../nav/Navigation";
 class Album extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			error: null,
+			isLoaded: false,
+			userData: {},
+			albumsData: []
+		};
 	}
 
 
@@ -28,7 +34,7 @@ class Album extends React.Component {
 
 		return(
 			<section className="PortalStyle">
-				{PortalNavigation.DrawNavigation(userData, "home")}
+				{PortalNavigation.DrawNavigation(userData, "albums")}
 				<header>Album Overview</header>
 					<div className="c">
 						<ul className="newAlbum">
