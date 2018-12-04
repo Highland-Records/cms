@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import TextareaAutosize from 'react-textarea-autosize';
 import './newArtistStyle.css';
 import PortalFunctions from "../PortalFunctions";
@@ -14,8 +13,6 @@ class NewArtist extends React.Component {
 		this.handleBannerClick = this.handleBannerClick.bind(this);
 		this.handleProfileClick = this.handleProfileClick.bind(this);
 		this.state = {
-			error: null,
-			isLoaded: false,
 			status: null,
 			message: "",
 			userData: {},
@@ -154,7 +151,7 @@ class NewArtist extends React.Component {
 	};
 
 	render() {
-		const {error, isLoaded, userData, artist} = this.state;
+		const {userData, artist} = this.state;
 
 		const Message = ({status,message}) =>
 			status ? (
@@ -168,7 +165,7 @@ class NewArtist extends React.Component {
 			);
 
 		let bannerImagePreview = null;
-		let bannerCurrentPreview = artist.banner_img? PortalFunctions.CoreURLImages() + '/banners/' + artist.banner_img : PortalFunctions.CoreURLImages() + '/banners/' + 'default_banner.jpeg';
+		let bannerCurrentPreview = artist.banner_img ? `${PortalFunctions.CoreURLImages()}/banners/${artist.banner_img}` : `${PortalFunctions.CoreURLImages()}/banners/default_banner.jpeg`;
 		if (artist.bannerImagePreviewUrl) {
 			bannerImagePreview = artist.bannerImagePreviewUrl
 		} else {
@@ -176,7 +173,7 @@ class NewArtist extends React.Component {
 		}
 
 		let profileImagePreview = null;
-		let profileCurrentPreview = artist.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artist.profile_img : PortalFunctions.CoreURLImages() + '/artists/' + 'default_artist_profile.jpeg';
+		let profileCurrentPreview = artist.profile_img? PortalFunctions.CoreURLImages() + '/artists/' + artist.profile_img : PortalFunctions.CoreURLImages() + '/artists/default_artist_profile.jpeg';
 		if (artist.profileImagePreviewUrl) {
 			profileImagePreview = artist.profileImagePreviewUrl
 		} else {
@@ -203,7 +200,7 @@ class NewArtist extends React.Component {
 								<div className="fileUploadOverlay" onClick={this.handleBannerClick} >
 									Edit
 								</div>
-								<img src={bannerImagePreview} />
+								<img src={bannerImagePreview} alt="" />
 							</div>
 						</li>
 						<li>
@@ -220,7 +217,7 @@ class NewArtist extends React.Component {
 								<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
 									Edit
 								</div>
-								<img src={profileImagePreview} />
+								<img src={profileImagePreview} alt="" />
 								<form
 									onSubmit={this.handleSubmit}
 									encType="multipart/form-data"

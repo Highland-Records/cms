@@ -13,9 +13,6 @@ import NewUsers from './Users/newUser';
 import Settings from './settings/settings';
 
 class PortalController extends React.Component {
-	constructor(props) {
-    	super(props);
-  	}
 	//Check Auth Token against Database
 	render() {
 		// Get the user ID

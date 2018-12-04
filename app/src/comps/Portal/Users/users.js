@@ -8,9 +8,8 @@ class Users extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			status: false,
+			status: null,
 			error: null,
-			isLoaded: false,
 			userData: {},
 			usersData: []
 		};
@@ -54,10 +53,10 @@ class Users extends React.Component {
 	deleteUser(userId) {
 		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
 
-		if(userId == 1 || userId == 2) {
-			if(userId == 1) {
+		if(userId === 1 || userId === 2) {
+			if(userId === 1) {
 				alert("This ain't it chief");
-			} else if(userId == 2) {
+			} else if(userId === 2) {
 				alert("Ha, nice try");
 			}
 		} else {
@@ -77,9 +76,9 @@ class Users extends React.Component {
 				)
 					.then(response => response.json())
 					.then(response => {
-						if (response.code == 200) {
+						if (response.code === 200) {
 							let userToRemove = this.state.usersData.find(
-								u => u.id == userId
+								u => u.id === userId
 							);
 
 							var array = [...this.state.usersData]; // make a separate copy of the array
@@ -97,7 +96,7 @@ class Users extends React.Component {
 	}
 
 	render() {
-		const {error, isLoaded, userData, usersData} = this.state;
+		const {error, userData, usersData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
@@ -112,11 +111,11 @@ class Users extends React.Component {
 					this.state.status = false;
 				}
 				const ThisIsMe = ({status}) =>
-					status ? <span> - (this is you)</span> : <a className="delete" onClick={() => this.deleteUser(user.id)}>remove</a>;
+					status ? <span> - (this is you)</span> : <span className="delete" onClick={() => this.deleteUser(user.id)}>remove</span>;
 				return (
 					<li>
 						<div>
-							<img src={userImage} />
+							<img src={userImage} alt="" />
 							<h2>{user.first_name} {user.last_name}</h2>
 							<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
 						</div>

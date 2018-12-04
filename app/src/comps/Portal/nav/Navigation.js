@@ -32,6 +32,7 @@ const PortalNavigation = {
 					<li>
 						<img
 							src={profileUrl}
+							alt="This is you"
 						/>
 					</li>
 					<li>

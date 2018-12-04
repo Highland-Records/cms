@@ -42,7 +42,7 @@ class Artists extends React.Component {
 					<li>
 						<div>
 							<Link to={"/artist/"+artist.id}>
-								<img src={artistImage} />
+								<img src={artistImage} alt={artist.name} />
 								<h2>{artist.name}</h2>
 							</Link>
 						</div>

@@ -68,7 +68,7 @@ class ImageUpload extends React.Component {
 	}
 
 	render() {
-		const {error, isLoaded, userData} = this.state;
+		const {userData} = this.state;
 		let {imagePreviewUrl} = this.state;
 		let imagePreview = null;
 		let currentPreview = userData.profile_img ? PortalFunctions.CoreURLImages() + userData.profile_img :  PortalFunctions.CoreURLImages() + "default_profile.jpeg";
@@ -92,7 +92,7 @@ class ImageUpload extends React.Component {
 				<div className="fileUploadOverlay" onClick={this._handleClick} >
 					Edit
 				</div>
-				<img src={imagePreview} />
+				<img src={imagePreview} alt="" />
 			</div>
 		);
 	}
