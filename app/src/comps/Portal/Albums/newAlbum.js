@@ -77,11 +77,14 @@ class NewAlbum extends React.Component {
 		this.albumInputElement.current.click();
 	}
 
-	removeSong = songNum => {
-		var array = [...this.state.album.tracklist];
-		// console.log(array[songNum]);
-		array.splice(songNum, 1);
-		this.setState({album:{tracklist:array}});
+	removeSong = (songNum, event) => {
+		// console.log(songNum);
+		let albumC = JSON.parse(JSON.stringify(this.state.album));
+
+		albumC.tracklist.splice(songNum,1);
+		this.setState({
+      		album: albumC
+ 		});
 	}
 
 	componentDidMount() {
@@ -107,7 +110,7 @@ class NewAlbum extends React.Component {
 	}
 
 	render() {
-		const {userData, artists, album, songs} = this.state;
+		const {userData, artists, album} = this.state;
 
 		const Message = ({status,message}) =>
 			status ? (
@@ -134,11 +137,11 @@ class NewAlbum extends React.Component {
 			);
 		});
 ;
-		console.log(this.state);
+		// console.log(this.state.album.tracklist);
 
-		const songInputs = album.tracklist.map(i => {
-			let songNum = album.tracklist.indexOf(i);
-			let className = `song-input-${songNum}`;
+		const songInputs = album.tracklist.map((val,i) => {
+			// let songNum = album.tracklist.indexOf(i);
+			let className = `song-input-${i}`;
 			return (
 				<li>
 					<input
@@ -146,10 +149,10 @@ class NewAlbum extends React.Component {
 						name="name"
 						type="text"
 						placeholder="Song title"
-
-						onChange={e => this.handleSongChange(songNum,e)}
+						value={val}
+						onChange={e => this.handleSongChange(i, e)}
 					/>
-					<span onClick={() => this.removeSong(songNum)}>D</span>
+					<span onClick={e => this.removeSong(i, e)}>D</span>
 				</li>
 			);
 		});
