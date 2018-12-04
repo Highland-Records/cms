@@ -1,6 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import TextareaAutosize from 'react-textarea-autosize';
 import './style.css';
 import PortalFunctions from "../../PortalFunctions";
 import PortalNavigation from "../../nav/Navigation";

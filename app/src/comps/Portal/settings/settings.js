@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
 import ImageUpload from "./uploadImage";
@@ -10,7 +9,6 @@ class Settings extends React.Component {
 		super(props);
 		this.state = {
 			error: null,
-			isLoaded: false,
 			userData: {},
 			formData: {
 				password: "",
@@ -36,10 +34,7 @@ class Settings extends React.Component {
 	}
 
 	render() {
-		const profileUploadPreview = {
-			//backgroundImage: "url(" + {this.state.imageURL} + ")"
-		};
-		const {error, isLoaded, userData} = this.state;
+		const {error, userData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {

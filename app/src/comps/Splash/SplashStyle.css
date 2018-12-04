@@ -311,6 +311,7 @@ Section.SplashStyle div.list ul li {
   box-sizing: border-box;
   width: 25%;
   display: inline-block;
+  vertical-align: top;
 }
 Section.SplashStyle div.list ul li div {
   border-radius: 10px;

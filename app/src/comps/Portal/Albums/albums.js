@@ -72,7 +72,7 @@ class Albums extends React.Component {
 	}
 
 	render() {
-		const {error, isLoaded, userData, albumsData} = this.state;
+		const {error, userData, albumsData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
@@ -89,7 +89,7 @@ class Albums extends React.Component {
 								<h2>{album.title}</h2>
 							</Link>
 							<p>
-								<a className="delete" onClick={() => this.deleteAlbum(album.id)}>remove</a>
+								<span className="delete" onClick={() => this.deleteAlbum(album.id)}>remove</span>
 							</p>
 						</div>
 					</li>
