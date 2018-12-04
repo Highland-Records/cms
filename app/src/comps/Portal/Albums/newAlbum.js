@@ -12,10 +12,9 @@ class NewAlbum extends React.Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
-			status: null,
-			message: "",
 			userData: {},
-		}
+			albumsData: []
+		};
 	}
 
 	componentDidMount() {
@@ -32,7 +31,7 @@ class NewAlbum extends React.Component {
 	}
 
 	render() {
-		const {error, isLoaded, userData, album} = this.state;
+		const {error, isLoaded, userData} = this.state;
 
 		return (
 			<section className="PortalStyle">
