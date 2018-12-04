@@ -71,9 +71,15 @@
         }
     }
 
+    function sanitise($string)
+    {
+        return strtolower(strip_tags($string));
+    }
+
     function login($username, $password)
     {
         if (!empty($username) || !empty($password)) {
+            $username = sanitise($username);
             $db = $GLOBALS['db'];
             $userQuery = "SELECT `id`,`token`,`salt` FROM `users` WHERE `deleted` = 0 AND `username` = '".$username."'";
             $userResult = mysqli_query($db, $userQuery);
