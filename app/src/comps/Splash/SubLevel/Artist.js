@@ -36,15 +36,25 @@ class ArtistPage extends React.Component {
 			return <div>Error: {error.message}</div>;
 		} else {
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + apiData.banner_img;
+			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + apiData.profile_img;
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
 					<div class="artist">
 						<img src={artistBanner} alt={apiData.name} />
 						<p>
+							<img src={artistProfile} alt={apiData.name} />
 							{apiData.name}
 						</p>
 					</div>
+					<ul className="home">
+						<li>
+							About {apiData.name}
+						</li>
+						<li>
+							{apiData.description}
+						</li>
+					</ul>
 					<div className="list">
 						Latest Releases
 						<ul>
@@ -57,14 +67,6 @@ class ArtistPage extends React.Component {
 
 						</ul>
 					</div>
-					<ul className="home">
-						<li>
-							About {apiData.name}
-						</li>
-						<li>
-							{apiData.description}
-						</li>
-					</ul>
 					<footer>
 						<div className="c">
 							<i>Highland</i>
