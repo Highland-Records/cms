@@ -172,6 +172,7 @@ class NewUser extends React.Component {
 									className="fileInput"
 									type="file"
 									ref={this.inputElement}
+									accept="image/*"
 									onChange={e => this._handleImageChange(e)}
 								/>
 							</form>
