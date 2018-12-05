@@ -193,6 +193,7 @@ class NewArtist extends React.Component {
 										name="banner_img"
 										className="fileInput"
 										type="file"
+										accept="image/*"
 										ref={this.bannerInputElement}
 										onChange={e => this.handleBannerChange(e)}
 									/>
@@ -210,6 +211,7 @@ class NewArtist extends React.Component {
 										name="profile_img"
 										className="fileInput"
 										type="file"
+										accept="image/*"
 										ref={this.profileInputElement}
 										onChange={e => this.handleProfileChange(e)}
 									/>

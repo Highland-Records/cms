@@ -170,6 +170,7 @@ class NewAlbum extends React.Component {
 											name="album_art"
 											className="fileInput"
 											type="file"
+											accept="image/*"
 											ref={this.albumInputElement}
 											onChange={e => this.handleAlbumChange(e)}
 										/>

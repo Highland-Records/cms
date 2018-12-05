@@ -280,6 +280,7 @@ class Artist extends React.Component {
 											name="banner_img"
 											className="fileInput"
 											type="file"
+											accept="image/*"
 											ref={this.bannerInputElement}
 											onChange={e => this.handleBannerChange(e)}
 										/>
@@ -297,6 +298,7 @@ class Artist extends React.Component {
 											name="profile_img"
 											className="fileInput"
 											type="file"
+											accept="image/*"
 											ref={this.profileInputElement}
 											onChange={e => this.handleProfileChange(e)}
 										/>
@@ -336,24 +338,25 @@ class Artist extends React.Component {
 								</div>
 							</li>
 						</ul>
-						<ul>
+						<ul className="videoList">
+							<h2>Videos</h2>
 							{showVideoList}
 							<li>
-							<div className="video">
-								<form>
-									<input
-										name="video"
-										className="fileInput"
-										type="file"
-										ref={this.videoInputElement}
-										onChange={e => this.handleVideoChange(e)}
-									/>
-								</form>
-								<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
-									Add a new video
+								<div className="video">
+									<form>
+										<input
+											name="video"
+											className="fileInput"
+											type="file"
+											accept="video/*"
+											ref={this.videoInputElement}
+											onChange={e => this.handleVideoChange(e)}
+										/>
+									</form>
+									<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
+										+
+									</div>
 								</div>
-
-							</div>
 							</li>
 						</ul>
 					</div>
@@ -361,23 +364,5 @@ class Artist extends React.Component {
 		);
 	}
 }
-
-// <li>
-// <div className="video">
-// 	<form>
-// 		'<input
-// 			name="video"
-// 			className="fileInput"
-// 			type="file"
-// 			ref={this.videoInputElement}
-// 			onChange={e => this.handleVideoChange(e)}
-// 		/>'
-// 	</form>
-// 	<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
-// 		Add a new video
-// 	</div>
-// 	<img src={videoPreview} />
-// </div>
-// </li>
 
 export default Artist;
