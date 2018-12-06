@@ -48,13 +48,13 @@ class ArtistPage extends React.Component {
 			r => {this.setState({isLoaded: true,artistData: r})},
 			e => {this.setState({isLoaded: true,e})}
 		);
-		console.log(this.state.artistData);
 	}
 	render() {
 		const {error, apiData, artistData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
+			{this.GetArtist(this.state.apiData.artist)}
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + artistData.banner_img;
 			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artistData.profile_img;
 			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
@@ -70,6 +70,7 @@ class ArtistPage extends React.Component {
 							{artistData.name}
 						</p>
 					</div>
+					<Link to="/artists/">Back to Artist Page</Link>
 					<ul className="home">
 						<li>
 							<img src={albumArt} alt={apiData.title} />
