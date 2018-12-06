@@ -8,12 +8,13 @@ class ArtistPage extends React.Component {
 		this.state = {
 			error: null,
 			apiData: [],
+			artistData: [],
 			albumId: this.props.id
 		};
 	}
 	componentDidMount() {
 		window.scrollTo(0, 0);
-		// Get all artists
+		// Get the album
 		fetch(
 			"http://highland.oliverrichman.uk/api/albums/" +
 			this.state.albumId,
@@ -30,24 +31,48 @@ class ArtistPage extends React.Component {
 			e => {this.setState({isLoaded: true,e})}
 		);
 	}
+	// Get the artist
+	GetArtist(id){
+		fetch(
+			"http://highland.oliverrichman.uk/api/artists/" +
+			id,
+			{
+				method: "GET",
+			}
+		)
+		.then(res => {
+			if (!res.ok) throw new Error(res.status);
+				else return res.json();
+			})
+		.then(
+			r => {this.setState({isLoaded: true,artistData: r})},
+			e => {this.setState({isLoaded: true,e})}
+		);
+		console.log(this.state.artistData);
+	}
 	render() {
-		const {error, apiData} = this.state;
+		const {error, apiData, artistData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + apiData.banner_img;
+			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + artistData.banner_img;
+			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artistData.profile_img;
+			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
+
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
+					{GetArtist(this.state.apiData.artist)}
 					<div class="artist">
-						<img src={artistBanner} alt={apiData.name} />
+						<img src={artistBanner} alt={artistData.name} />
 						<p>
-							{apiData.name}
+							<img src={artistProfile} alt={apiData.name} />
+							{artistData.name}
 						</p>
 					</div>
 					<ul className="home">
 						<li>
-							<img src={apiData.album_art} alt={apiData.title} />
+							<img src={albumArt} alt={apiData.title} />
 							{apiData.title}
 						</li>
 						<li>

@@ -171,7 +171,7 @@ class Artist extends React.Component {
 
 					this.setState({
 						status: true,
-						message: "Created this artist"
+						message: "Updated this artist"
 					});
 				} else {
 					this.setState({
@@ -230,7 +230,6 @@ class Artist extends React.Component {
 				console.log("Page failed to load API data");
 			}
 		});
-
 	}
 	render() {
 		const {userData, artistsData, artist} = this.state;
@@ -348,7 +347,6 @@ class Artist extends React.Component {
 											name="video"
 											className="fileInput"
 											type="file"
-											accept="video/*"
 											ref={this.videoInputElement}
 											onChange={e => this.handleVideoChange(e)}
 										/>
