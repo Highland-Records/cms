@@ -57,9 +57,9 @@ class Albums extends React.Component {
 		)
 		.then(response => response.json())
 		.then(response => {
-			if (response.code == 200) {
+			if (response.code === 200) {
 				let albumToRemove = this.state.albumsData.find(
-					a => a.id == albumId
+					a => a.id === albumId
 				);
 				var array = [...this.state.albumsData]; // make a separate copy of the array
 				var index = array.indexOf(albumToRemove);

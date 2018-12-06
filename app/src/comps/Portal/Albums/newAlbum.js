@@ -9,6 +9,7 @@ class NewAlbum extends React.Component {
 	constructor(props) {
 		super(props);
 		this.albumInputElement = React.createRef();
+		this.addNewRow = React.createRef();
 		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		// this.removeSong = this.removeSong.bind(this);
 		this.state = {
@@ -77,6 +78,13 @@ class NewAlbum extends React.Component {
 		this.albumInputElement.current.click();
 	}
 
+	handleKeyDown = e => {
+	    if (e.key === "Tab") {
+	    	e.preventDefault();
+			this.addNewRow.current.click();
+	    }
+  	}
+
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
 		let albumC = JSON.parse(JSON.stringify(this.state.album));
@@ -124,12 +132,12 @@ class NewAlbum extends React.Component {
 			);
 
 		let albumArtPreview = null;
-		// let albumCurrentPreview = album.album_art? PortalFunctions.CoreURLImages() + '/albums/' + album.album_art : PortalFunctions.CoreURLImages() + '/albums/default_album.jpg';
-		// if (album.albumArtPreviewUrl) {
-		// 	albumArtPreview = album.albumArtPreviewUrl
-		// } else {
-		// 	albumArtPreview = albumCurrentPreview
-		// }
+		let albumCurrentPreview = album.album_art? PortalFunctions.CoreURLImages() + '/albums/' + album.album_art : PortalFunctions.CoreURLImages() + '/albums/default_album.jpg';
+		if (album.albumArtPreviewUrl) {
+		 	albumArtPreview = album.albumArtPreviewUrl
+		} else {
+		 	albumArtPreview = albumCurrentPreview
+		}
 
 		const artistsDropdown = artists.map(artist => {
 			return (
@@ -151,8 +159,9 @@ class NewAlbum extends React.Component {
 						placeholder="Song title"
 						value={val}
 						onChange={e => this.handleSongChange(i, e)}
+						onKeyDown={this.handleKeyDown}
 					/>
-					<span onClick={e => this.removeSong(i, e)}>D</span>
+					<span onClick={e => this.removeSong(i, e)}>remove</span>
 				</li>
 			);
 		});
@@ -180,45 +189,43 @@ class NewAlbum extends React.Component {
 									</div>
 									<img src={albumArtPreview} alt="" />
 								</div>
-							</li>
-							<li>
-									<form
-										onSubmit={this.handleSubmit}
-										encType="multipart/form-data"
-										className="visableForm"
-									>
-										<input
-											className="albumTitle-input"
-											name="title"
-											type="text"
-											placeholder="Title"
-
-											autoFocus={true}
-											onChange={this.handleChange}
-										/>
-										<select>
-											{artistsDropdown}
-										</select>
-										<input
-											className="albumYear-input"
-										 	name="description"
-											type="text"
-										 	placeholder="Year"
-											value={this.state.album.year}
-										 	onChange={this.handleChange}
-										 />
-										 <ul>
-										 {songInputs}
-										 <li onClick={this.addSong}>Add a song</li>
-										 </ul>
-										<br />
-										<input
-											className="button"
-											type="submit"
-											value="Add this Album"
-										/>
-										<Message status={this.state.status} message={this.state.message}></Message>
-									</form>
+							</li><li>
+								<form
+									onSubmit={this.handleSubmit}
+									encType="multipart/form-data"
+									className="visableForm"
+								>
+									<input
+										className="albumTitle"
+										name="title"
+										type="text"
+										placeholder="Album Title"
+										autoFocus={true}
+										onChange={this.handleChange}
+									/>
+									<select>
+										<option value="0" disabled selected>Pick a Artist</option>
+										{artistsDropdown}
+									</select>
+									<input
+										className="albumYear"
+										name="year"
+										type="text"
+										placeholder="Release Year"
+										value={this.state.album.year}
+										onChange={this.handleChange}
+									/>
+									<ul>
+										{songInputs}
+										<li onClick={this.addSong} ref={this.addNewRow}>Add a song</li>
+									</ul>
+									<input
+										className="button"
+										type="submit"
+										value="Add this Album"
+									/>
+									<Message status={this.state.status} message={this.state.message}></Message>
+								</form>
 							</li>
 						</ul>
 					</div>
