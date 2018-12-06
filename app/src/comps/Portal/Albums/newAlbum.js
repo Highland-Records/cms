@@ -127,51 +127,33 @@ class NewAlbum extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log(response);
-				// if (response.id) {
-				// 	console.log("done");
-				// 	// DO ALBUM ART UPLOAD
-				// 	// if (this.bannerImageFormData != null){
-				// 	// 	this.bannerImageFormData.append("id",response.id);
-				// 	// 	fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
-				// 	// 		method: "POST",
-				// 	// 		body: this.bannerImageFormData,
-				// 	// 		headers: new Headers({
-				// 	// 			Authorization: "Bearer " + localStorage.getItem("AuthToken")
-				// 	// 		})
-				// 	// 	})
-				// 	// 		.then(response => response.json())
-				// 	// 		.then(response => {
-				// 	// 			console.log("API Status: ", response.code);
-				// 	// 			console.log("API Message: ", response.message);
-				// 	// 		});
-				// 	// }
-				// 	//
-				// 	// if (this.profileImageFormData != null){
-				// 	// 	this.profileImageFormData.append("id",response.id);
-				// 	// 	fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
-				// 	// 		method: "POST",
-				// 	// 		body: this.profileImageFormData,
-				// 	// 		headers: new Headers({
-				// 	// 			Authorization: "Bearer " + localStorage.getItem("AuthToken")
-				// 	// 		})
-				// 	// 	})
-				// 	// 		.then(response => response.json())
-				// 	// 		.then(response => {
-				// 	// 			console.log("API Status: ", response.code);
-				// 	// 			console.log("API Message: ", response.message);
-				// 	// 		});
-				// 	// }
-				// 	// this.setState({
-				// 	// 	status: true,
-				// 	// 	message: "Created this artist"
-				// 	// });
-				// } else {
-				// 	this.setState({
-				// 		status: false,
-				// 		message: response.message
-				// 	});
-				// }
+				if (response.id) {
+					if (this.albumArtFormData != null){
+						this.albumArtFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/album", {
+							method: "POST",
+							body: this.albumArtFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								console.log(response);
+								// console.log("API Status: ", response.code);
+								// console.log("API Message: ", response.message);
+							});
+					}
+					this.setState({
+						status: true,
+						message: "Created this album"
+					});
+				} else {
+					this.setState({
+						status: false,
+						message: response.message
+					});
+				}
 			});
 	};
 

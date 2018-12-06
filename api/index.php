@@ -32,6 +32,8 @@
         if (authorised($bearerToken)) {
             if ($endpointId === "profile") {
                 uploadProfileImage($_FILES, $_POST, $bearerToken);
+            } elseif ($endpointId === "album") {
+                uploadAlbumArt($_FILES, $_POST);
             } elseif ($endpointId === "artist") {
                 if ($command === "video") {
                     uploadVideo($_FILES, $_POST);
