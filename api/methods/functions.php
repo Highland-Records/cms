@@ -677,3 +677,15 @@
             response(400, "Album doesn't exist", true);
         }
     }
+
+	function showAllAlbumsForThisArtist($ArtistID) {
+		$db = $_GLOBALS['db'];
+		$albumQuery = "SELECT * FROM `albums` WHERE `deleted` = '0' AND `artist` = $ArtistID";
+		$albumResult = mysqli_query($db,$albumQuery);
+		$rowsExist = mysqli_num_rows($albumResult);
+		if(!empty($rowsExist)) {
+			$row = mysqli_fetch_assoc($getAlbumsResult);
+	        header("Content-Type: application/json");
+	        echo json_encode($row);
+		}
+	}

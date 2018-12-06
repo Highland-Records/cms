@@ -46,7 +46,7 @@ class ArtistPage extends React.Component {
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + artistData.banner_img;
 			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artistData.profile_img;
 			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
-			let artistLink = '/artists/' + apiData.artist;
+			let artistLink = '/artist/' + apiData.artist;
 
 			let songInputs;
 			let tracklistArray = [];
@@ -65,8 +65,7 @@ class ArtistPage extends React.Component {
 
 			return (
 				<section className="SplashStyle">
-					{HomeNavigation.DrawNavigation()}
-
+					{HomeNavigation.DrawNavigation("releases")}
 					<div class="artist">
 						<img src={artistBanner} alt={artistData.name} />
 						<p>
@@ -74,10 +73,10 @@ class ArtistPage extends React.Component {
 							{this.state.artistData.name}
 						</p>
 					</div>
-					<Link to={artistLink}>Back to Artist Page</Link>
 					<ul className="home">
 						<li>
 							<img src={albumArt} alt={apiData.title} />
+							<Link to={artistLink}>&lt; See more by {this.state.artistData.name}</Link>
 						</li>
 						<li>
 							<h1>{apiData.title}</h1>
