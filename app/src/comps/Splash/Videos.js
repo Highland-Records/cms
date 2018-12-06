@@ -29,34 +29,54 @@ class Videos extends React.Component {
 			r => {this.setState({isLoaded: true,apiData: r})},
 			e => {this.setState({isLoaded: true,e})}
 		);
+
+		// let videos = [];
+		//
+		// for (let artist of this.state.apiData){
+		// 	if (artist.video_links){
+		// 		if (artist.video_links.includes('!@!')){
+		// 			let videoLinks = artist.video_links.split('!@!');
+		// 			for (let link of videoLinks){
+		// 				videos.push({artist: artist.name, video: link});
+		// 			}
+		// 		}
+		// 	}
+		// }
+		//
+		// console.log(videos);
 	}
 	render() {
 		const {error, apiData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const apiRender = apiData.map(artist => {
 
-				if (artist.video_links){
-					if (artist.video_links.includes('!@!')){
-						let videos = artist.video_links.split('!@!');
-						for (let video of videos){
-							let srcURL = PortalFunctions.CoreURLVideos + video;
-							return (
-								<li>
-								<span>{artist.name}</span>
-								<video width="100%" height="240" controls>
-									<source src={srcURL} type="video/mp4"/>
-									Your browser does not support the video tag.
-								</video>
-								</li>
-							)
-						}
-					} else {
+const apiRender = apiData.map(artist => {
+	if (artist.video_links){
+		if (artist.video_links.includes('!@!')){
+			return (artist.video_links.split('!@!').map(videoLink =>{
+				let srcURL = PortalFunctions.CoreURLVideos + videoLink;
+				return (
+					<li>
+					{artist.name}
+					</li>
+				)
+			}))
+		} else {
 
-					}
-				}
-			});
+			let srcURL = PortalFunctions.CoreURLVideos() + artist.video_links;
+			return(
+				<li>
+				{artist.name}
+				<video controls>
+					<source src={srcURL} type="video/mp4"/>
+					Your browser does not support the video tag.
+				</video>
+				</li>
+			)
+		}
+	}
+});
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
