@@ -58,7 +58,7 @@ class ArtistPage extends React.Component {
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + artistData.banner_img;
 			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artistData.profile_img;
 			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
-
+//{GetArtist(this.state.apiData.artist)}
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}

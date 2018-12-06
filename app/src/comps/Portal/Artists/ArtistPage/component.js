@@ -56,6 +56,8 @@ class Artist extends React.Component {
 		let reader = new FileReader();
 		let file = e.target.files[0];
 
+		// console.log(file.size);
+
 		reader.onloadend = () => {
 			this.setState({
 				artist: {...this.state.artist, "videoFile": file, "videoPreviewUrl": reader.result}
@@ -63,7 +65,7 @@ class Artist extends React.Component {
 		};
 		reader.readAsDataURL(file);
 		const data = new FormData();
-		data.append("video", file, file.name);
+		data.append("file", file, file.name);
 		this.videoFormData = data;
 	};
 
@@ -121,7 +123,16 @@ class Artist extends React.Component {
 				//change API so that when an artist's data is edited it returns the artist back, as the new artist does
 
 				if(response.id) {
+					let noBanner, noProfile, noVideo = true;
+
 					if (this.bannerImageFormData != null){
+
+						noBanner = false;
+						this.setState({
+							status: false,
+							message: "Uploading Banner"
+						});
+
 						this.bannerImageFormData.append("id",response.id);
 						fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
 							method: "POST",
@@ -132,12 +143,25 @@ class Artist extends React.Component {
 						})
 							.then(response => response.json())
 							.then(response => {
-								console.log("API Status: ", response.code);
-								console.log("API Message: ", response.message);
+								if (response.code === 200){
+									this.setState({
+										status: true,
+										message: "Uploaded Banner"
+									});
+								}
+								// console.log("API Status: ", response.code);
+								// console.log("API Message: ", response.message);
 							});
 					}
 
 					if (this.profileImageFormData != null){
+
+						noProfile = false;
+						this.setState({
+							status: false,
+							message: "Uploading Picture"
+						});
+
 						this.profileImageFormData.append("id",response.id);
 						fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
 							method: "POST",
@@ -148,12 +172,25 @@ class Artist extends React.Component {
 						})
 							.then(response => response.json())
 							.then(response => {
-								console.log("API Status: ", response.code);
-								console.log("API Message: ", response.message);
+								if (response.code === 200){
+									this.setState({
+										status: true,
+										message: "Uploaded Picture"
+									});
+								}
+								// console.log("API Status: ", response.code);
+								// console.log("API Message: ", response.message);
 							});
 					}
 
 					if (this.videoFormData != null){
+
+						noVideo = false;
+						this.setState({
+							status: false,
+							message: "Uploading Video"
+						});
+
 						this.videoFormData.append("id",response.id);
 						fetch("http://highland.oliverrichman.uk/api/upload/artist/video", {
 							method: "POST",
@@ -164,15 +201,21 @@ class Artist extends React.Component {
 						})
 							.then(response => response.json())
 							.then(response => {
-								console.log("API Status: ", response.code);
-								console.log("API Message: ", response.message);
+								if (response.code === 200){
+									this.setState({
+										status: true,
+										message: "Uploaded video"
+									});
+								}
 							});
 					}
 
-					this.setState({
-						status: true,
-						message: "Updated this artist"
-					});
+					if (noBanner && noProfile && noVideo){
+						this.setState({
+							status: true,
+							message: "Created this artist"
+						});
+					}
 				} else {
 					this.setState({
 						status: false,
@@ -251,7 +294,7 @@ class Artist extends React.Component {
 				</p>
 			);
 		let showVideoList = null;
-		console.log(artist.videoActualUrl);
+		// console.log(artist.videoActualUrl);
 		if (artist.videoActualUrl.length){
 			showVideoList = artist.videoActualUrl.map(videoSrc => {
 				const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
@@ -270,6 +313,8 @@ class Artist extends React.Component {
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "home")}
 				<header>Edit Artist</header>
+				<div>
+				</div>
 					<div className="c">
 						<ul className="newArtist">
 							<li>
@@ -344,7 +389,7 @@ class Artist extends React.Component {
 								<div className="video">
 									<form>
 										<input
-											name="video"
+											name="file"
 											className="fileInput"
 											type="file"
 											ref={this.videoInputElement}

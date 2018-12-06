@@ -645,12 +645,35 @@
     function editAlbum($albumId, $postData)
     {
         $db = $GLOBALS['db'];
-        $currentAlbum = $GLOBALS['currentAlbum'];
-        $checkAlbumQuery = "SELECT `account_type` FROM `albums` WHERE `id` = ".$currentAlbum;
+        $checkAlbumQuery = "SELECT `id` FROM `albums` WHERE `id` = ".$albumId;
         $checkAlbumResult = mysqli_query($db, $checkAlbumQuery);
         $exists = mysqli_num_rows($checkAlbumResult);
-        $accountType = mysqli_fetch_assoc($checkAlbumResult)['account_type'];
         if (!empty($exists)) {
-            //edit album
+            $postKeys = [];
+            $postValues = [];
+
+            $invalidKeys = ['id', 'deleted', 'deleted_timestamp'];
+            $validKeys = ['title','year','artist','tracklist'];
+            foreach ($postData as $key=>$value) {
+                if (!in_array($key, $invalidKeys) && in_array($key, $validKeys)) {
+                    $postKeys[] = "`".$key."`";
+                    $postValues[] = "'".$value."'";
+                }
+            }
+            foreach ($postKeys as $i=>$key) {
+                $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+            }
+            $setValue = rtrim($setValue, ', ');
+            $changeQuery = "UPDATE `albums` SET ".$setValue." WHERE `deleted` = 0 AND `id` = ".$albumId;
+            $changeResult = mysqli_query($db, $changeQuery);
+
+            $getAlbumQuery = "SELECT * FROM `albums` WHERE `deleted` = 0 AND `id` = ".$albumId;
+            $getAlbumResult = mysqli_query($db, $getAlbumQuery);
+            $row = mysqli_fetch_assoc($getAlbumResult);
+            header("Content-Type: application/json");
+            echo json_encode($row);
+        } else {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "Album doesn't exist", true);
         }
     }

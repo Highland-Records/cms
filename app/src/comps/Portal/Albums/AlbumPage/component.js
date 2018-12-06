@@ -31,8 +31,18 @@ class Album extends React.Component {
 	};
 
 	handleSongChange = (songNum, event) => {
+		let tracklistArray = this.state.tracklistArray;
+		tracklistArray[songNum] = event.target.value;
+		this.setState({
+			tracklistArray: tracklistArray
+		});
+
 		let album = JSON.parse(JSON.stringify(this.state.album));
-		album.tracklistArray[songNum] = event.target.value;
+		if (this.state.tracklistArray.length > 1){
+			album.tracklist = this.state.tracklistArray.join('!@!');
+		} else {
+			album.tracklist = this.state.tracklistArray[0];
+		}
 		this.setState({
 			album: album
 		});
@@ -88,11 +98,11 @@ class Album extends React.Component {
 
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
-		let albumC = JSON.parse(JSON.stringify(this.state.album));
-		if(albumC.tracklistArray.length !== 1) {
-			albumC.tracklistArray.splice(songNum, 1);
+		let tracklist = this.state.tracklistArray;
+		if (tracklist.length !== 1) {
+			tracklist.splice(songNum, 1);
 			this.setState({
-				album: albumC
+				tracklistArray: tracklist
 			});
 		}
 	};
@@ -100,17 +110,16 @@ class Album extends React.Component {
 	handleSubmit = event => {
 		event.preventDefault();
 
-		this.state.album.tracklist = this.state.album.tracklistArray.join(
-			"!@!"
-		);
+		// this.state.album.tracklist = this.state.album.tracklistArray.join(
+		// 	"!@!"
+		// );
 
-		const formData = new FormData();
-		formData.append("title", this.state.album.title);
-		formData.append("year", this.state.album.year);
-		formData.append("artist", this.state.album.artist);
-		formData.append("tracklist", this.state.album.tracklist);
+		const formData = new FormData(event.target);
+		formData.append("id",this.state.album.id);
 
-		fetch("http://highland.oliverrichman.uk/api/albums", {
+		console.log(this.state.album.id);
+
+		fetch("http://highland.oliverrichman.uk/api/albums/"+this.state.album.id, {
 			method: "POST",
 			body: formData,
 			headers: new Headers({
@@ -131,7 +140,10 @@ class Album extends React.Component {
 						})
 							.then(response => response.json())
 							.then(response => {
-								console.log(response);
+								this.setState({
+									status: true,
+									message: "Updated this album"
+								});
 							});
 					}
 					this.setState({
@@ -215,9 +227,7 @@ class Album extends React.Component {
 	}
 
 	render() {
-		const {userData, artists, album} = this.state;
-
-
+		const {status,message,userData, artists, album} = this.state;
 
 		const Message = ({status, message}) =>
 			status ? (
@@ -335,8 +345,8 @@ class Album extends React.Component {
 									value="Update this Album"
 								/>
 								<Message
-									status={this.state.status}
-									message={this.state.message}
+									status={status}
+									message={message}
 								/>
 							</form>
 						</li>
