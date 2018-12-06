@@ -1,2 +1,2 @@
-# cms
-Highland Records - Feel Something
+# Highland Records
+Highland Records Content Management System (CMS)
