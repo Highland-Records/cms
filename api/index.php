@@ -171,9 +171,6 @@
                 }
             } elseif ($rMethod === 'get') {
                 getAllArtists();
-				if($endpointId === 'albums') {
-					showAllAlbumsForThisArtist($command);
-				}
             } else {
                 header("HTTP/1.0 403 Forbidden");
                 response(403, "Invalid Request Method", true);
@@ -191,6 +188,8 @@
                     header("HTTP/1.0 403 Forbidden");
                     response(403, "Invalid Request Method", true);
                 }
+			} elseif ($command === 'albums') {
+				showAllAlbumsForThisArtist($endpointId);
             } elseif ($command === 'edit') {
                 if ($rMethod === 'post') {
                     if (authorised($bearerToken)) {
