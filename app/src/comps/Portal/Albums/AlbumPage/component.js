@@ -31,10 +31,10 @@ class Album extends React.Component {
 	};
 
 	handleSongChange = (songNum, event) => {
-		let album = JSON.parse(JSON.stringify(this.state.album));
-		album.tracklistArray[songNum] = event.target.value;
+		let tracklistArray = this.state.tracklistArray;
+		tracklistArray[songNum] = event.target.value;
 		this.setState({
-			album: album
+			tracklistArray: tracklistArray
 		});
 	};
 
@@ -88,11 +88,11 @@ class Album extends React.Component {
 
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
-		let albumC = JSON.parse(JSON.stringify(this.state.album));
-		if(albumC.tracklistArray.length !== 1) {
-			albumC.tracklistArray.splice(songNum, 1);
+		let tracklist = this.state.tracklistArray;
+		if (tracklist.length !== 1) {
+			tracklist.splice(songNum, 1);
 			this.setState({
-				album: albumC
+				tracklistArray: tracklist
 			});
 		}
 	};
