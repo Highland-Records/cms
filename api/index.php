@@ -49,7 +49,7 @@
         if (empty($endpointId)) {
             if ($rMethod === 'post') {
                 if (authorised($bearerToken)) {
-                    createAlbum();
+                    createAlbum($_POST);
                 } else {
                     header("HTTP/1.0 401 Unauthorized");
                     response(401, "You aren't authorised to do this", true);
