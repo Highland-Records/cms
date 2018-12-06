@@ -240,6 +240,7 @@ class NewAlbum extends React.Component {
 						value={val}
 						onChange={e => this.handleSongChange(i, e)}
 						onKeyDown={this.handleKeyDown}
+						autoFocus={this.state.focus}
 					/>
 					<span onClick={e => this.removeSong(i, e)}>remove</span>
 				</li>
@@ -300,6 +301,7 @@ class NewAlbum extends React.Component {
 									className="albumYear"
 									name="year"
 									type="text"
+									maxLength="4"
 									placeholder="Release Year"
 									onChange={this.handleChange}
 								/>
@@ -309,7 +311,6 @@ class NewAlbum extends React.Component {
 										Add a song
 									</li>
 								</ul>
-								<br />
 								<input
 									className="button"
 									type="submit"

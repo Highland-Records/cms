@@ -99,28 +99,33 @@ class Users extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const usersHtml = usersData.map(user => {
-				let userImage = user.profile_img
-					? PortalFunctions.CoreURLImages() + user.profile_img
-					: PortalFunctions.CoreURLImages() +
-					  "default_profile.jpeg";
-				if (userData.id === user.id) {
-					this.state.status = true;
-				} else {
-					this.state.status = false;
-				}
-				const ThisIsMe = ({status}) =>
-					status ? <span> - (this is you)</span> : <span className="delete" onClick={() => this.deleteUser(user.id)}>remove</span>;
-				return (
-					<li>
-						<div>
-							<img src={userImage} alt="" />
-							<h2>{user.first_name} {user.last_name}</h2>
-							<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
-						</div>
-					</li>
-				);
-			});
+			let usersHtml;
+			if(usersData.length === 0) {
+				usersHtml = <div className="nothingFound">Nothing found<span>Anything you add will appear here</span></div>
+			} else {
+				usersHtml = usersData.map(user => {
+					let userImage = user.profile_img
+						? PortalFunctions.CoreURLImages() + user.profile_img
+						: PortalFunctions.CoreURLImages() +
+						  "default_profile.jpeg";
+					if (userData.id === user.id) {
+						this.state.status = true;
+					} else {
+						this.state.status = false;
+					}
+					const ThisIsMe = ({status}) =>
+						status ? <span> - (this is you)</span> : <span className="delete" onClick={() => this.deleteUser(user.id)}>remove</span>;
+					return (
+						<li>
+							<div>
+								<img src={userImage} alt="" />
+								<h2>{user.first_name} {user.last_name}</h2>
+								<p>@{user.username} <ThisIsMe status={this.state.status}></ThisIsMe></p>
+							</div>
+						</li>
+					);
+				});
+			}
 			return (
 				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData, "users")}
