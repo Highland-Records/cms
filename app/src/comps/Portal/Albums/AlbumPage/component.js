@@ -36,6 +36,16 @@ class Album extends React.Component {
 		this.setState({
 			tracklistArray: tracklistArray
 		});
+
+		let album = JSON.parse(JSON.stringify(this.state.album));
+		if (this.state.tracklistArray.length > 1){
+			album.tracklist = this.state.tracklistArray.join('!@!');
+		} else {
+			album.tracklist = this.state.tracklistArray[0];
+		}
+		this.setState({
+			album: album
+		});
 	};
 
 	albumArtFormData = null;
@@ -100,17 +110,16 @@ class Album extends React.Component {
 	handleSubmit = event => {
 		event.preventDefault();
 
-		this.state.album.tracklist = this.state.album.tracklistArray.join(
-			"!@!"
-		);
+		// this.state.album.tracklist = this.state.album.tracklistArray.join(
+		// 	"!@!"
+		// );
 
-		const formData = new FormData();
-		formData.append("title", this.state.album.title);
-		formData.append("year", this.state.album.year);
-		formData.append("artist", this.state.album.artist);
-		formData.append("tracklist", this.state.album.tracklist);
+		const formData = new FormData(event.target);
+		formData.append("id",this.state.album.id);
 
-		fetch("http://highland.oliverrichman.uk/api/albums", {
+		console.log(this.state.album.id);
+
+		fetch("http://highland.oliverrichman.uk/api/albums/"+this.state.album.id, {
 			method: "POST",
 			body: formData,
 			headers: new Headers({
@@ -119,31 +128,32 @@ class Album extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				if (response.id) {
-					if (this.albumArtFormData != null){
-						this.albumArtFormData.append("id",response.id);
-						fetch("http://highland.oliverrichman.uk/api/upload/album", {
-							method: "POST",
-							body: this.albumArtFormData,
-							headers: new Headers({
-								Authorization: "Bearer " + localStorage.getItem("AuthToken")
-							})
-						})
-							.then(response => response.json())
-							.then(response => {
-								console.log(response);
-							});
-					}
-					this.setState({
-						status: true,
-						message: "Updated this album"
-					});
-				} else {
-					this.setState({
-						status: false,
-						message: response.message
-					});
-				}
+				console.log(response);
+				// if (response.id) {
+				// 	if (this.albumArtFormData != null){
+				// 		this.albumArtFormData.append("id",response.id);
+				// 		fetch("http://highland.oliverrichman.uk/api/upload/album", {
+				// 			method: "POST",
+				// 			body: this.albumArtFormData,
+				// 			headers: new Headers({
+				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				// 			})
+				// 		})
+				// 			.then(response => response.json())
+				// 			.then(response => {
+				// 				console.log(response);
+				// 			});
+				// 	}
+				// 	this.setState({
+				// 		status: true,
+				// 		message: "Updated this album"
+				// 	});
+				// } else {
+				// 	this.setState({
+				// 		status: false,
+				// 		message: response.message
+				// 	});
+				// }
 			});
 	};
 
@@ -216,8 +226,6 @@ class Album extends React.Component {
 
 	render() {
 		const {userData, artists, album} = this.state;
-
-
 
 		const Message = ({status, message}) =>
 			status ? (
