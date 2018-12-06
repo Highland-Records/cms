@@ -230,6 +230,10 @@ Section.SplashStyle ul.home li:first-child, Section.SplashStyle ul.home-flip li:
   text-align: right;
   letter-spacing: -2px;
 }
+Section.SplashStyle ul.home li:first-child img, Section.SplashStyle ul.home-flip li:first-child img {
+  width: 100%;
+  margin-bottom: 20px;
+}
 Section.SplashStyle ul.home li, Section.SplashStyle ul.home-flip li {
   width: 70%;
   display: inline-block;
