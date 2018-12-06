@@ -109,7 +109,7 @@ class NewAlbum extends React.Component {
 		event.preventDefault();
 
 		this.state.album.tracklist = this.state.album.tracklistArray.join(
-			","
+			"!@!"
 		);
 
 		const formData = new FormData();
