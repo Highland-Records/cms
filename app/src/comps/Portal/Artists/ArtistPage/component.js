@@ -1,6 +1,6 @@
 import React from "react";
-import TextareaAutosize from 'react-textarea-autosize';
-import './style.css';
+import TextareaAutosize from "react-textarea-autosize";
+import "./style.css";
 import PortalFunctions from "../../PortalFunctions";
 import PortalNavigation from "../../nav/Navigation";
 
@@ -10,34 +10,30 @@ class Artist extends React.Component {
 		super(props);
 		this.bannerInputElement = React.createRef();
 		this.profileInputElement = React.createRef();
-		this.videoInputElement = React.createRef();
+		this.addNewRow = React.createRef();
 		this.handleBannerClick = this.handleBannerClick.bind(this);
 		this.handleProfileClick = this.handleProfileClick.bind(this);
-		this.handleVideoClick = this.handleVideoClick.bind(this);
 		this.state = {
+			focus: false,
 			error: null,
 			isLoaded: false,
 			status: null,
 			message: "",
 			userData: {},
 			artistId: this.props.id,
-			artistsData: {},
-			artist: {
-				name: "",
-				description: "",
-				"bannerFile": "",
-				"bannerImagePreviewUrl": "",
-				"profileFile": "",
-				"profileImagePreviewUrl": "",
-				"videoFile": "",
-				"videoPreviewUrl": "",
-				"videoActualUrl": ""
-			}
-		}
+			videoArray: [""],
+			artist: {}
+		};
 	}
+
 	handleChange = event => {
-		this.setState({artistsData: {...this.state.artistsData, [event.target.name]: event.target.value}})
-	}
+		this.setState({
+			artist: {
+				...this.state.artist,
+				[event.target.name]: event.target.value
+			}
+		});
+	};
 
 	handleBannerClick() {
 		this.bannerInputElement.current.click();
@@ -45,28 +41,54 @@ class Artist extends React.Component {
 	handleProfileClick() {
 		this.profileInputElement.current.click();
 	}
-	handleVideoClick() {
-		this.videoInputElement.current.click();
-	}
 
-	// On change set the data states
-	handleVideoChange = e => {
+	handleVideoChange = (videoNum, event) => {
+		let videoArray = this.state.videoArray;
+		videoArray[videoNum] = event.target.value;
+		this.setState({
+			videoArray: videoArray
+		});
+		//
+		// let artist = JSON.parse(JSON.stringify(this.state.artist));
+		// if (this.state.videoArray.length > 1) {
+		// 	this.state.artist.video_links = this.state.videoArray.join(
+		// 		"!@!"
+		// 	);
+		// } else {
+		// 	this.state.artist.video_links = this.state.videoArray[0];
+		// }
+		//
+		// // this.setState({
+		// // 	artist: artist
+		// // });
+		// console.log(this.state);
+	};
+	addVideo = e => {
 		e.preventDefault();
-
-		let reader = new FileReader();
-		let file = e.target.files[0];
-
-		// console.log(file.size);
-
-		reader.onloadend = () => {
+		let artist = JSON.parse(JSON.stringify(this.state.artist));
+		this.state.videoArray.push("");
+		this.setState({
+			artist: artist
+		});
+	};
+	handleKeyDown = e => {
+		if (e.key === "Tab") {
+			e.preventDefault();
+			this.addNewRow.current.click();
 			this.setState({
-				artist: {...this.state.artist, "videoFile": file, "videoPreviewUrl": reader.result}
+				focus: true
 			});
-		};
-		reader.readAsDataURL(file);
-		const data = new FormData();
-		data.append("file", file, file.name);
-		this.videoFormData = data;
+		}
+	};
+	removeVideo = (videoNum, event) => {
+		// console.log(videoNum);
+		let videos = this.state.videoArray;
+		if (videos.length !== 1) {
+			videos.splice(videoNum, 1);
+			this.setState({
+				videoArray: videos
+			});
+		}
 	};
 
 	// On change set the data states
@@ -78,7 +100,11 @@ class Artist extends React.Component {
 
 		reader.onloadend = () => {
 			this.setState({
-				artist: {...this.state.artist, "bannerFile": file, "bannerImagePreviewUrl": reader.result}
+				artist: {
+					...this.state.artist,
+					bannerFile: file,
+					bannerImagePreviewUrl: reader.result
+				}
 			});
 		};
 		reader.readAsDataURL(file);
@@ -96,7 +122,11 @@ class Artist extends React.Component {
 
 		reader.onloadend = () => {
 			this.setState({
-				artist: {...this.state.artist, "profileFile": file, "profileImagePreviewUrl": reader.result}
+				artist: {
+					...this.state.artist,
+					profileFile: file,
+					profileImagePreviewUrl: reader.result
+				}
 			});
 		};
 
@@ -107,110 +137,111 @@ class Artist extends React.Component {
 	};
 
 	handleSubmit = event => {
+		let videoLinks = "";
+		if (this.state.videoArray.length > 1) {
+			videoLinks = this.state.videoArray.join("!@!");
+		} else {
+			videoLinks = this.state.videoArray[0];
+		}
 		event.preventDefault();
 		const formData = new FormData(event.target);
+		formData.append("id", this.state.artist.id);
+		formData.append("video_links", videoLinks);
 		// Post this to API
-		fetch("http://highland.oliverrichman.uk/api/artists/"+this.state.artistId+"/edit", {
-			method: "POST",
-			body: formData,
-			headers: new Headers({
-				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-			})
-		})
+		fetch(
+			"http://highland.oliverrichman.uk/api/artists/" +
+				this.state.artist.id +
+				"/edit",
+			{
+				method: "POST",
+				body: formData,
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
 			.then(response => response.json())
 			.then(response => {
-
 				//change API so that when an artist's data is edited it returns the artist back, as the new artist does
+				console.log(response);
+				if (response.id) {
+					let noBanner,
+						noProfile = true;
 
-				if(response.id) {
-					let noBanner, noProfile, noVideo = true;
-
-					if (this.bannerImageFormData != null){
-
+					if (this.bannerImageFormData != null) {
 						noBanner = false;
 						this.setState({
 							status: false,
 							message: "Uploading Banner"
 						});
 
-						this.bannerImageFormData.append("id",response.id);
-						fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
-							method: "POST",
-							body: this.bannerImageFormData,
-							headers: new Headers({
-								Authorization: "Bearer " + localStorage.getItem("AuthToken")
-							})
-						})
+						this.bannerImageFormData.append(
+							"id",
+							response.id
+						);
+						fetch(
+							"http://highland.oliverrichman.uk/api/upload/artist/banner",
+							{
+								method: "POST",
+								body: this.bannerImageFormData,
+								headers: new Headers({
+									Authorization:
+										"Bearer " +
+										localStorage.getItem(
+											"AuthToken"
+										)
+								})
+							}
+						)
 							.then(response => response.json())
 							.then(response => {
-								if (response.code === 200){
+								if (response.code === 200) {
 									this.setState({
 										status: true,
 										message: "Uploaded Banner"
 									});
 								}
-								// console.log("API Status: ", response.code);
-								// console.log("API Message: ", response.message);
 							});
 					}
 
-					if (this.profileImageFormData != null){
-
+					if (this.profileImageFormData != null) {
 						noProfile = false;
 						this.setState({
 							status: false,
 							message: "Uploading Picture"
 						});
 
-						this.profileImageFormData.append("id",response.id);
-						fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
-							method: "POST",
-							body: this.profileImageFormData,
-							headers: new Headers({
-								Authorization: "Bearer " + localStorage.getItem("AuthToken")
-							})
-						})
+						this.profileImageFormData.append(
+							"id",
+							response.id
+						);
+						fetch(
+							"http://highland.oliverrichman.uk/api/upload/artist/profile",
+							{
+								method: "POST",
+								body: this.profileImageFormData,
+								headers: new Headers({
+									Authorization:
+										"Bearer " +
+										localStorage.getItem(
+											"AuthToken"
+										)
+								})
+							}
+						)
 							.then(response => response.json())
 							.then(response => {
-								if (response.code === 200){
+								if (response.code === 200) {
 									this.setState({
 										status: true,
 										message: "Uploaded Picture"
 									});
 								}
-								// console.log("API Status: ", response.code);
-								// console.log("API Message: ", response.message);
 							});
 					}
 
-					if (this.videoFormData != null){
-
-						noVideo = false;
-						this.setState({
-							status: false,
-							message: "Uploading Video"
-						});
-
-						this.videoFormData.append("id",response.id);
-						fetch("http://highland.oliverrichman.uk/api/upload/artist/video", {
-							method: "POST",
-							body: this.videoFormData,
-							headers: new Headers({
-								Authorization: "Bearer " + localStorage.getItem("AuthToken")
-							})
-						})
-							.then(response => response.json())
-							.then(response => {
-								if (response.code === 200){
-									this.setState({
-										status: true,
-										message: "Uploaded video"
-									});
-								}
-							});
-					}
-
-					if (noBanner && noProfile && noVideo){
+					if (noBanner && noProfile) {
 						this.setState({
 							status: true,
 							message: "Created this artist"
@@ -228,14 +259,18 @@ class Artist extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		PortalFunctions.GetUserData()
-		.then(res => {
-			if (!res.ok) throw new Error(res.status);
-			else return res.json();
-		})
-		.then(
-			r => {this.setState({isLoaded: true,userData: r})},
-			e => {this.setState({isLoaded: true,e})}
-		);
+			.then(res => {
+				if (!res.ok) throw new Error(res.status);
+				else return res.json();
+			})
+			.then(
+				r => {
+					this.setState({isLoaded: true, userData: r});
+				},
+				e => {
+					this.setState({isLoaded: true, e});
+				}
+			);
 		fetch(
 			"http://highland.oliverrichman.uk/api/artists/" +
 				this.state.artistId,
@@ -247,35 +282,48 @@ class Artist extends React.Component {
 				})
 			}
 		)
-		.then(response => response.json())
-		.then(response => {
-			if(response.id === this.state.artistId) {
-				this.setState({
-					artistsData: response
-				});
-				let bannerImageURL = PortalFunctions.CoreURLImages() + '/banners/' + this.state.artistsData.banner_img;
-				this.setState({
-					artist: {...this.state.artist, "bannerImagePreviewUrl": bannerImageURL}
-				});
-				let profileImageURL = PortalFunctions.CoreURLImages() + '/artists/' + this.state.artistsData.profile_img;
-				this.setState({
-					artist: {...this.state.artist, "profileImagePreviewUrl": profileImageURL}
-				});
-				let videoURL = PortalFunctions.CoreURLImages() + '/videos/' + this.state.artistsData.video_links;
-				this.setState({
-					artist: {...this.state.artist, "videoPreviewUrl": videoURL}
-				});
-				let videoSrcs = this.state.artistsData.video_links ? String(this.state.artistsData.video_links).split(',') : [];
-				this.setState({
-					artist: {...this.state.artist, "videoActualUrl": videoSrcs}
-				});
-			} else {
-				console.log("Page failed to load API data");
-			}
-		});
+			.then(response => response.json())
+			.then(response => {
+				if (response.id === this.state.artistId) {
+					let videoLinksArray = [];
+					if (response.video_links.includes("!@!")) {
+						videoLinksArray = response.video_links.split(
+							"!@!"
+						);
+					} else {
+						videoLinksArray.push(response.video_links);
+					}
+					this.setState({
+						artist: response,
+						videoArray: videoLinksArray
+					});
+					let bannerImageURL =
+						PortalFunctions.CoreURLImages() +
+						"/banners/" +
+						this.state.artist.banner_img;
+					this.setState({
+						artist: {
+							...this.state.artist,
+							bannerImagePreviewUrl: bannerImageURL
+						}
+					});
+					let profileImageURL =
+						PortalFunctions.CoreURLImages() +
+						"/artists/" +
+						this.state.artist.profile_img;
+					this.setState({
+						artist: {
+							...this.state.artist,
+							profileImagePreviewUrl: profileImageURL
+						}
+					});
+				} else {
+					console.log("Page failed to load API data");
+				}
+			});
 	}
 	render() {
-		const {userData, artistsData, artist} = this.state;
+		const {userData, artist} = this.state;
 
 		let bannerImagePreview = artist.bannerImagePreviewUrl;
 
@@ -283,129 +331,179 @@ class Artist extends React.Component {
 
 		//let videoPreview = artist.videoPreviewUrl;
 
-		const Message = ({status,message}) =>
+		const Message = ({status, message}) =>
 			status ? (
-				<p className="wrong-back-text green">
-					{message}
-				</p>
+				<p className="wrong-back-text green">{message}</p>
 			) : (
-				<p className="wrong-back-text">
-					{message}
-				</p>
+				<p className="wrong-back-text">{message}</p>
 			);
-		let showVideoList = null;
-		// console.log(artist.videoActualUrl);
-		if (artist.videoActualUrl.length){
-			showVideoList = artist.videoActualUrl.map(videoSrc => {
-				const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
-				return (
-					<li>
-						<video width="100%" height="240" controls>
-							<source src={srcURL} type="video/mp4"/>
-							Your browser does not support the video tag.
-						</video>
-					</li>
-				)
-			});
-		}
+		// let showVideoList = null;
+		// // console.log(artist.videoActualUrl);
+		// if (artist.videoActualUrl.length){
+		// 	showVideoList = artist.videoActualUrl.map(videoSrc => {
+		// 		const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
+		// 		return (
+		// 			<li>
+		// 				<video width="100%" height="240" controls>
+		// 					<source src={srcURL} type="video/mp4"/>
+		// 					Your browser does not support the video tag.
+		// 				</video>
+		// 			</li>
+		// 		)
+		// 	});
+		// }
+		// let videoLinks = [];
+		//
+		// if (String(this.state.artist.video_links).includes("!@!")) {
+		// 	videoLinks = this.state.artist.video_links.split("!@!");
+		// } else {
+		// 	videoLinks.push(this.state.artist.video_links);
+		// }
 
-		return(
+		const videoInputs = this.state.videoArray.map((val, i) => {
+			let className = `video-input-${i}`;
+			return (
+				<li>
+					<input
+						className={className}
+						name="videoUrl"
+						type="text"
+						placeholder="Youtube URL"
+						value={val}
+						onChange={e => this.handleVideoChange(i, e)}
+						onKeyDown={this.handleKeyDown}
+						autoFocus={this.state.focus}
+					/>
+					<span onClick={e => this.removeVideo(i, e)}>
+						remove
+					</span>
+				</li>
+			);
+		});
+
+		return (
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "home")}
 				<header>Edit Artist</header>
-				<div>
+				<div />
+				<div className="c">
+					<ul className="newArtist">
+						<li>
+							<div className="banner">
+								<form>
+									<input
+										name="banner_img"
+										className="fileInput"
+										type="file"
+										accept="image/*"
+										ref={this.bannerInputElement}
+										onChange={e =>
+											this.handleBannerChange(
+												e
+											)
+										}
+									/>
+								</form>
+								<div
+									className="fileUploadOverlay"
+									onClick={this.handleBannerClick}
+								>
+									Edit
+								</div>
+								<img src={bannerImagePreview} alt="" />
+							</div>
+						</li>
+						<li>
+							<div className="profileName">
+								<form>
+									<input
+										name="profile_img"
+										className="fileInput"
+										type="file"
+										accept="image/*"
+										ref={this.profileInputElement}
+										onChange={e =>
+											this.handleProfileChange(
+												e
+											)
+										}
+									/>
+								</form>
+								<div
+									className="fileUploadOverlay"
+									onClick={this.handleProfileClick}
+								>
+									Edit
+								</div>
+								<img src={profileImagePreview} alt="" />
+								<form
+									onSubmit={this.handleSubmit}
+									encType="multipart/form-data"
+									className="visableForm"
+								>
+									<input
+										className="artistFullName-input"
+										name="name"
+										type="text"
+										placeholder="Full Name"
+										value={artist.name}
+										onChange={this.handleChange}
+									/>
+									<TextareaAutosize
+										className="artistDescription-input"
+										name="description"
+										placeholder="Describe this Artist"
+										value={artist.description}
+										onChange={this.handleChange}
+									/>
+									<br />
+									<ul>
+										{videoInputs}
+										<li
+											onClick={this.addVideo}
+											ref={this.addNewRow}
+										>
+											Add a video
+										</li>
+									</ul>
+									<input
+										className="button"
+										type="submit"
+										value="Update this Artist"
+									/>
+									<Message
+										status={this.state.status}
+										message={this.state.message}
+									/>
+								</form>
+							</div>
+						</li>
+					</ul>
 				</div>
-					<div className="c">
-						<ul className="newArtist">
-							<li>
-								<div className="banner">
-									<form>
-										<input
-											name="banner_img"
-											className="fileInput"
-											type="file"
-											accept="image/*"
-											ref={this.bannerInputElement}
-											onChange={e => this.handleBannerChange(e)}
-										/>
-									</form>
-									<div className="fileUploadOverlay" onClick={this.handleBannerClick} >
-										Edit
-									</div>
-									<img src={bannerImagePreview} alt="" />
-								</div>
-							</li>
-							<li>
-								<div className="profileName">
-									<form>
-										<input
-											name="profile_img"
-											className="fileInput"
-											type="file"
-											accept="image/*"
-											ref={this.profileInputElement}
-											onChange={e => this.handleProfileChange(e)}
-										/>
-									</form>
-									<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
-										Edit
-									</div>
-									<img src={profileImagePreview} alt="" />
-									<form
-										onSubmit={this.handleSubmit}
-										encType="multipart/form-data"
-										className="visableForm"
-									>
-										<input
-											className="artistFullName-input"
-											name="name"
-											type="text"
-											placeholder="Full Name"
-											value={artistsData.name}
-											onChange={this.handleChange}
-										/>
-										<TextareaAutosize
-											className="artistDescription-input"
-										 	name="description"
-										 	placeholder="Describe this Artist"
-											value={artistsData.description}
-										 	onChange={this.handleChange}
-										 />
-										<br />
-										<input
-											className="button"
-											type="submit"
-											value="Update this Artist"
-										/>
-										<Message status={this.state.status} message={this.state.message}></Message>
-									</form>
-								</div>
-							</li>
-						</ul>
-						<ul className="videoList">
-							<h2>Videos</h2>
-							{showVideoList}
-							<li>
-								<div className="video">
-									<form>
-										<input
-											name="file"
-											className="fileInput"
-											type="file"
-											ref={this.videoInputElement}
-											onChange={e => this.handleVideoChange(e)}
-										/>
-									</form>
-									<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
-										+
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
 			</section>
 		);
 	}
 }
+
+// <ul className="videoList">
+// 	<h2>Videos</h2>
+// 	{showVideoList}
+// 	<li>
+// 		<div className="video">
+// 			<form>
+// 				<input
+// 					name="file"
+// 					className="fileInput"
+// 					type="file"
+// 					ref={this.videoInputElement}
+// 					onChange={e => this.handleVideoChange(e)}
+// 				/>
+// 			</form>
+// 			<div className="fileUploadOverlay" onClick={this.handleVideoClick} >
+// 				+
+// 			</div>
+// 		</div>
+// 	</li>
+// </ul>
 
 export default Artist;

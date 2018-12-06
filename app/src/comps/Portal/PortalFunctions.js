@@ -90,6 +90,22 @@ const PortalFunctions = {
 				})
 			}
 		)
+	},
+	Randomise(array) {
+		var currentI = array.length, temporaryValue, randomI;
+
+	  	while (0 !== currentI) {
+
+	    	randomI = Math.floor(Math.random() * currentI);
+	    	currentI -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentI];
+		array[currentI] = array[randomI];
+		array[randomI] = temporaryValue;
+		}
+
+		  return array;
 	}
 };
 

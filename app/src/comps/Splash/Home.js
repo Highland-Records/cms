@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
+import PortalFunctions from "../Portal/PortalFunctions";
 
 // - Home Splash Page
 class SplashHome extends React.Component {
@@ -34,7 +35,7 @@ class SplashHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const apiRender = apiData.slice(0,4).map(artist => {
+			const apiRender = PortalFunctions.Randomise(apiData).slice(0,4).map(artist => {
 				let artistImage = artist.profile_img
 					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
 					: "http://highland.oliverrichman.uk/api/images/" +

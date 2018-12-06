@@ -1,5 +1,5 @@
 import React from "react";
-import './style.css';
+import "./style.css";
 import PortalFunctions from "../../PortalFunctions";
 import PortalNavigation from "../../nav/Navigation";
 
@@ -38,8 +38,8 @@ class Album extends React.Component {
 		});
 
 		let album = JSON.parse(JSON.stringify(this.state.album));
-		if (this.state.tracklistArray.length > 1){
-			album.tracklist = this.state.tracklistArray.join('!@!');
+		if (this.state.tracklistArray.length > 1) {
+			album.tracklist = this.state.tracklistArray.join("!@!");
 		} else {
 			album.tracklist = this.state.tracklistArray[0];
 		}
@@ -94,7 +94,7 @@ class Album extends React.Component {
 				focus: true
 			});
 		}
-	}
+	};
 
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
@@ -115,29 +115,41 @@ class Album extends React.Component {
 		// );
 
 		const formData = new FormData(event.target);
-		formData.append("id",this.state.album.id);
+		formData.append("id", this.state.album.id);
 
-		console.log(this.state.album.id);
+		// console.log(this.state.album.id);
 
-		fetch("http://highland.oliverrichman.uk/api/albums/"+this.state.album.id, {
-			method: "POST",
-			body: formData,
-			headers: new Headers({
-				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-			})
-		})
+		fetch(
+			"http://highland.oliverrichman.uk/api/albums/" +
+				this.state.album.id,
+			{
+				method: "POST",
+				body: formData,
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
 			.then(response => response.json())
 			.then(response => {
 				if (response.id) {
-					if (this.albumArtFormData != null){
-						this.albumArtFormData.append("id",response.id);
-						fetch("http://highland.oliverrichman.uk/api/upload/album", {
-							method: "POST",
-							body: this.albumArtFormData,
-							headers: new Headers({
-								Authorization: "Bearer " + localStorage.getItem("AuthToken")
-							})
-						})
+					if (this.albumArtFormData != null) {
+						this.albumArtFormData.append("id", response.id);
+						fetch(
+							"http://highland.oliverrichman.uk/api/upload/album",
+							{
+								method: "POST",
+								body: this.albumArtFormData,
+								headers: new Headers({
+									Authorization:
+										"Bearer " +
+										localStorage.getItem(
+											"AuthToken"
+										)
+								})
+							}
+						)
 							.then(response => response.json())
 							.then(response => {
 								this.setState({
@@ -187,30 +199,40 @@ class Album extends React.Component {
 					this.setState({isLoaded: true, e});
 				}
 			);
-			fetch(
-				"http://highland.oliverrichman.uk/api/albums/" +
-					this.state.albumId,
-				{
-					method: "GET",
-					headers: new Headers({
-						Authorization:
-							"Bearer " + localStorage.getItem("AuthToken")
-					})
-				}
-			)
+		fetch(
+			"http://highland.oliverrichman.uk/api/albums/" +
+				this.state.albumId,
+			{
+				method: "GET",
+				headers: new Headers({
+					Authorization:
+						"Bearer " + localStorage.getItem("AuthToken")
+				})
+			}
+		)
 			.then(response => response.json())
 			.then(response => {
-				if(response.id === this.state.albumId) {
+				if (response.id === this.state.albumId) {
 					this.setState({
 						album: response
 					});
-					let albumArtImageURL = PortalFunctions.CoreURLImages() + '/albums/' + this.state.album.album_art;
+					let albumArtImageURL =
+						PortalFunctions.CoreURLImages() +
+						"/albums/" +
+						this.state.album.album_art;
 					this.setState({
-						album: {...this.state.album, "albumArtImageURL": albumArtImageURL}
+						album: {
+							...this.state.album,
+							albumArtImageURL: albumArtImageURL
+						}
 					});
 
-					if (String(this.state.album.tracklist).includes('!@!')){
-						let tracklistArr =  this.state.album.tracklist.split('!@!')
+					if (
+						String(this.state.album.tracklist).includes("!@!")
+					) {
+						let tracklistArr = this.state.album.tracklist.split(
+							"!@!"
+						);
 						this.setState({
 							tracklistArray: tracklistArr
 						});
@@ -223,11 +245,10 @@ class Album extends React.Component {
 					console.log("Page failed to load API data");
 				}
 			});
-
 	}
 
 	render() {
-		const {status,message,userData, artists, album} = this.state;
+		const {status, message, userData, artists, album} = this.state;
 
 		const Message = ({status, message}) =>
 			status ? (
@@ -237,16 +258,22 @@ class Album extends React.Component {
 			);
 
 		let albumArtPreview = null;
-		let albumCurrentPreview = album.albumArtImageURL? PortalFunctions.CoreURLImages() + '/albums/' + album.album_art : PortalFunctions.CoreURLImages() + '/albums/default_album.jpg';
+		let albumCurrentPreview = album.albumArtImageURL
+			? PortalFunctions.CoreURLImages() + "/albums/" + album.album_art
+			: PortalFunctions.CoreURLImages() + "/albums/default_album.jpg";
 		if (album.albumArtPreviewUrl) {
-			albumArtPreview = album.albumArtImageURL
+			albumArtPreview = album.albumArtImageURL;
 		} else {
-			albumArtPreview = albumCurrentPreview
+			albumArtPreview = albumCurrentPreview;
 		}
 
 		const artistsDropdown = artists.map(artist => {
-			if(artist.id === album.artist) {
-				return <option value={artist.id} selected>{artist.name}</option>;
+			if (artist.id === album.artist) {
+				return (
+					<option value={artist.id} selected>
+						{artist.name}
+					</option>
+				);
 			} else {
 				return <option value={artist.id}>{artist.name}</option>;
 			}
@@ -268,7 +295,9 @@ class Album extends React.Component {
 						onKeyDown={this.handleKeyDown}
 						autoFocus={this.state.focus}
 					/>
-					<span onClick={e => this.removeSong(i, e)}>remove</span>
+					<span onClick={e => this.removeSong(i, e)}>
+						remove
+					</span>
 				</li>
 			);
 		});
@@ -321,7 +350,9 @@ class Album extends React.Component {
 									onChange={this.handleChange}
 									name="artist"
 								>
-								<option value="0" disabled>Pick a Artist</option>
+									<option value="0" disabled>
+										Pick a Artist
+									</option>
 									{artistsDropdown}
 								</select>
 								<input
@@ -335,7 +366,10 @@ class Album extends React.Component {
 								/>
 								<ul>
 									{songInputs}
-									<li onClick={this.addSong} ref={this.addNewRow}>
+									<li
+										onClick={this.addSong}
+										ref={this.addNewRow}
+									>
 										Add a song
 									</li>
 								</ul>
