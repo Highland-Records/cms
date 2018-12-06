@@ -13,6 +13,7 @@ class NewAlbum extends React.Component {
 		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		// this.removeSong = this.removeSong.bind(this);
 		this.state = {
+			focus: false,
 			status: null,
 			message: "",
 			userData: {},
@@ -87,17 +88,21 @@ class NewAlbum extends React.Component {
 	    if (e.key === "Tab") {
 	    	e.preventDefault();
 			this.addNewRow.current.click();
+			this.setState({
+				focus: true
+			});
 	    }
   	}
 
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
 		let albumC = JSON.parse(JSON.stringify(this.state.album));
-
-		albumC.tracklistArray.splice(songNum, 1);
-		this.setState({
-			album: albumC
-		});
+		if(albumC.tracklistArray.length !== 1) {
+			albumC.tracklistArray.splice(songNum, 1);
+			this.setState({
+				album: albumC
+			});
+		}
 	};
 
 	handleSubmit = event => {
