@@ -128,32 +128,34 @@ class Album extends React.Component {
 		})
 			.then(response => response.json())
 			.then(response => {
-				console.log(response);
-				// if (response.id) {
-				// 	if (this.albumArtFormData != null){
-				// 		this.albumArtFormData.append("id",response.id);
-				// 		fetch("http://highland.oliverrichman.uk/api/upload/album", {
-				// 			method: "POST",
-				// 			body: this.albumArtFormData,
-				// 			headers: new Headers({
-				// 				Authorization: "Bearer " + localStorage.getItem("AuthToken")
-				// 			})
-				// 		})
-				// 			.then(response => response.json())
-				// 			.then(response => {
-				// 				console.log(response);
-				// 			});
-				// 	}
-				// 	this.setState({
-				// 		status: true,
-				// 		message: "Updated this album"
-				// 	});
-				// } else {
-				// 	this.setState({
-				// 		status: false,
-				// 		message: response.message
-				// 	});
-				// }
+				if (response.id) {
+					if (this.albumArtFormData != null){
+						this.albumArtFormData.append("id",response.id);
+						fetch("http://highland.oliverrichman.uk/api/upload/album", {
+							method: "POST",
+							body: this.albumArtFormData,
+							headers: new Headers({
+								Authorization: "Bearer " + localStorage.getItem("AuthToken")
+							})
+						})
+							.then(response => response.json())
+							.then(response => {
+								this.setState({
+									status: true,
+									message: "Updated this album"
+								});
+							});
+					}
+					this.setState({
+						status: true,
+						message: "Updated this album"
+					});
+				} else {
+					this.setState({
+						status: false,
+						message: response.message
+					});
+				}
 			});
 	};
 
@@ -225,7 +227,7 @@ class Album extends React.Component {
 	}
 
 	render() {
-		const {userData, artists, album} = this.state;
+		const {status,message,userData, artists, album} = this.state;
 
 		const Message = ({status, message}) =>
 			status ? (
@@ -343,8 +345,8 @@ class Album extends React.Component {
 									value="Update this Album"
 								/>
 								<Message
-									status={this.state.status}
-									message={this.state.message}
+									status={status}
+									message={message}
 								/>
 							</form>
 						</li>
