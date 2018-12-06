@@ -532,70 +532,86 @@
               !empty($postData['year'])
           ) {
             $db = $GLOBALS['db'];
-            $validKeys = ['title','artist','tracklist','year'];
-            foreach ($postData as $key=>$value) {
-                if (in_array($key, $validKeys)) {
-                    $postKeys[] = "`".$key."`";
-                    $postValues[] = "'".$value."'";
-                }
-            }
-            $thirtyDaysAgo = time() - (1);
-            $getDeletedAlbumsQuery = "SELECT * FROM `albums` WHERE `deleted` = 1";
-            $getDeletedAlbumsResult = mysqli_query($db, $getDeletedAlbumsQuery);
-            while ($row = mysqli_fetch_assoc($getDeletedAlbumsResult)) {
-                if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
-                    $idToRecycle = "'".$row['id']."'";
-                    break;
-                }
-            }
-
-            //////////
-            // CHECK IF QUERY WORKED - IF (QUERY){}//
-            /////////
-
-            $isDone = false;
-
-            if (isset($idToRecycle)) {
-                $postKeys[] = '`deleted`';
-                $postValues[] = 0;
-                $postKeys[] = '`deleted_timestamp`';
-                $postValues[] = 0;
-                $setValue = "";
-
-                foreach ($postKeys as $i=>$key) {
-                    $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
-                }
-                $setValue = rtrim($setValue, ', ');
-                $recycleAlbumQuery = "UPDATE `albums` SET ".$setValue." WHERE `id` = ".$idToRecycle;
-                $recycleAlbumResult = mysqli_query($db, $recycleAlbumQuery);
-                if (true) {
-                }
-            } else {
-                $postAlbumQuery = 'INSERT INTO `albums` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
-                $postAlbumResult = mysqli_query($db, $postAlbumQuery);
-            }
-            $getArtistIdQuery = "SELECT `id` FROM `albums` WHERE `deleted` = 0 AND `title` = '".$postData['title']."' AND `artist` = ".$postData['artist']." AND `tracklist` = '".$postData['tracklist']."' AND `year` = '".$postData['year']."'";
-            $getArtistIdResult = mysqli_query($db, $getArtistIdQuery);
-            $lastId = mysqli_fetch_assoc($getArtistIdResult)['id'];
-
-            $getArtistQuery = "SELECT `albums` FROM `artists` WHERE `deleted` = 0 AND `id` = ".$postData['artist'];
-            $getArtistResult = mysqli_query($db, $getArtistQuery);
-            $artistAlbums = mysqli_fetch_assoc($getArtistResult)['albums'];
-
-            if (!empty($artistAlbums)) {
-                $postAlbumQuery = "UPDATE `artists` SET `albums` = '".$artistAlbums.",".$lastId."' WHERE `id` = ".$postData['artist'];
-                $postAlbumResult = mysqli_query($db, $postAlbumQuery);
-            } else {
-                $postAlbumQuery = "UPDATE `artists` SET `albums` = '".$lastId."' WHERE `id` = ".$postData['artist'];
-                $postAlbumResult = mysqli_query($db, $postAlbumQuery);
-            }
-            // header("HTTP/1.0 200 OK");
-            // response(200, "done and dusted", true);
-            $getAlbumQuery = "SELECT * FROM `albums` WHERE `deleted` = 0 AND `id` = ".$lastId;
+            $getAlbumQuery = "SELECT `id` FROM `albums` WHERE `deleted` = 0 AND `title` = '".$postData['title']."' AND `artist` = ".$postData['artist'];
             $getAlbumResult = mysqli_query($db, $getAlbumQuery);
-            $row = mysqli_fetch_assoc($getAlbumResult);
-            header("Content-Type: application/json");
-            echo json_encode($row);
+            $albumExists = mysqli_num_rows($getAlbumResult);
+            // print_r(mysqli_fetch_assoc($getAlbumResult));
+            // die();
+            // response(200, $getAlbumQuery." - ".$albumExists, true);
+            if (empty($albumExists)) {
+                $validKeys = ['title','artist','tracklist','year'];
+                foreach ($postData as $key=>$value) {
+                    if (in_array($key, $validKeys)) {
+                        $postKeys[] = "`".$key."`";
+                        $postValues[] = "'".$value."'";
+                    }
+                }
+                $thirtyDaysAgo = time() - (1);
+                $getDeletedAlbumsQuery = "SELECT * FROM `albums` WHERE `deleted` = 1";
+                $getDeletedAlbumsResult = mysqli_query($db, $getDeletedAlbumsQuery);
+                while ($row = mysqli_fetch_assoc($getDeletedAlbumsResult)) {
+                    if (!empty($row['deleted_timestamp']) && (int)$row['deleted_timestamp'] <= $thirtyDaysAgo) {
+                        $idToRecycle = "'".$row['id']."'";
+                        break;
+                    }
+                }
+
+                //////////
+                // CHECK IF QUERY WORKED - IF (QUERY){}//
+                /////////
+
+                $isDone = false;
+
+                if (isset($idToRecycle)) {
+                    $postKeys[] = '`deleted`';
+                    $postValues[] = 0;
+                    $postKeys[] = '`deleted_timestamp`';
+                    $postValues[] = 0;
+                    $setValue = "";
+
+                    foreach ($postKeys as $i=>$key) {
+                        $setValue .= $postKeys[$i]." = ".$postValues[$i].", ";
+                    }
+                    $setValue = rtrim($setValue, ', ');
+                    $recycleAlbumQuery = "UPDATE `albums` SET ".$setValue." WHERE `id` = ".$idToRecycle;
+                    // $recycleAlbumResult = mysqli_query($db, $recycleAlbumQuery);
+                    if (mysqli_query($db, $recycleAlbumQuery)) {
+                        $isDone = true;
+                    }
+                } else {
+                    $postAlbumQuery = 'INSERT INTO `albums` ('.implode(", ", $postKeys).') VALUES ('.implode(", ", $postValues).')';
+                    // $postAlbumResult = mysqli_query($db, $postAlbumQuery);
+                    if (mysqli_query($db, $postAlbumQuery)) {
+                        $isDone = true;
+                    }
+                }
+
+                if ($isDone) {
+                    $getArtistIdQuery = "SELECT `id` FROM `albums` WHERE `deleted` = 0 AND `title` = '".$postData['title']."'";
+                    $getArtistIdResult = mysqli_query($db, $getArtistIdQuery);
+                    $lastId = mysqli_fetch_assoc($getArtistIdResult)['id'];
+
+                    $getArtistQuery = "SELECT `albums` FROM `artists` WHERE `deleted` = 0 AND `id` = ".$postData['artist'];
+                    $getArtistResult = mysqli_query($db, $getArtistQuery);
+                    $artistAlbums = mysqli_fetch_assoc($getArtistResult)['albums'];
+
+                    if (!empty($artistAlbums)) {
+                        $postAlbumQuery = "UPDATE `artists` SET `albums` = '".$artistAlbums.",".$lastId."' WHERE `id` = ".$postData['artist'];
+                        $postAlbumResult = mysqli_query($db, $postAlbumQuery);
+                    } else {
+                        $postAlbumQuery = "UPDATE `artists` SET `albums` = '".$lastId."' WHERE `id` = ".$postData['artist'];
+                        $postAlbumResult = mysqli_query($db, $postAlbumQuery);
+                    }
+                    $getAlbumQuery = "SELECT * FROM `albums` WHERE `deleted` = 0 AND `id` = ".$lastId;
+                    $getAlbumResult = mysqli_query($db, $getAlbumQuery);
+                    $row = mysqli_fetch_assoc($getAlbumResult);
+                    header("Content-Type: application/json");
+                    echo json_encode($row);
+                }
+            } else {
+                header("HTTP/1.0 409 Conflict");
+                response(409, "This album already exists", true);
+            }
         } else {
             header("HTTP/1.0 400 Bad Request");
             response(400, "Title, artist, year and tracklist cannot be blank", true);

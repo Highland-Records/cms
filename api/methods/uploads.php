@@ -62,6 +62,66 @@ function uploadProfileImage($files, $post, $bearerToken = "")
         }
     }
 }
+function uploadAlbumArt($files, $post)
+{
+    $fileExtension = explode(".", $files["album_art"]["name"])[1];
+    $files["album_art"]["name"] = uniqid('');
+    $db = $GLOBALS['db'];
+    $target_dir = "images/albums/";
+    $target_file = $target_dir . uniqid('') . ".".$fileExtension;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Check if image file is a actual image or fake image
+    if (isset($post["submit"])) {
+        $check = getimagesize($files["album_art"]["tmp_name"]);
+        // print_r($check);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "Not an Image", true);
+            $uploadOk = 0;
+        }
+    }
+    if ($check[0] > 500 || $check[1] > 500) {
+        header("HTTP/1.0 400 Bad Request");
+        response(400, "File too large, must be 500 x 500", true);
+        $uploadOk = 0;
+    }
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        header("HTTP/1.0 400 Bad Request");
+        response(400, "File already exists", true);
+        $uploadOk = 0;
+    }
+    // Check file size
+    if ($files["album_art"]["size"] > 500000) {
+        header("HTTP/1.0 400 Bad Request");
+        response(400, "File too large", true);
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 1) {
+        if (move_uploaded_file($files["album_art"]["tmp_name"], $target_file)) {
+            $getAlbumArtQuery = "SELECT `album_art` FROM `albums` WHERE `deleted` = 0 AND `id` = ".$post['id'];
+            $getAlbumArtResult = mysqli_query($db, $getAlbumArtQuery);
+            $albumArt = mysqli_fetch_assoc($getAlbumArtResult)['album_art'];
+            if (!empty($albumArt)) {
+                array_map('unlink', glob("images/albums/".$albumArt));
+            }
+            $albumURL = explode("/", $target_file)[2];
+            $postImgUrlQuery = "UPDATE `albums` SET `album_art` = '". $albumURL."' WHERE `deleted` = 0 AND `id` = ".$post['id'];
+            $postImgUrlResult = mysqli_query($db, $postImgUrlQuery);
+            // if profile_img != blank then array_map('unlink', glob("some/dir/*.txt"));
+            header("HTTP/1.0 201 Created");
+            response(201, "File uploaded: ".$albumURL);
+        } else {
+            header("HTTP/1.0 400 Bad Request");
+            response(400, "File failed to upload", true);
+        }
+    }
+}
 
 function uploadArtistProfile($files, $post)
 {
