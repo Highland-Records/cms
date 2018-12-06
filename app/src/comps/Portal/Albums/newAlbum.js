@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import './newAlbumStyle.css';
+import "./newAlbumStyle.css";
 import PortalFunctions from "../PortalFunctions";
 import PortalNavigation from "../nav/Navigation";
 
@@ -20,27 +20,28 @@ class NewAlbum extends React.Component {
 				title: "",
 				year: null,
 				artist: null,
-				tracklist: [
-					"",
-				],
-				"albumFile": "",
-				"albumArtPreviewUrl": "",
+				tracklistArray: [""],
+				tracklist: "",
+				albumFile: "",
+				albumArtPreviewUrl: ""
 			}
 		};
 	}
 
 	handleChange = event => {
+		let album = JSON.parse(JSON.stringify(this.state.album));
+		album[event.target.name] = event.target.value;
 		this.setState({
-			[event.target.name]: event.target.value
+			album: album
 		});
 	};
 
 	handleSongChange = (songNum, event) => {
 		let album = JSON.parse(JSON.stringify(this.state.album));
-   		album.tracklist[songNum] = event.target.value;
-   		this.setState({
-      		album: album
- 		});
+		album.tracklistArray[songNum] = event.target.value;
+		this.setState({
+			album: album
+		});
 	};
 
 	albumArtFormData = null;
@@ -48,11 +49,11 @@ class NewAlbum extends React.Component {
 	addSong = e => {
 		e.preventDefault();
 		let album = JSON.parse(JSON.stringify(this.state.album));
-   		album.tracklist.push("")
-   		this.setState({
-      		album: album
- 		});
-	}
+		album.tracklistArray.push("");
+		this.setState({
+			album: album
+		});
+	};
 
 	// On change set the data states
 	handleAlbumChange = e => {
@@ -63,7 +64,11 @@ class NewAlbum extends React.Component {
 
 		reader.onloadend = () => {
 			this.setState({
-				album: {...this.state.album, "albumFile": file, "albumArtPreviewUrl": reader.result}
+				album: {
+					...this.state.album,
+					albumFile: file,
+					albumArtPreviewUrl: reader.result
+				}
 			});
 		};
 
@@ -81,11 +86,81 @@ class NewAlbum extends React.Component {
 		// console.log(songNum);
 		let albumC = JSON.parse(JSON.stringify(this.state.album));
 
-		albumC.tracklist.splice(songNum,1);
+		albumC.tracklistArray.splice(songNum, 1);
 		this.setState({
-      		album: albumC
- 		});
-	}
+			album: albumC
+		});
+	};
+
+	handleSubmit = event => {
+		event.preventDefault();
+
+		this.state.album.tracklist = this.state.album.tracklistArray.join(
+			","
+		);
+
+		const formData = new FormData();
+		formData.append("title", this.state.album.title);
+		formData.append("year", this.state.album.year);
+		formData.append("artist", this.state.album.artist);
+		formData.append("tracklist", this.state.album.tracklist);
+
+		fetch("http://highland.oliverrichman.uk/api/albums", {
+			method: "POST",
+			body: formData,
+			headers: new Headers({
+				Authorization: "Bearer " + localStorage.getItem("AuthToken")
+			})
+		})
+			.then(response => response.json())
+			.then(response => {
+				console.log(response);
+				// if (response.id) {
+				// 	console.log("done");
+				// 	// DO ALBUM ART UPLOAD
+				// 	// if (this.bannerImageFormData != null){
+				// 	// 	this.bannerImageFormData.append("id",response.id);
+				// 	// 	fetch("http://highland.oliverrichman.uk/api/upload/artist/banner", {
+				// 	// 		method: "POST",
+				// 	// 		body: this.bannerImageFormData,
+				// 	// 		headers: new Headers({
+				// 	// 			Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				// 	// 		})
+				// 	// 	})
+				// 	// 		.then(response => response.json())
+				// 	// 		.then(response => {
+				// 	// 			console.log("API Status: ", response.code);
+				// 	// 			console.log("API Message: ", response.message);
+				// 	// 		});
+				// 	// }
+				// 	//
+				// 	// if (this.profileImageFormData != null){
+				// 	// 	this.profileImageFormData.append("id",response.id);
+				// 	// 	fetch("http://highland.oliverrichman.uk/api/upload/artist/profile", {
+				// 	// 		method: "POST",
+				// 	// 		body: this.profileImageFormData,
+				// 	// 		headers: new Headers({
+				// 	// 			Authorization: "Bearer " + localStorage.getItem("AuthToken")
+				// 	// 		})
+				// 	// 	})
+				// 	// 		.then(response => response.json())
+				// 	// 		.then(response => {
+				// 	// 			console.log("API Status: ", response.code);
+				// 	// 			console.log("API Message: ", response.message);
+				// 	// 		});
+				// 	// }
+				// 	// this.setState({
+				// 	// 	status: true,
+				// 	// 	message: "Created this artist"
+				// 	// });
+				// } else {
+				// 	this.setState({
+				// 		status: false,
+				// 		message: response.message
+				// 	});
+				// }
+			});
+	};
 
 	componentDidMount() {
 		window.scrollTo(0, 0);
@@ -95,8 +170,12 @@ class NewAlbum extends React.Component {
 				else return res.json();
 			})
 			.then(
-				r => {this.setState({isLoaded: true,userData: r})},
-				e => {this.setState({isLoaded: true,e})}
+				r => {
+					this.setState({isLoaded: true, userData: r});
+				},
+				e => {
+					this.setState({isLoaded: true, e});
+				}
 			);
 		PortalFunctions.GetAllArtists()
 			.then(res => {
@@ -104,23 +183,23 @@ class NewAlbum extends React.Component {
 				else return res.json();
 			})
 			.then(
-				r => {this.setState({isLoaded: true,artists: r})},
-				e => {this.setState({isLoaded: true,e})}
+				r => {
+					this.setState({isLoaded: true, artists: r});
+				},
+				e => {
+					this.setState({isLoaded: true, e});
+				}
 			);
 	}
 
 	render() {
 		const {userData, artists, album} = this.state;
 
-		const Message = ({status,message}) =>
+		const Message = ({status, message}) =>
 			status ? (
-				<p className="wrong-back-text green">
-					{message}
-				</p>
+				<p className="wrong-back-text green">{message}</p>
 			) : (
-				<p className="wrong-back-text">
-					{message}
-				</p>
+				<p className="wrong-back-text">{message}</p>
 			);
 
 		let albumArtPreview = null;
@@ -132,15 +211,11 @@ class NewAlbum extends React.Component {
 		// }
 
 		const artistsDropdown = artists.map(artist => {
-			return (
-		  		<option value={artist.id}>{artist.name}</option>
-			);
+			return <option value={artist.id}>{artist.name}</option>;
 		});
-;
 		// console.log(this.state.album.tracklist);
 
-		const songInputs = album.tracklist.map((val,i) => {
-			// let songNum = album.tracklist.indexOf(i);
+		const songInputs = album.tracklistArray.map((val, i) => {
 			let className = `song-input-${i}`;
 			return (
 				<li>
@@ -157,74 +232,84 @@ class NewAlbum extends React.Component {
 			);
 		});
 
-		return(
+		return (
 			<section className="PortalStyle">
-					{PortalNavigation.DrawNavigation(userData, "albums")}
-					<header>Add a new Album</header>
-					<div className="c">
-						<ul className="newAlbum">
-							<li>
-								<div className="albumArt">
-									<form>
-										<input
-											name="album_art"
-											className="fileInput"
-											type="file"
-											accept="image/*"
-											ref={this.albumInputElement}
-											onChange={e => this.handleAlbumChange(e)}
-										/>
-									</form>
-									<div className="fileUploadOverlay" onClick={this.handleAlbumClick} >
-										Edit
-									</div>
-									<img src={albumArtPreview} alt="" />
+				{PortalNavigation.DrawNavigation(userData, "albums")}
+				<header>Add a new Album</header>
+				<div className="c">
+					<ul className="newAlbum">
+						<li>
+							<div className="albumArt">
+								<form>
+									<input
+										name="album_art"
+										className="fileInput"
+										type="file"
+										accept="image/*"
+										ref={this.albumInputElement}
+										onChange={e =>
+											this.handleAlbumChange(e)
+										}
+									/>
+								</form>
+								<div
+									className="fileUploadOverlay"
+									onClick={this.handleAlbumClick}
+								>
+									Edit
 								</div>
-							</li>
-							<li>
-									<form
-										onSubmit={this.handleSubmit}
-										encType="multipart/form-data"
-										className="visableForm"
-									>
-										<input
-											className="albumTitle-input"
-											name="title"
-											type="text"
-											placeholder="Title"
-
-											autoFocus={true}
-											onChange={this.handleChange}
-										/>
-										<select>
-											{artistsDropdown}
-										</select>
-										<input
-											className="albumYear-input"
-										 	name="description"
-											type="text"
-										 	placeholder="Year"
-											value={this.state.album.year}
-										 	onChange={this.handleChange}
-										 />
-										 <ul>
-										 {songInputs}
-										 <li onClick={this.addSong}>Add a song</li>
-										 </ul>
-										<br />
-										<input
-											className="button"
-											type="submit"
-											value="Add this Album"
-										/>
-										<Message status={this.state.status} message={this.state.message}></Message>
-									</form>
-							</li>
-						</ul>
-					</div>
+								<img src={albumArtPreview} alt="" />
+							</div>
+						</li>
+						<li>
+							<form
+								onSubmit={this.handleSubmit}
+								encType="multipart/form-data"
+								className="visableForm"
+							>
+								<input
+									className="albumTitle-input"
+									name="title"
+									type="text"
+									placeholder="Title"
+									autoFocus={true}
+									onChange={this.handleChange}
+								/>
+								<select
+									onChange={this.handleChange}
+									name="artist"
+								>
+									{artistsDropdown}
+								</select>
+								<input
+									className="albumYear-input"
+									name="year"
+									type="text"
+									placeholder="Year"
+									onChange={this.handleChange}
+								/>
+								<ul>
+									{songInputs}
+									<li onClick={this.addSong}>
+										Add a song
+									</li>
+								</ul>
+								<br />
+								<input
+									className="button"
+									type="submit"
+									value="Add this Album"
+								/>
+								<Message
+									status={this.state.status}
+									message={this.state.message}
+								/>
+							</form>
+						</li>
+					</ul>
+				</div>
 			</section>
 		);
-
 
 		// return (
 		// 	<section className="PortalStyle">
