@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
 import PortalFunctions from "../Portal/PortalFunctions";
 
-
 class Videos extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,80 +14,76 @@ class Videos extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		// Get all videos
-		fetch(
-			"http://highland.oliverrichman.uk/api/artists/",
-			{
-				method: "GET",
-			}
-		)
-		.then(res => {
-			if (!res.ok) throw new Error(res.status);
+		fetch("http://highland.oliverrichman.uk/api/artists/", {
+			method: "GET"
+		})
+			.then(res => {
+				if (!res.ok) throw new Error(res.status);
 				else return res.json();
 			})
-		.then(
-			r => {this.setState({isLoaded: true,apiData: r})},
-			e => {this.setState({isLoaded: true,e})}
-		);
-
-		// let videos = [];
-		//
-		// for (let artist of this.state.apiData){
-		// 	if (artist.video_links){
-		// 		if (artist.video_links.includes('!@!')){
-		// 			let videoLinks = artist.video_links.split('!@!');
-		// 			for (let link of videoLinks){
-		// 				videos.push({artist: artist.name, video: link});
-		// 			}
-		// 		}
-		// 	}
-		// }
-		//
-		// console.log(videos);
+			.then(
+				r => {
+					this.setState({isLoaded: true, apiData: r});
+				},
+				e => {
+					this.setState({isLoaded: true, e});
+				}
+			);
 	}
 	render() {
 		const {error, apiData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-
-const apiRender = apiData.map(artist => {
-	if (artist.video_links){
-		if (artist.video_links.includes('!@!')){
-			return (artist.video_links.split('!@!').map(videoLink =>{
-				let srcURL = PortalFunctions.CoreURLVideos + videoLink;
-				return (
-					<li>
-					{artist.name}
-					</li>
-				)
-			}))
-		} else {
-
-			let srcURL = PortalFunctions.CoreURLVideos() + artist.video_links;
-			return(
-				<li>
-				{artist.name}
-				<video controls>
-					<source src={srcURL} type="video/mp4"/>
-					Your browser does not support the video tag.
-				</video>
-				</li>
-			)
-		}
-	}
-});
+			const apiRender = apiData.map(artist => {
+				if (artist.video_links) {
+					let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artist.profile_img;
+					let embedURL = "https://www.youtube.com/embed/";
+					if (artist.video_links.includes("!@!")) {
+						return artist.video_links
+							.split("!@!")
+							.map(videoLink => {
+								return (
+									<li>
+										<iframe
+											width="560"
+											height="315"
+											src={embedURL + videoLink}
+											frameborder="0"
+											allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+											allowfullscreen
+										/>
+										<img src={artistProfile} alt={apiData.name} />
+										<span>{artist.name}</span>
+									</li>
+								);
+							});
+					} else {
+						return (
+							<li>
+								<iframe
+									width="460"
+									height="300"
+									src={embedURL + artist.video_links}
+									frameborder="0"
+									allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen
+								/>
+								<img src={artistProfile} alt={apiData.name} />
+								<span>{artist.name}</span>
+							</li>
+						);
+					}
+				}
+			});
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation("videos")}
 					<div class="banner other video">
-						<p>
-							Highland Videos
-						</p>
+						<p>Highland Videos</p>
 					</div>
 					<div className="list">
-						<ul>
-							{apiRender}
-						</ul>
+						<ul>{apiRender}</ul>
 					</div>
 					<footer>
 						<div className="c">
