@@ -89,7 +89,7 @@ class About extends React.Component {
 						<li>
 							<div>
 								<img src="http://highland.oliverrichman.uk/api/images/people/4.jpg" alt="Fletcher Alderson" />
-								<h2>Fletcher Alderson</h2>
+								<h2>Fletch Alderson</h2>
 								<span>Developer &amp; Designer</span>
 							</div>
 						</li>
