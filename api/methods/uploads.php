@@ -250,53 +250,103 @@ function uploadBanner($files, $post)
 
 function uploadVideo($files, $post)
 {
-    $files["video"]["name"] = uniqid('');
-    $db = $GLOBALS['db'];
-    $target_dir = "videos/";
-    //$target_file = $target_dir . basename($files["video"]["name"]);
-    $target_file = $target_dir . uniqid('') . ".mp4";
-    $uploadOk = 1;
-    $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $allowedExts = array("jpg", "jpeg", "gif", "png", "mp3", "mp4", "wma");
+    $extension = pathinfo($files['file']['name'], PATHINFO_EXTENSION);
 
-    // Check if file already exists
-    if (file_exists($target_file)) {
-        header("HTTP/1.0 400 Bad Request");
-        response(400, "File already exists", true);
-        $uploadOk = 0;
-    }
-    // Check file size
-    if ($files["video"]["size"] > 5000000000) {
-        header("HTTP/1.0 400 Bad Request");
-        response(400, "File too large", true);
-        $uploadOk = 0;
-    }
-    // Allow certain file formats
-    if ($videoFileType != "mp4") {
-        header("HTTP/1.0 400 Bad Request");
-        response(400, "MP4 files only", true);
-        $uploadOk = 0;
-    }
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 1) {
-        if (move_uploaded_file($files["video"]["tmp_name"], $target_file)) {
-            echo "The file ". basename($files["video"]["name"]). " has been uploaded.";
-            $getVideoUrlQuery = "SELECT `video_links` FROM `artists` WHERE `id` = ".$post['id'];
-            $getVideoUrlResult = mysqli_query($db, $getVideoUrlQuery);
-            $videoLinks = mysqli_fetch_assoc($getVideoUrlResult)['video_links'];
-            // $profileURL = explode("/", $target_file)[1];
-            $videoURL = explode("/", $target_file)[1];
+    // print_r($files);
 
-            if (empty($videoLinks)) {
-                $uploadvideoLinks = "'".$videoURL."'";
-            } else {
-                $uploadvideoLinks = "'".$videoLinks.",".$videoURL."'";
-            }
-
-            $postvideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadvideoLinks." WHERE `id` = ".$post['id'];
-            $postvideoLinksResult = mysqli_query($db, $postvideoLinksQuery);
+    if ((($files["file"]["type"] == "video/mp4")) && in_array($extension, $allowedExts)) {
+        if ($files["file"]["error"] > 0) {
+            echo "Return Code: " . $files["file"]["error"] . "<br />";
         } else {
-            header("HTTP/1.0 400 Bad Request");
-            response(400, "File failed to upload", true);
+            // echo $files["file"]["name"];
+            $fileExtension = array_pop(explode(".", $files["file"]["name"]));
+            $files["file"]["name"] = uniqid() . "." . $fileExtension;
+            if (file_exists("videos/" . $files["file"]["name"])) {
+                echo $files["file"]["name"] . " already exists. ";
+            } else {
+                if (move_uploaded_file($files["file"]["tmp_name"], "videos/" . $files["file"]["name"])) {
+                    $db = $GLOBALS['db'];
+                    $getVideoUrlQuery = "SELECT `video_links` FROM `artists` WHERE `id` = ".$post['id'];
+                    $getVideoUrlResult = mysqli_query($db, $getVideoUrlQuery);
+                    $videoLinks = mysqli_fetch_assoc($getVideoUrlResult)['video_links'];
+                    // $profileURL = explode("/", $target_file)[1];
+                    $videoURL = $files["file"]["name"];
+
+                    if (empty($videoLinks)) {
+                        $uploadvideoLinks = "'".$videoURL."'";
+                    } else {
+                        $uploadvideoLinks = "'".$videoLinks.",".$videoURL."'";
+                    }
+
+                    $postvideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadvideoLinks." WHERE `id` = ".$post['id'];
+                    // $postvideoLinksResult = mysqli_query($db, $postvideoLinksQuery);
+
+                    if (mysqli_query($db, $postvideoLinksQuery)) {
+                        response(200, "Uploaded Video", true);
+                    }
+                }
+            }
         }
+    } else {
+        echo "Invalid file";
     }
+
+
+
+
+    // $files["video"]["name"] = uniqid('');
+    // $db = $GLOBALS['db'];
+    // $target_dir = "videos/";
+    // //$target_file = $target_dir . basename($files["video"]["name"]);
+    // $target_file = $target_dir . uniqid('') . ".mp4";
+    // $uploadOk = 1;
+    // $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    //
+    // // Check if file already exists
+    // if (file_exists($target_file)) {
+    //     header("HTTP/1.0 400 Bad Request");
+    //     response(400, "File already exists", true);
+    //     $uploadOk = 0;
+    // }
+    // // // Check file size
+    // // if ($files["video"]["size"] > 5000000000) {
+    // //     header("HTTP/1.0 400 Bad Request");
+    // //     response(400, "File too large", true);
+    // //     $uploadOk = 0;
+    // // }
+    // // Allow certain file formats
+    // if ($videoFileType != "mp4") {
+    //     header("HTTP/1.0 400 Bad Request");
+    //     response(400, "MP4 files only", true);
+    //     $uploadOk = 0;
+    // }
+    // // Check if $uploadOk is set to 0 by an error
+    // if ($uploadOk == 1) {
+    //     // echo "tmp";
+    //     print_r($files);
+    //     // echo "tar fil";
+    //     // print_r($target_file);
+    //     // move_uploaded_file($files["video"]["tmp_name"], $target_file);
+    //     // if (move_uploaded_file($files["video"]["tmp_name"], $target_file)) {
+    //     //     echo "The file ". basename($files["video"]["name"]). " has been uploaded.";
+    //     //     $getVideoUrlQuery = "SELECT `video_links` FROM `artists` WHERE `id` = ".$post['id'];
+    //     //     $getVideoUrlResult = mysqli_query($db, $getVideoUrlQuery);
+    //     //     $videoLinks = mysqli_fetch_assoc($getVideoUrlResult)['video_links'];
+    //     //     // $profileURL = explode("/", $target_file)[1];
+    //     //     $videoURL = explode("/", $target_file)[1];
+    //    //
+    //     //     if (empty($videoLinks)) {
+    //     //         $uploadvideoLinks = "'".$videoURL."'";
+    //     //     } else {
+    //     //         $uploadvideoLinks = "'".$videoLinks.",".$videoURL."'";
+    //     //     }
+    //    //
+    //     //     $postvideoLinksQuery = "UPDATE `artists` SET `video_links` = ".$uploadvideoLinks." WHERE `id` = ".$post['id'];
+    //     //     $postvideoLinksResult = mysqli_query($db, $postvideoLinksQuery);
+    //     // } else {
+    //     //     header("HTTP/1.0 400 Bad Request");
+    //     //     response(400, "File failed to upload", true);
+    //     // }
+    // }
 }

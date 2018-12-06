@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import HomeNavigation from "./Navigation";
+import PortalFunctions from "../Portal/PortalFunctions";
+
 
 class Videos extends React.Component {
 	constructor(props) {
@@ -33,35 +35,27 @@ class Videos extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			const apiRender = apiData.slice(0,4).map(artist => {
+			const apiRender = apiData.map(artist => {
 
 				if (artist.video_links){
 					if (artist.video_links.includes('!@!')){
-
+						let videos = artist.video_links.split('!@!');
+						for (let video of videos){
+							let srcURL = PortalFunctions.CoreURLVideos + video;
+							return (
+								<li>
+								<span>{artist.name}</span>
+								<video width="100%" height="240" controls>
+									<source src={srcURL} type="video/mp4"/>
+									Your browser does not support the video tag.
+								</video>
+								</li>
+							)
+						}
 					} else {
 
 					}
 				}
-
-				return (
-					<li>
-						<h2>{artist.name}</h2>
-					</li>
-				);
-				// let artistImage = artist.profile_img
-				// 	? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
-				// 	: "http://highland.oliverrichman.uk/api/images/" +
-				// 	  "default_profile.jpeg";
-				// return (
-				// 	<li>
-				// 		<div>
-				// 			// <Link to={"/artist/"+artist.id}>
-				// 				<img src={artistImage} alt="" />
-				// 				<h2>{artist.name}</h2>
-				// 			// </Link>
-				// 		</div>
-				// 	</li>
-				// );
 			});
 			return (
 				<section className="SplashStyle">

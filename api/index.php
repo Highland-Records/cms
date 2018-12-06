@@ -51,6 +51,7 @@
                 uploadAlbumArt($_FILES, $_POST);
             } elseif ($endpointId === "artist") {
                 if ($command === "video") {
+                    // print_r($_FILES);
                     uploadVideo($_FILES, $_POST);
                 } elseif ($command === "banner") {
                     uploadBanner($_FILES, $_POST);
