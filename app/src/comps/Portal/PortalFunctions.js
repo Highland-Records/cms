@@ -51,6 +51,14 @@ const PortalFunctions = {
 			}
 		)
 	},
+	GetArtist(artistId){
+		return fetch(
+			"http://highland.oliverrichman.uk/api/artists/"+artistId,
+			{
+				method: "GET"
+			}
+		)
+	},
 	GetAllAlbums(){
 		return fetch(
 			"http://highland.oliverrichman.uk/api/albums/",

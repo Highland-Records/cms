@@ -243,6 +243,11 @@ Section.SplashStyle {
 		}
 		li:last-of-type {
 			padding-left: 40px;
+			h1 {
+				font-size: 60px;
+				font-weight: bold;
+				letter-spacing: -2px;
+			}
 			h2 {
 				font-weight: bold;
 			}
@@ -293,6 +298,31 @@ Section.SplashStyle {
 						padding: 10px 0;
 						width: 100%;
 						border-bottom: 1px #eee solid;
+					}
+				}
+			}
+			ul.songList {
+				margin: 0;
+				padding: 0;
+				margin-top: 20px;
+				li {
+					border: 0;
+					padding: 0;
+					margin: 0;
+					font-size: 18px;
+					font-weight: normal;
+					letter-spacing: 0;
+					line-height: normal;
+					width: 100%;
+					height: auto;
+					text-align: left;
+					padding-bottom: 15px;
+					padding-top: 15px;
+					border-bottom: 1px #ccc solid;
+					&:last-child {
+						padding-top: 15px;
+						border-bottom: none;
+						color: #999;
 					}
 				}
 			}

@@ -1,19 +1,18 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import HomeNavigation from "../Navigation";
+import PortalFunctions from "../../Portal/PortalFunctions";
+
 
 class ArtistPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			error: null,
-			apiData: [],
-			artistData: [],
+			apiData: {},
+			artistData: {},
 			albumId: this.props.id
 		};
-	}
-	componentDidMount() {
-		window.scrollTo(0, 0);
 		// Get the album
 		fetch(
 			"http://highland.oliverrichman.uk/api/albums/" +
@@ -22,42 +21,48 @@ class ArtistPage extends React.Component {
 				method: "GET",
 			}
 		)
-		.then(res => {
-			if (!res.ok) throw new Error(res.status);
-				else return res.json();
-			})
-		.then(
-			r => {this.setState({isLoaded: true,apiData: r})},
-			e => {this.setState({isLoaded: true,e})}
-		);
+		.then(response => response.json())
+		.then(response => {
+			this.setState({apiData: response});
+			// Get artist
+			PortalFunctions.GetArtist(this.state.apiData.artist)
+				.then(response => response.json())
+				.then(response => {
+					this.setState({artistData: response})
+				});
+		});
+
 	}
-	// Get the artist
-	GetArtist(id){
-		fetch(
-			"http://highland.oliverrichman.uk/api/artists/" +
-			id,
-			{
-				method: "GET",
-			}
-		)
-		.then(res => {
-			if (!res.ok) throw new Error(res.status);
-				else return res.json();
-			})
-		.then(
-			r => {this.setState({isLoaded: true,artistData: r})},
-			e => {this.setState({isLoaded: true,e})}
-		);
+	componentDidMount() {
+		window.scrollTo(0, 0);
 	}
+
 	render() {
 		const {error, apiData, artistData} = this.state;
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-			{this.GetArtist(this.state.apiData.artist)}
+
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + artistData.banner_img;
 			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artistData.profile_img;
 			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
+			let artistLink = '/artists/' + apiData.artist;
+
+			let songInputs;
+			let tracklistArray = [];
+			// console.log(apiData);
+			if (String(apiData.tracklist).includes('!@!')){
+				tracklistArray = apiData.tracklist.split('!@!');
+			} else {
+				tracklistArray.push(apiData.tracklist);
+			}
+			let songList = tracklistArray.map((val, i) => {
+				let className = `song-input-${i}`;
+				return (
+					<li>{val}</li>
+				);
+			});
+
 			return (
 				<section className="SplashStyle">
 					{HomeNavigation.DrawNavigation()}
@@ -66,17 +71,20 @@ class ArtistPage extends React.Component {
 						<img src={artistBanner} alt={artistData.name} />
 						<p>
 							<img src={artistProfile} alt={apiData.name} />
-							{artistData.name}
+							{this.state.artistData.name}
 						</p>
 					</div>
-					<Link to="/artists/">Back to Artist Page</Link>
+					<Link to={artistLink}>Back to Artist Page</Link>
 					<ul className="home">
 						<li>
 							<img src={albumArt} alt={apiData.title} />
-							{apiData.title}
 						</li>
 						<li>
-							Song Listing
+							<h1>{apiData.title}</h1>
+							<ul className="songList">
+								{songList}
+								<li>Released in {apiData.year} &nbsp;&nbsp;&bull;&nbsp;&nbsp; Total tracks: {songList.length}</li>
+							</ul>
 						</li>
 					</ul>
 					<footer>
