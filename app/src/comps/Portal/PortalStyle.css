@@ -239,6 +239,7 @@ section.PortalStyle div.c ul.videoList h2 {
   font-weight: bold;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 section.PortalStyle div.c ul.videoList li {
   width: 33.3%;
@@ -246,13 +247,14 @@ section.PortalStyle div.c ul.videoList li {
   display: inline-block;
   vertical-align: top;
   text-align: center;
+  margin-bottom: 20px;
 }
 section.PortalStyle div.c ul.videoList li:last-child form {
   opacity: 0;
   width: 0;
   height: 0;
 }
-section.PortalStyle div.c ul.videoList li:last-child div div {
+section.PortalStyle div.c ul.videoList li:last-child div div.fileUploadOverlay {
   width: 100%;
   height: 240px;
   border: 3px #000 dashed;

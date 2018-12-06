@@ -7,9 +7,9 @@ body, html {
 	font-size: 16px;
     color: #000;
     background: #eee;
-	overflow-x: hidden; 
+	overflow-x: hidden;
 }
-input, textarea {
+input, textarea, select {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 16px;
 	outline: none;

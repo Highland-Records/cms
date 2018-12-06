@@ -52,11 +52,10 @@ class Users extends React.Component {
 
 	deleteUser(userId) {
 		// PROMPT FOR A MASTER PASSWORD THEN IF IT'S RIGHT - DELETE THE USER!!
-
-		if(userId === 1 || userId === 2) {
-			if(userId === 1) {
+		if(Number(userId) === 1 || Number(userId) === 2) {
+			if(Number(userId) === 1) {
 				alert("This ain't it chief");
-			} else if(userId === 2) {
+			} else if(Number(userId) === 2) {
 				alert("Ha, nice try");
 			}
 		} else {
