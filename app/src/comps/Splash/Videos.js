@@ -79,7 +79,7 @@ const apiRender = apiData.map(artist => {
 });
 			return (
 				<section className="SplashStyle">
-					{HomeNavigation.DrawNavigation()}
+					{HomeNavigation.DrawNavigation("videos")}
 					<div class="banner other video">
 						<p>
 							Highland Videos

@@ -126,8 +126,11 @@ Section.SplashStyle nav ul li {
   font-weight: bold;
   font-size: 14px;
 }
-Section.SplashStyle nav ul li a, Section.SplashStyle nav ul li a:hover {
+Section.SplashStyle nav ul li a, Section.SplashStyle nav ul li a:hover, Section.SplashStyle nav ul li a.s {
   color: #fff;
+}
+Section.SplashStyle nav ul li a:hover, Section.SplashStyle nav ul li a.s, Section.SplashStyle nav ul li a:hover:hover, Section.SplashStyle nav ul li a:hover.s, Section.SplashStyle nav ul li a.s:hover, Section.SplashStyle nav ul li a.s.s {
+  text-decoration: underline;
 }
 Section.SplashStyle nav a.adminLink {
   float: right;

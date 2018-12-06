@@ -124,8 +124,11 @@ Section.SplashStyle {
 				text-transform: uppercase;
 				font-weight: bold;
 				font-size: 14px;
-				a, a:hover {
+				a, a:hover, a.s {
 					color: #fff;
+					&:hover, &.s {
+						text-decoration: underline;
+					}
 				}
 			}
 		}

@@ -8,7 +8,7 @@ class About extends React.Component {
 	render() {
 		return (
 			<section className="SplashStyle">
-				{HomeNavigation.DrawNavigation()}
+				{HomeNavigation.DrawNavigation("about")}
 				<div class="banner other about">
 					<p>
 						About us

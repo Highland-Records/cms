@@ -2,7 +2,18 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 const HomeNavigation = {
-	DrawNavigation() {
+	DrawNavigation(location) {
+		if (location === 'artists') {
+			this.location = 'artists';
+		} else if (location === 'videos') {
+			this.location = 'videos';
+		} else if (location === 'releases') {
+			this.location = 'releases';
+		} else if (location === 'about') {
+			this.location = 'about';
+		} else if(location === null) {
+			// IGNORE THIS
+		}
 		let navigation = (
 			<nav>
 				<div>
@@ -11,16 +22,16 @@ const HomeNavigation = {
 					</Link>
 					<ul>
 						<li>
-							<Link to="/artists">Artists</Link>
+							<Link to="/artists" className={this.location === 'artists' ? 's' : ''}>Artists</Link>
 						</li>
 						<li>
-							<Link to="/videos">Videos</Link>
+							<Link to="/videos" className={this.location === 'videos' ? 's' : ''}>Videos</Link>
 						</li>
 						<li>
-							<Link to="/releases">Releases</Link>
+							<Link to="/releases" className={this.location === 'releases' ? 's' : ''}>Releases</Link>
 						</li>
 						<li>
-							<Link to="/about">About</Link>
+							<Link to="/about" className={this.location === 'about' ? 's' : ''}>About</Link>
 						</li>
 					</ul>
 					<Link className="adminLink" to="/sign-in">Sign In</Link>

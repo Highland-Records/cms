@@ -49,7 +49,7 @@ class Releases extends React.Component {
 			return (
 				<div className="App">
 					<section className="SplashStyle">
-						{HomeNavigation.DrawNavigation()}
+						{HomeNavigation.DrawNavigation("releases")}
 						<div class="banner other releases">
 							<p>
 								Latest releases
