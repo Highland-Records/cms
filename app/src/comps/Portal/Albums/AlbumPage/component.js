@@ -35,10 +35,10 @@ class Album extends React.Component {
 		return(
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "albums")}
-				<header>Album Overview</header>
+				<header>Edit Album</header>
 					<div className="c">
 						<ul className="newAlbum">
-							
+
 						</ul>
 					</div>
 			</section>
