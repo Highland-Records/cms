@@ -28,6 +28,21 @@
             header("HTTP/1.0 401 Unauthorized");
             response(401, "You aren't authorised to do this", true);
         }
+    } elseif ($endpoint === "all-videos") {
+        $directory = "./videos";
+        $dirArr = scandir($directory);
+        $videos = [];
+        foreach ($dirArr as $item) {
+            if (strpos($item, ".mp4") != false) {
+                array_push($videos, $item);
+            }
+        }
+        // while ($row = mysqli_fetch_assoc($getArtistsResult)) {
+        //     array_push($data, $row);
+        // }
+        header("Content-Type: application/json");
+        echo json_encode($videos);
+    // print_r($videos);
     } elseif ($endpoint === "upload") {
         if (authorised($bearerToken)) {
             if ($endpointId === "profile") {

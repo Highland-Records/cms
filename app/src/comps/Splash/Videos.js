@@ -14,7 +14,7 @@ class Videos extends React.Component {
 		window.scrollTo(0, 0);
 		// Get all videos
 		fetch(
-			"http://highland.oliverrichman.uk/api/videos/",
+			"http://highland.oliverrichman.uk/api/artists/",
 			{
 				method: "GET",
 			}
@@ -34,20 +34,34 @@ class Videos extends React.Component {
 			return <div>Error: {error.message}</div>;
 		} else {
 			const apiRender = apiData.slice(0,4).map(artist => {
-				let artistImage = artist.profile_img
-					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
-					: "http://highland.oliverrichman.uk/api/images/" +
-					  "default_profile.jpeg";
+
+				if (artist.video_links){
+					if (artist.video_links.includes('!@!')){
+
+					} else {
+
+					}
+				}
+
 				return (
 					<li>
-						<div>
-							<Link to={"/artist/"+artist.id}>
-								<img src={artistImage} alt="" />
-								<h2>{artist.name}</h2>
-							</Link>
-						</div>
+						<h2>{artist.name}</h2>
 					</li>
 				);
+				// let artistImage = artist.profile_img
+				// 	? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
+				// 	: "http://highland.oliverrichman.uk/api/images/" +
+				// 	  "default_profile.jpeg";
+				// return (
+				// 	<li>
+				// 		<div>
+				// 			// <Link to={"/artist/"+artist.id}>
+				// 				<img src={artistImage} alt="" />
+				// 				<h2>{artist.name}</h2>
+				// 			// </Link>
+				// 		</div>
+				// 	</li>
+				// );
 			});
 			return (
 				<section className="SplashStyle">
