@@ -273,7 +273,6 @@ class Artist extends React.Component {
 				console.log("Page failed to load API data");
 			}
 		});
-
 	}
 	render() {
 		const {userData, artistsData, artist} = this.state;
