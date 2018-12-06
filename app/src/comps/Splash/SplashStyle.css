@@ -242,6 +242,11 @@ Section.SplashStyle ul.home li, Section.SplashStyle ul.home-flip li {
 Section.SplashStyle ul.home li:last-of-type, Section.SplashStyle ul.home-flip li:last-of-type {
   padding-left: 40px;
 }
+Section.SplashStyle ul.home li:last-of-type h1, Section.SplashStyle ul.home-flip li:last-of-type h1 {
+  font-size: 60px;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
 Section.SplashStyle ul.home li:last-of-type h2, Section.SplashStyle ul.home-flip li:last-of-type h2 {
   font-weight: bold;
 }
@@ -294,6 +299,31 @@ Section.SplashStyle ul.home li:last-of-type div ul li, Section.SplashStyle ul.ho
   padding: 10px 0;
   width: 100%;
   border-bottom: 1px #eee solid;
+}
+Section.SplashStyle ul.home li:last-of-type ul.songList, Section.SplashStyle ul.home-flip li:last-of-type ul.songList {
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+}
+Section.SplashStyle ul.home li:last-of-type ul.songList li, Section.SplashStyle ul.home-flip li:last-of-type ul.songList li {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 0;
+  line-height: normal;
+  width: 100%;
+  height: auto;
+  text-align: left;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-bottom: 1px #ccc solid;
+}
+Section.SplashStyle ul.home li:last-of-type ul.songList li:last-child, Section.SplashStyle ul.home-flip li:last-of-type ul.songList li:last-child {
+  padding-top: 15px;
+  border-bottom: none;
+  color: #999;
 }
 Section.SplashStyle ul.home-flip li:first-child {
   width: 70%;
