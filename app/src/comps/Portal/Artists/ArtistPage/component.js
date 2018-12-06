@@ -270,7 +270,7 @@ class Artist extends React.Component {
 		return(
 			<section className="PortalStyle">
 				{PortalNavigation.DrawNavigation(userData, "home")}
-				<header>Artist Overview</header>
+				<header>Edit Artist</header>
 					<div className="c">
 						<ul className="newArtist">
 							<li>
