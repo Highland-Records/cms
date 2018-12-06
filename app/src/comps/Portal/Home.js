@@ -77,26 +77,30 @@ class PortalHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-
-			const artistsHtml = artistsData.map(artist => {
-				let artistImage = artist.profile_img
-					? PortalFunctions.CoreURLImages() + "artists/" + artist.profile_img
-					: PortalFunctions.CoreURLImages() +
-					  "default_profile.jpeg";
-				return (
-					<li>
-						<div>
-							<Link to={"/artist/"+artist.id}>
-								<img src={artistImage} alt={artist.name} />
-								<h2>{artist.name}</h2>
-							</Link>
-							<p>
-								<span className="delete" onClick={() => this.deleteArtist(artist.id)}>remove</span>
-							</p>
-						</div>
-					</li>
-				);
-			});
+			let artistsHtml;
+			if(artistsData.length === 0) {
+				artistsHtml = <div className="nothingFound">Nothing found<span>Anything you add will appear here</span></div>
+			} else {
+				artistsHtml = artistsData.map(artist => {
+					let artistImage = artist.profile_img
+						? PortalFunctions.CoreURLImages() + "artists/" + artist.profile_img
+						: PortalFunctions.CoreURLImages() +
+						  "default_profile.jpeg";
+					return (
+						<li>
+							<div>
+								<Link to={"/artist/"+artist.id}>
+									<img src={artistImage} alt={artist.name} />
+									<h2>{artist.name}</h2>
+								</Link>
+								<p>
+									<span className="delete" onClick={() => this.deleteArtist(artist.id)}>remove</span>
+								</p>
+							</div>
+						</li>
+					);
+				});
+			}
 			return (
 				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData, "home")}

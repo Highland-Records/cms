@@ -120,6 +120,19 @@ section.PortalStyle ul.artistList, section.PortalStyle ul.userList, section.Port
   min-width: 990px;
   max-width: 1200px;
 }
+section.PortalStyle ul.artistList div.nothingFound, section.PortalStyle ul.userList div.nothingFound, section.PortalStyle ul.albumsList div.nothingFound {
+  min-width: 990px;
+  max-width: 1200px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+}
+section.PortalStyle ul.artistList div.nothingFound span, section.PortalStyle ul.userList div.nothingFound span, section.PortalStyle ul.albumsList div.nothingFound span {
+  display: block;
+  color: #999;
+  font-size: 28px;
+  font-weight: normal;
+}
 section.PortalStyle ul.artistList li, section.PortalStyle ul.userList li, section.PortalStyle ul.albumsList li {
   vertical-align: top;
   display: inline-block;

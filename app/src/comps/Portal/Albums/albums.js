@@ -76,25 +76,29 @@ class Albums extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
-
-			const albumsHtml = albumsData.map(album => {
-				let albumImage = album.album_art
-					? PortalFunctions.CoreURLImages() + "albums/" + album.album_art
-					: PortalFunctions.CoreURLImages() + "albums/default_album.jpg";
-				return (
-					<li>
-						<div>
-							<Link to={"/album/"+album.id}>
-								<img src={albumImage} alt={album.title} />
-								<h2>{album.title}</h2>
-							</Link>
-							<p>
-								<span className="delete" onClick={() => this.deleteAlbum(album.id)}>remove</span>
-							</p>
-						</div>
-					</li>
-				);
-			});
+			let albumsHtml;
+			if(albumsData.length === 0) {
+				albumsHtml = <div className="nothingFound">Nothing found<span>Anything you add will appear here</span></div>
+			} else {
+				albumsHtml = albumsData.map(album => {
+					let albumImage = album.album_art
+						? PortalFunctions.CoreURLImages() + "albums/" + album.album_art
+						: PortalFunctions.CoreURLImages() + "albums/default_album.jpg";
+					return (
+						<li>
+							<div>
+								<Link to={"/album/"+album.id}>
+									<img src={albumImage} alt={album.title} />
+									<h2>{album.title}</h2>
+								</Link>
+								<p>
+									<span className="delete" onClick={() => this.deleteAlbum(album.id)}>remove</span>
+								</p>
+							</div>
+						</li>
+					);
+				});
+			}
 			return (
 				<section className="PortalStyle">
 					{PortalNavigation.DrawNavigation(userData, "albums")}
