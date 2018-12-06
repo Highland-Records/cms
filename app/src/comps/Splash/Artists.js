@@ -51,7 +51,7 @@ class Artists extends React.Component {
 			});
 			return (
 				<section className="SplashStyle">
-					{HomeNavigation.DrawNavigation()}
+					{HomeNavigation.DrawNavigation("artists")}
 					<div class="banner other artist">
 						<p>
 							Our Artists

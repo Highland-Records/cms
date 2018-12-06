@@ -124,8 +124,11 @@ Section.SplashStyle {
 				text-transform: uppercase;
 				font-weight: bold;
 				font-size: 14px;
-				a, a:hover {
+				a, a:hover, a.s {
 					color: #fff;
+					&:hover, &.s {
+						text-decoration: underline;
+					}
 				}
 			}
 		}
@@ -234,6 +237,18 @@ Section.SplashStyle {
 			img {
 				width: 100%;
 				margin-bottom: 20px;
+			}
+			a {
+				margin: 0;
+				padding: 0;
+				display: block;
+				text-align: center;
+				font-size: 18px;
+				font-weight: normal;
+				letter-spacing: normal;
+				&:hover {
+					color: #000;
+				}
 			}
 		}
 		li {
@@ -468,6 +483,14 @@ Section.SplashStyle {
 					}
 				}
 			}
+		}
+	}
+	div.list.extra {
+		border-top: 5px #000 solid;
+		margin-top: 20px;
+		padding-top: 20px;
+		h2 {
+			font-weight: bold;
 		}
 	}
 	footer {

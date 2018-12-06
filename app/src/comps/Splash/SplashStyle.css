@@ -126,8 +126,11 @@ Section.SplashStyle nav ul li {
   font-weight: bold;
   font-size: 14px;
 }
-Section.SplashStyle nav ul li a, Section.SplashStyle nav ul li a:hover {
+Section.SplashStyle nav ul li a, Section.SplashStyle nav ul li a:hover, Section.SplashStyle nav ul li a.s {
   color: #fff;
+}
+Section.SplashStyle nav ul li a:hover, Section.SplashStyle nav ul li a.s, Section.SplashStyle nav ul li a:hover:hover, Section.SplashStyle nav ul li a:hover.s, Section.SplashStyle nav ul li a.s:hover, Section.SplashStyle nav ul li a.s.s {
+  text-decoration: underline;
 }
 Section.SplashStyle nav a.adminLink {
   float: right;
@@ -233,6 +236,18 @@ Section.SplashStyle ul.home li:first-child, Section.SplashStyle ul.home-flip li:
 Section.SplashStyle ul.home li:first-child img, Section.SplashStyle ul.home-flip li:first-child img {
   width: 100%;
   margin-bottom: 20px;
+}
+Section.SplashStyle ul.home li:first-child a, Section.SplashStyle ul.home-flip li:first-child a {
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+Section.SplashStyle ul.home li:first-child a:hover, Section.SplashStyle ul.home-flip li:first-child a:hover {
+  color: #000;
 }
 Section.SplashStyle ul.home li, Section.SplashStyle ul.home-flip li {
   width: 70%;
@@ -454,6 +469,14 @@ Section.SplashStyle div.list ul.about-list li div h2 {
 Section.SplashStyle div.list ul.about-list li div span {
   font-size: 16px;
   color: #999;
+}
+Section.SplashStyle div.list.extra {
+  border-top: 5px #000 solid;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+Section.SplashStyle div.list.extra h2 {
+  font-weight: bold;
 }
 Section.SplashStyle footer {
   margin-top: 40px;
