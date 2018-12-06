@@ -4,7 +4,8 @@ require("./dbconfig.php");
 
 function uploadProfileImage($files, $post, $bearerToken = "")
 {
-    $fileExtension = explode(".", $files["fileToUpload"]["name"])[1];
+    $fileExtension = array_pop(explode(".", $files["fileToUpload"]["name"]));
+    // print_r(explode(".", $files["fileToUpload"]["name"]));
     $files["fileToUpload"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "images/";
@@ -64,7 +65,7 @@ function uploadProfileImage($files, $post, $bearerToken = "")
 }
 function uploadAlbumArt($files, $post)
 {
-    $fileExtension = explode(".", $files["album_art"]["name"])[1];
+    $fileExtension = array_pop(explode(".", $files["album_art"]["name"]));
     $files["album_art"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "images/albums/";
@@ -125,7 +126,7 @@ function uploadAlbumArt($files, $post)
 
 function uploadArtistProfile($files, $post)
 {
-    $fileExtension = explode(".", $files["profile_img"]["name"])[1];
+    $fileExtension = array_pop(explode(".", $files["profile_img"]["name"]));
     $files["profile_img"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "images/artists/";
@@ -186,7 +187,7 @@ function uploadArtistProfile($files, $post)
 
 function uploadBanner($files, $post)
 {
-    $fileExtension = explode(".", $files["banner_img"]["name"])[1];
+    $fileExtension = array_pop(explode(".", $files["banner_img"]["name"]));
     $files["banner_img"]["name"] = uniqid('');
     $db = $GLOBALS['db'];
     $target_dir = "images/banners/";
