@@ -678,14 +678,31 @@
         }
     }
 
-	function showAllAlbumsForThisArtist($ArtistID) {
-		$db = $_GLOBALS['db'];
-		$albumQuery = "SELECT * FROM `albums` WHERE `deleted` = '0' AND `artist` = $ArtistID";
-		$albumResult = mysqli_query($db,$albumQuery);
-		$rowsExist = mysqli_num_rows($albumResult);
-		if(!empty($rowsExist)) {
-			$row = mysqli_fetch_assoc($getAlbumsResult);
-	        header("Content-Type: application/json");
-	        echo json_encode($row);
-		}
-	}
+    function showAllAlbumsForThisArtist($ArtistID)
+    {
+        // $db = $GLOBALS['db'];
+        // $albumQuery = "SELECT * FROM `albums` WHERE `deleted` = '0' AND `artist` = ".$ArtistID;
+        // $albumResult = mysqli_query($db, $albumQuery);
+        // $rowsExist = mysqli_num_rows($albumResult);
+        // // if (mysqli_query($db, $albumQuery)) {
+        // //     echo "true";
+        // // }
+        // if (!empty($rowsExist)) {
+        //     $row = mysqli_fetch_assoc($albumResult);
+        //     header("Content-Type: application/json");
+        //     echo json_encode($row);
+        // } else {
+        //     header("HTTP/1.0 400 Bad Request");
+        //     response(400, "Album doesn't exist", true);
+        // }
+
+        $db = $GLOBALS['db'];
+        $getAlbumsQuery = "SELECT * FROM `albums` WHERE `deleted` = 0 AND `artist` = ".$ArtistID;
+        $getAlbumsResult = mysqli_query($db, $getAlbumsQuery);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getAlbumsResult)) {
+            array_push($data, $row);
+        }
+        header("Content-Type: application/json");
+        echo json_encode($data);
+    }

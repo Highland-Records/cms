@@ -329,37 +329,12 @@ class Artist extends React.Component {
 
 		let profileImagePreview = artist.profileImagePreviewUrl;
 
-		//let videoPreview = artist.videoPreviewUrl;
-
 		const Message = ({status, message}) =>
 			status ? (
 				<p className="wrong-back-text green">{message}</p>
 			) : (
 				<p className="wrong-back-text">{message}</p>
 			);
-		// let showVideoList = null;
-		// // console.log(artist.videoActualUrl);
-		// if (artist.videoActualUrl.length){
-		// 	showVideoList = artist.videoActualUrl.map(videoSrc => {
-		// 		const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
-		// 		return (
-		// 			<li>
-		// 				<video width="100%" height="240" controls>
-		// 					<source src={srcURL} type="video/mp4"/>
-		// 					Your browser does not support the video tag.
-		// 				</video>
-		// 			</li>
-		// 		)
-		// 	});
-		// }
-		// let videoLinks = [];
-		//
-		// if (String(this.state.artist.video_links).includes("!@!")) {
-		// 	videoLinks = this.state.artist.video_links.split("!@!");
-		// } else {
-		// 	videoLinks.push(this.state.artist.video_links);
-		// }
-
 		const videoInputs = this.state.videoArray.map((val, i) => {
 			let className = `video-input-${i}`;
 			return (
@@ -368,7 +343,7 @@ class Artist extends React.Component {
 						className={className}
 						name="videoUrl"
 						type="text"
-						placeholder="Youtube URL"
+						placeholder="Youtube Code"
 						value={val}
 						onChange={e => this.handleVideoChange(i, e)}
 						onKeyDown={this.handleKeyDown}
