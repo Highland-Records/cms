@@ -258,7 +258,7 @@ class Artist extends React.Component {
 				const srcURL = PortalFunctions.CoreURLVideos() + videoSrc;
 				return (
 					<li>
-						<video width="320" height="240" controls>
+						<video width="100%" height="240" controls>
 							<source src={srcURL} type="video/mp4"/>
 							Your browser does not support the video tag.
 						</video>

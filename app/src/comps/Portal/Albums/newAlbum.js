@@ -9,6 +9,7 @@ class NewAlbum extends React.Component {
 	constructor(props) {
 		super(props);
 		this.albumInputElement = React.createRef();
+		this.addNewRow = React.createRef();
 		this.handleAlbumClick = this.handleAlbumClick.bind(this);
 		// this.removeSong = this.removeSong.bind(this);
 		this.state = {
@@ -81,6 +82,13 @@ class NewAlbum extends React.Component {
 	handleAlbumClick() {
 		this.albumInputElement.current.click();
 	}
+
+	handleKeyDown = e => {
+	    if (e.key === "Tab") {
+	    	e.preventDefault();
+			this.addNewRow.current.click();
+	    }
+  	}
 
 	removeSong = (songNum, event) => {
 		// console.log(songNum);
@@ -203,12 +211,12 @@ class NewAlbum extends React.Component {
 			);
 
 		let albumArtPreview = null;
-		// let albumCurrentPreview = album.album_art? PortalFunctions.CoreURLImages() + '/albums/' + album.album_art : PortalFunctions.CoreURLImages() + '/albums/default_album.jpg';
-		// if (album.albumArtPreviewUrl) {
-		// 	albumArtPreview = album.albumArtPreviewUrl
-		// } else {
-		// 	albumArtPreview = albumCurrentPreview
-		// }
+		let albumCurrentPreview = album.album_art? PortalFunctions.CoreURLImages() + '/albums/' + album.album_art : PortalFunctions.CoreURLImages() + '/albums/default_album.jpg';
+		if (album.albumArtPreviewUrl) {
+		 	albumArtPreview = album.albumArtPreviewUrl
+		} else {
+		 	albumArtPreview = albumCurrentPreview
+		}
 
 		const artistsDropdown = artists.map(artist => {
 			return <option value={artist.id}>{artist.name}</option>;
@@ -226,8 +234,9 @@ class NewAlbum extends React.Component {
 						placeholder="Song title"
 						value={val}
 						onChange={e => this.handleSongChange(i, e)}
+						onKeyDown={this.handleKeyDown}
 					/>
-					<span onClick={e => this.removeSong(i, e)}>D</span>
+					<span onClick={e => this.removeSong(i, e)}>remove</span>
 				</li>
 			);
 		});
@@ -268,10 +277,10 @@ class NewAlbum extends React.Component {
 								className="visableForm"
 							>
 								<input
-									className="albumTitle-input"
+									className="albumTitle"
 									name="title"
 									type="text"
-									placeholder="Title"
+									placeholder="Album Title"
 									autoFocus={true}
 									onChange={this.handleChange}
 								/>
@@ -279,18 +288,19 @@ class NewAlbum extends React.Component {
 									onChange={this.handleChange}
 									name="artist"
 								>
+								<option value="0" disabled selected>Pick a Artist</option>
 									{artistsDropdown}
 								</select>
 								<input
-									className="albumYear-input"
+									className="albumYear"
 									name="year"
 									type="text"
-									placeholder="Year"
+									placeholder="Release Year"
 									onChange={this.handleChange}
 								/>
 								<ul>
 									{songInputs}
-									<li onClick={this.addSong}>
+									<li onClick={this.addSong} ref={this.addNewRow}>
 										Add a song
 									</li>
 								</ul>
@@ -310,64 +320,6 @@ class NewAlbum extends React.Component {
 				</div>
 			</section>
 		);
-
-		// return (
-		// 	<section className="PortalStyle">
-		// 		{PortalNavigation.DrawNavigation(userData, "albums")}
-		// 		<header>Add a new Album</header>
-		// 		<div className="c">
-		// 			<ul className="newArtist">
-		//
-		// 				<li>
-		// 					<div className="profileName">
-		// 						<form>
-		// 							<input
-		// 								name="profile_img"
-		// 								className="fileInput"
-		// 								type="file"
-		// 								ref={this.profileInputElement}
-		// 								onChange={e => this.handleProfileChange(e)}
-		// 							/>
-		// 						</form>
-		// 						<div className="fileUploadOverlay" onClick={this.handleProfileClick} >
-		// 							Edit
-		// 						</div>
-		// 						<img src={profileImagePreview} alt="" />
-		// 						<form
-		// 							onSubmit={this.handleSubmit}
-		// 							encType="multipart/form-data"
-		// 							className="visableForm"
-		// 						>
-		// 							<input
-		// 								className="artistFullName-input"
-		// 								name="name"
-		// 								type="text"
-		// 								placeholder="Full Name"
-		// 								value={this.state.artist.name}
-		// 								autoFocus={true}
-		// 								onChange={this.handleChange}
-		// 							/>
-		// 							<TextareaAutosize
-		// 								className="artistDescription-input"
-		// 							 	name="description"
-		// 							 	placeholder="Describe this Artist"
-		// 								value={this.state.artist.description}
-		// 							 	onChange={this.handleChange}
-		// 							 />
-		// 							<br />
-		// 							<input
-		// 								className="button"
-		// 								type="submit"
-		// 								value="Add this Artist"
-		// 							/>
-		// 							<Message status={this.state.status} message={this.state.message}></Message>
-		// 						</form>
-		// 					</div>
-		// 				</li>
-		// 			</ul>
-		// 		</div>
-		// 	</section>
-		// );
 	}
 }
 

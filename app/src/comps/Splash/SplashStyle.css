@@ -177,7 +177,7 @@ Section.SplashStyle div.artist img {
   object-fit: cover;
 }
 Section.SplashStyle div.banner.home {
-  background-image: url("../../assets/images/home.jpeg");
+  background-image: url("https://lh6.googleusercontent.com/yHXaAlbBxzGYR4zm3VXQp-HuWDYH1lGCmC7VVrHLrjRsaMFG-G01JjiTzrzYO4O5Hpad_r-3bTRWgZdNaip5=w2880-h1576");
 }
 Section.SplashStyle div.banner.other {
   height: 320px;
@@ -444,4 +444,4 @@ Section.SplashStyle footer div.c p {
   text-align: center;
 }
 
-/*# sourceMappingURL=SplashStyle.css.map */
+/*# sourceMappingURL=splashstyle.css.map */
