@@ -38,7 +38,7 @@ class Album extends React.Component {
 				<header>Album Overview</header>
 					<div className="c">
 						<ul className="newAlbum">
-
+							
 						</ul>
 					</div>
 			</section>
