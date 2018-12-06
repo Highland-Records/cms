@@ -488,7 +488,7 @@
             $postValues = [];
 
             $invalidKeys = ['id', 'deleted', 'deleted_timestamp'];
-            $validKeys = ['name','description'];
+            $validKeys = ['name','description','video_links'];
             foreach ($postData as $key=>$value) {
                 if (!in_array($key, $invalidKeys) && in_array($key, $validKeys)) {
                     $postKeys[] = "`".$key."`";
