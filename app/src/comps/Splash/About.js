@@ -20,7 +20,7 @@ class About extends React.Component {
 					</li>
 					<li>
 						<h2>Highland Records is a new, up &amp; coming record label focusing on wide variety of genres.</h2>
-						From humble beginnings Highland Reocrds has had the passion to make people feel something when they listen to one of our songs.<br/><br/>We're known for delivering high quality and versatile music, resulting in our songs regularly being featured in film, TV, advertising, movie trailers and video games. Our team has a broad network of music supervisors, advertising &amp; film agencies, and is constantly looking for new opportunities for our music.<br/><br/>Use the contact information below to get in touch with us and discuss any opportunities you may have.
+						From humble beginnings Highland Records has had the passion to make people feel something when they listen to one of our songs.<br/><br/>We're known for delivering high quality and versatile music, resulting in our songs regularly being featured in film, TV, advertising, movie trailers and video games. Our team has a broad network of music supervisors, advertising &amp; film agencies, and is constantly looking for new opportunities for our music.<br/><br/>Use the contact information below to get in touch with us and discuss any opportunities you may have.
 					</li>
 				</ul>
 				<div className="list">
