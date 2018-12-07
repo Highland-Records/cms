@@ -301,20 +301,36 @@ class Artist extends React.Component {
 			.then(response => response.json())
 			.then(response => {
 				if (response.id === this.state.artistId) {
-					let videoLinksArray = [];
-					if(videoLinksArray.length !== 0) {
-						if (response.video_links.includes("!@!")) {
-							videoLinksArray = response.video_links.split(
-								"!@!"
-							);
-						} else {
-							videoLinksArray.push(response.video_links);
-						}
-					}
+					// let videoLinksArray = [];
+					// if(videoLinksArray.length !== 0) {
+					// 	if (response.video_links.includes("!@!")) {
+					// 		videoLinksArray = response.video_links.split(
+					// 			"!@!"
+					// 		);
+					// 	} else {
+					// 		videoLinksArray.push(response.video_links);
+					// 	}
+					// }
 					this.setState({
-						artist: response,
-						videoArray: videoLinksArray
+						artist: response
 					});
+					// console.log(videoLinksArray)
+
+					if (
+						String(this.state.artist.video_links).includes("!@!")
+					) {
+						let videoArr = this.state.artist.video_links.split(
+							"!@!"
+						);
+						this.setState({
+							videoArray: videoArr
+						});
+					} else {
+						this.setState({
+							tracklistArray: [this.state.artist.videoLinks]
+						});
+					}
+
 					let bannerImageURL =
 						PortalFunctions.CoreURLImages() +
 						"banners/" +
@@ -353,6 +369,8 @@ class Artist extends React.Component {
 			) : (
 				<p className="wrong-back-text">{message}</p>
 			);
+
+			console.log(this.state.videoArray);
 		const videoInputs = this.state.videoArray.map((val, i) => {
 			let className = `video-input-${i}`;
 			return (
