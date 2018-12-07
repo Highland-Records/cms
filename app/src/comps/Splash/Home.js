@@ -35,7 +35,9 @@ class SplashHome extends React.Component {
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
+			let featuredArtist = {};
 			const apiRender = PortalFunctions.Randomise(apiData).slice(0,4).map(artist => {
+				featuredArtist = artist;
 				let artistImage = artist.profile_img
 					? "http://highland.oliverrichman.uk/api/images/artists/" + artist.profile_img
 					: "http://highland.oliverrichman.uk/api/images/" +
@@ -59,12 +61,12 @@ class SplashHome extends React.Component {
 					</div>
 					<ul className="home">
 						<li>
-							Today's featured Artist
+							Featured Artist
 						</li>
 						<li>
 							<div>
 								<h1>
-									Artist name
+									{featuredArtist.name}
 								</h1>
 								<ul>
 									<h1>Recent releases</h1>
@@ -80,7 +82,11 @@ class SplashHome extends React.Component {
 					<ul className="home-flip">
 						<li>
 							<div>
-								VIDEO HERE
+							<iframe
+								height="100%"
+								width="100%"
+								src="https://www.youtube.com/embed/gl1aHhXnN1k?rel=0&amp;autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0"
+							/>
 							</div>
 						</li>
 						<li>
