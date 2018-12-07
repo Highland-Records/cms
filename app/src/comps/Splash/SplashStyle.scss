@@ -492,6 +492,14 @@ Section.SplashStyle {
 		h2 {
 			font-weight: bold;
 		}
+		ul.album {
+			margin-top: 20px;
+			li {
+				h2 {
+					font-weight: normal;
+				}
+			}
+		}
 	}
 	footer {
 		margin-top: 40px;
