@@ -286,12 +286,14 @@ class Artist extends React.Component {
 			.then(response => {
 				if (response.id === this.state.artistId) {
 					let videoLinksArray = [];
-					if (response.video_links.includes("!@!")) {
-						videoLinksArray = response.video_links.split(
-							"!@!"
-						);
-					} else {
-						videoLinksArray.push(response.video_links);
+					if(videoLinksArray.length !== 0) {
+						if (response.video_links.includes("!@!")) {
+							videoLinksArray = response.video_links.split(
+								"!@!"
+							);
+						} else {
+							videoLinksArray.push(response.video_links);
+						}
 					}
 					this.setState({
 						artist: response,
@@ -299,7 +301,7 @@ class Artist extends React.Component {
 					});
 					let bannerImageURL =
 						PortalFunctions.CoreURLImages() +
-						"/banners/" +
+						"banners/" +
 						this.state.artist.banner_img;
 					this.setState({
 						artist: {
@@ -309,7 +311,7 @@ class Artist extends React.Component {
 					});
 					let profileImageURL =
 						PortalFunctions.CoreURLImages() +
-						"/artists/" +
+						"artists/" +
 						this.state.artist.profile_img;
 					this.setState({
 						artist: {

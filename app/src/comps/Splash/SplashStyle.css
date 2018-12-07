@@ -269,10 +269,20 @@ Section.SplashStyle ul.home li:last-of-type div, Section.SplashStyle ul.home-fli
   width: 100%;
   height: 360px;
   border-radius: 10px;
-  background-image: url("../../assets/images/feat1.jpeg");
-  background-size: cover;
-  background-position: center center;
+  overflow: hidden;
   position: relative;
+}
+Section.SplashStyle ul.home li:last-of-type div img, Section.SplashStyle ul.home-flip li:last-of-type div img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+Section.SplashStyle ul.home li:last-of-type div iframe, Section.SplashStyle ul.home-flip li:last-of-type div iframe {
+  border-radius: 10px;
+  border: none;
+}
+Section.SplashStyle ul.home li:last-of-type div a:hover h1, Section.SplashStyle ul.home-flip li:last-of-type div a:hover h1 {
+  text-decoration: underline;
 }
 Section.SplashStyle ul.home li:last-of-type div h1, Section.SplashStyle ul.home-flip li:last-of-type div h1 {
   font-weight: bold;
@@ -281,6 +291,7 @@ Section.SplashStyle ul.home li:last-of-type div h1, Section.SplashStyle ul.home-
   position: absolute;
   bottom: 10px;
   left: 30px;
+  color: #fff;
 }
 Section.SplashStyle ul.home li:last-of-type div ul, Section.SplashStyle ul.home-flip li:last-of-type div ul {
   width: 300px;
