@@ -478,6 +478,12 @@ Section.SplashStyle div.list.extra {
 Section.SplashStyle div.list.extra h2 {
   font-weight: bold;
 }
+Section.SplashStyle div.list.extra ul.album {
+  margin-top: 20px;
+}
+Section.SplashStyle div.list.extra ul.album li h2 {
+  font-weight: normal;
+}
 Section.SplashStyle footer {
   margin-top: 40px;
   background: #000;
