@@ -180,7 +180,7 @@ class Artist extends React.Component {
 			.then(response => response.json())
 			.then(response => {
 				//change API so that when an artist's data is edited it returns the artist back, as the new artist does
-				console.log(response);
+				//console.log(response);
 				if (response.id) {
 					let noBanner,
 						noProfile = true;
@@ -372,7 +372,7 @@ class Artist extends React.Component {
 				<p className="wrong-back-text">{message}</p>
 			);
 
-			console.log(this.state.videoArray);
+			//console.log(this.state.videoArray);
 		const videoInputs = this.state.videoArray.map((val, i) => {
 			let className = `video-input-${i}`;
 			return (

@@ -21,6 +21,7 @@ section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li
   position: absolute;
   left: 0;
   right: 81px;
+  width: 100%;
   border: 2px #ccc solid;
   border-right: none;
   padding: 7px 13px;
