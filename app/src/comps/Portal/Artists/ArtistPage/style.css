@@ -1,3 +1,41 @@
-
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #000;
+  margin-bottom: 20px;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li {
+  position: relative;
+  margin-bottom: 10px;
+  height: 42px;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li input {
+  position: absolute;
+  left: 0;
+  right: 81px;
+  border: 2px #ccc solid;
+  border-right: none;
+  padding: 7px 13px;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li input:hover, section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li input:focus {
+  border-color: #000;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li span {
+  position: absolute;
+  right: 0;
+  padding: 7px 13px;
+  border: 2px #000 solid;
+}
+section.PortalStyle div.c ul.newArtist li div.profileName ul.artistVideoLinks li:last-child {
+  display: none;
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -381,7 +381,7 @@ class Artist extends React.Component {
 						className={className}
 						name="videoUrl"
 						type="text"
-						placeholder="Youtube Code"
+						placeholder="YouTube Code"
 						value={val}
 						onChange={e => this.handleVideoChange(i, e)}
 						onKeyDown={this.handleKeyDown}
@@ -470,7 +470,8 @@ class Artist extends React.Component {
 										onChange={this.handleChange}
 									/>
 									<br />
-									<ul>
+									<ul className="artistVideoLinks">
+										<h2>Add Videos to {artist.name}</h2>
 										{videoInputs}
 										<li
 											onClick={this.addVideo}
