@@ -39,42 +39,47 @@ class Videos extends React.Component {
 				if (artist.video_links) {
 					let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + artist.profile_img;
 					let embedURL = "https://www.youtube.com/embed/";
+					let artistURL = "/artist/" + artist.id;
 					if (artist.video_links.includes("!@!")) {
 						return artist.video_links
 							.split("!@!")
 							.map(videoLink => {
 								return (
 									<li>
-										<iframe
-											width="80%"
-											height="80%"
-											src={embedURL + videoLink}
-											frameborder="0"
-											allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-											allowfullscreen
-										/>
-
-										<br/>
-										<img src={artistProfile} alt={apiData.name} />
-										<span>{artist.name}</span>
-
+										<div>
+											<iframe
+												width="80%"
+												height="80%"
+												src={embedURL + videoLink}
+												frameborder="0"
+												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen
+											/>
+											<Link to={artistURL}>
+												<img src={artistProfile} alt={apiData.name} />
+												<h2>{artist.name}</h2>
+											</Link>
+										</div>
 									</li>
 								);
 							});
 					} else {
 						return (
 							<li>
-								<iframe
-									width="100%"
-									height="100%"
-									src={embedURL + artist.video_links}
-									frameborder="0"
-									allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-									allowfullscreen
-								/>
-								<br/>
-								<img src={artistProfile} alt={apiData.name} />
-								<span>{artist.name}</span>
+								<div>
+									<iframe
+										width="80%"
+										height="80%"
+										src={embedURL + artist.video_links}
+										frameborder="0"
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen
+									/>
+									<Link to={artistURL}>
+										<img src={artistProfile} alt={apiData.name} />
+										<h2>{artist.name}</h2>
+									</Link>
+								</div>
 							</li>
 						);
 					}
