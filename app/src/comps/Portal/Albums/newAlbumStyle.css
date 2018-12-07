@@ -113,6 +113,7 @@ ul.newAlbum li:last-child form ul li input {
   position: absolute;
   left: 0;
   right: 81px;
+  width: 100%;
   border: 2px #ccc solid;
   border-right: none;
   padding: 7px 13px;
