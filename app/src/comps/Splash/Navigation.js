@@ -11,13 +11,13 @@ const HomeNavigation = {
 			this.location = 'releases';
 		} else if (location === 'about') {
 			this.location = 'about';
-		} else if(location === null) {
-			// IGNORE THIS
+		} else if(location === 'home') {
+			this.location = 'home'
 		}
 		let navigation = (
 			<nav>
 				<div>
-					<Link className="title" to="/">
+					<Link className="title" to="/" className={this.location === 'home' ? 's' : ''}>
 						<h1>Highland</h1>
 					</Link>
 					<ul>

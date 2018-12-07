@@ -53,9 +53,11 @@ class SplashHome extends React.Component {
 					</li>
 				);
 			});
+			let featuredArtistImage = "http://highland.oliverrichman.uk/api/images/banners/" + featuredArtist.banner_img;
+			let featuredArtistURL = "/artist/" + featuredArtist.id;
 			return (
 				<section className="SplashStyle">
-					{HomeNavigation.DrawNavigation()}
+					{HomeNavigation.DrawNavigation("home")}
 					<div class="banner home">
 						feel <b>something</b>
 					</div>
@@ -63,30 +65,26 @@ class SplashHome extends React.Component {
 						<li>
 							Featured Artist
 						</li>
-						<li>
+						<li className="featured">
 							<div>
-								<h1>
-									{featuredArtist.name}
-								</h1>
-								<ul>
-									<h1>Recent releases</h1>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-									<li>SONG TITLE</li>
-								</ul>
+								<img src={featuredArtistImage} alt={featuredArtist.name} />
+								<Link to={featuredArtistURL}>
+									<h1>
+										{featuredArtist.name}
+									</h1>
+								</Link>
 							</div>
 						</li>
 					</ul>
 					<ul className="home-flip">
 						<li>
 							<div>
-							<iframe
-								height="100%"
-								width="100%"
-								src="https://www.youtube.com/embed/gl1aHhXnN1k?rel=0&amp;autoplay=1&mute=1&controls=0&modestbranding=1&showinfo=0"
-							/>
+								<iframe
+									height="100%"
+									width="100%"
+									frameBorder="none"
+									src="https://www.youtube.com/embed/gl1aHhXnN1k?rel=0&amp;autoplay=1&mute=1&modestbranding=1&showinfo=0"
+								/>
 							</div>
 						</li>
 						<li>
