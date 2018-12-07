@@ -69,14 +69,14 @@ class Artist extends React.Component {
 			videoArray: videoArray
 		});
 
-		let album = JSON.parse(JSON.stringify(this.state.album));
+		let artist = JSON.parse(JSON.stringify(this.state.artist));
 		if (this.state.videoArray.length > 1) {
-			album.tracklist = this.state.videoArray.join("!@!");
+			artist.video_links = this.state.videoArray.join("!@!");
 		} else {
-			album.tracklist = this.state.videoArray[0];
+			artist.video_links = this.state.videoArray[0];
 		}
 		this.setState({
-			album: album
+			artist: artist
 		});
 	};
 	addVideo = e => {
