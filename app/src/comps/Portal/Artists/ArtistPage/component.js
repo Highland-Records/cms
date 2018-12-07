@@ -326,8 +326,10 @@ class Artist extends React.Component {
 							videoArray: videoArr
 						});
 					} else {
+						let videoArr = [];
+						videoArr.push(this.state.artist.video_links);
 						this.setState({
-							tracklistArray: [this.state.artist.videoLinks]
+							videoArray: videoArr
 						});
 					}
 
