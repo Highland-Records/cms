@@ -59,9 +59,10 @@ const PortalFunctions = {
 			}
 		)
 	},
-	GetAlbum(albumId){
+	GetAlbum(artistID){
+		console.log(artistID);
 		return fetch(
-			"http://highland.oliverrichman.uk/api/albums/"+albumId,
+			"http://highland.oliverrichman.uk/api/artists/"+artistID+"/albums/",
 			{
 				method: "GET"
 			}

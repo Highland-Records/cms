@@ -48,9 +48,7 @@ class ArtistPage extends React.Component {
 			let albumArt = 'http://highland.oliverrichman.uk/api/images/albums/' + apiData.album_art;
 			let artistLink = '/artist/' + apiData.artist;
 
-			let songInputs;
 			let tracklistArray = [];
-			// console.log(apiData);
 			if (String(apiData.tracklist).includes('!@!')){
 				tracklistArray = apiData.tracklist.split('!@!');
 			} else {
@@ -59,7 +57,7 @@ class ArtistPage extends React.Component {
 			let songList = tracklistArray.map((val, i) => {
 				let className = `song-input-${i}`;
 				return (
-					<li>{val}</li>
+					<li>{i+1})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{val}</li>
 				);
 			});
 

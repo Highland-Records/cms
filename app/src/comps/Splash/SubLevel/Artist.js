@@ -26,33 +26,46 @@ class ArtistPage extends React.Component {
 		.then(response => response.json())
 		.then(response => {
 			this.setState({apiData: response});
-			let albumArray = [];
-			let AlbumListArray = [];
-			if (String(this.state.apiData.albums).includes(',')){
-				albumArray = this.state.apiData.albums.split(',');
-			} else {
-				albumArray.push(this.state.apiData.albums);
-			}
-			AlbumListArray = albumArray.map(album => {
-				PortalFunctions.GetAlbum(album)
-					.then(response => response.json())
-					.then(response => {
-						this.setState({albumData: response})
-					});
-			});
+			// Get artist
+			PortalFunctions.GetAlbum(this.state.apiData.id)
+				.then(response => response.json())
+				.then(response => {
+					this.setState({albumData: response})
+				});
 		});
 	}
 	render() {
 		const {error, apiData, albumData} = this.state;
+		console.log(this.state.albumData);
 		if (error) {
 			return <div>Error: {error.message}</div>;
 		} else {
 			let artistBanner = 'http://highland.oliverrichman.uk/api/images/banners/' + apiData.banner_img;
 			let artistProfile = 'http://highland.oliverrichman.uk/api/images/artists/' + apiData.profile_img;
 
-			{this.state.albumData.map(function(name, index){
-				return <li key={ index }>{name}</li>;
-			})}
+			let AlbumList = albumData.map((data, i) => {
+				let albumImage = "http://highland.oliverrichman.uk/api/images/albums/" + data.album_art;
+				return (
+					<li>
+						<div>
+							<Link to={"/albums/"+data.id}>
+								<img src={albumImage} alt="" />
+								<h2>{data.title}</h2>
+							</Link>
+						</div>
+					</li>
+				);
+			});
+
+			let ReleasesHTML;
+			if(AlbumList.length !== 0) {
+				ReleasesHTML = <div className="list extra">
+					<h2>Lastest Releases</h2>
+					<ul className="album">
+						{AlbumList}
+					</ul>
+				</div>
+			}
 
 			return (
 				<section className="SplashStyle">
@@ -72,12 +85,7 @@ class ArtistPage extends React.Component {
 							{apiData.description}
 						</li>
 					</ul>
-					<div className="list extra">
-						<h2>Lastest Releases</h2>
-						<ul>
-
-						</ul>
-					</div>
+					{ReleasesHTML}
 					<div className="list extra">
 						<h2>Videos</h2>
 						<ul>
