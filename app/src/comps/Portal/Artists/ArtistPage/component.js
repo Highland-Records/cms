@@ -69,14 +69,14 @@ class Artist extends React.Component {
 			videoArray: videoArray
 		});
 
-		let album = JSON.parse(JSON.stringify(this.state.album));
+		let artist = JSON.parse(JSON.stringify(this.state.artist));
 		if (this.state.videoArray.length > 1) {
-			album.tracklist = this.state.videoArray.join("!@!");
+			artist.video_links = this.state.videoArray.join("!@!");
 		} else {
-			album.tracklist = this.state.videoArray[0];
+			artist.video_links = this.state.videoArray[0];
 		}
 		this.setState({
-			album: album
+			artist: artist
 		});
 	};
 	addVideo = e => {
@@ -301,20 +301,38 @@ class Artist extends React.Component {
 			.then(response => response.json())
 			.then(response => {
 				if (response.id === this.state.artistId) {
-					let videoLinksArray = [];
-					if(videoLinksArray.length !== 0) {
-						if (response.video_links.includes("!@!")) {
-							videoLinksArray = response.video_links.split(
-								"!@!"
-							);
-						} else {
-							videoLinksArray.push(response.video_links);
-						}
-					}
+					// let videoLinksArray = [];
+					// if(videoLinksArray.length !== 0) {
+					// 	if (response.video_links.includes("!@!")) {
+					// 		videoLinksArray = response.video_links.split(
+					// 			"!@!"
+					// 		);
+					// 	} else {
+					// 		videoLinksArray.push(response.video_links);
+					// 	}
+					// }
 					this.setState({
-						artist: response,
-						videoArray: videoLinksArray
+						artist: response
 					});
+					// console.log(videoLinksArray)
+
+					if (
+						String(this.state.artist.video_links).includes("!@!")
+					) {
+						let videoArr = this.state.artist.video_links.split(
+							"!@!"
+						);
+						this.setState({
+							videoArray: videoArr
+						});
+					} else {
+						let videoArr = [];
+						videoArr.push(this.state.artist.video_links);
+						this.setState({
+							videoArray: videoArr
+						});
+					}
+
 					let bannerImageURL =
 						PortalFunctions.CoreURLImages() +
 						"banners/" +
@@ -353,6 +371,8 @@ class Artist extends React.Component {
 			) : (
 				<p className="wrong-back-text">{message}</p>
 			);
+
+			console.log(this.state.videoArray);
 		const videoInputs = this.state.videoArray.map((val, i) => {
 			let className = `video-input-${i}`;
 			return (
