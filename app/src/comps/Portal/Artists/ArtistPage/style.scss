@@ -1,0 +1,49 @@
+section.PortalStyle {
+	div.c {
+		ul.newArtist {
+			li {
+				div.profileName {
+					ul.artistVideoLinks {
+						list-style: none;
+						padding: 0;
+						margin: 0;
+						margin-top: 20px;
+						h2 {
+							font-size: 16px;
+							font-weight: bold;
+							text-transform: uppercase;
+							letter-spacing: 2px;
+							color: #000;
+							margin-bottom: 20px;
+						}
+						li {
+							position: relative;
+							margin-bottom: 10px;
+							height: 42px;
+							input {
+								position: absolute;
+								left: 0;
+								right: 81px;
+								border: 2px #ccc solid;
+								border-right: none;
+								padding: 7px 13px;
+								&:hover, &:focus {
+									border-color: #000;
+								}
+							}
+							span {
+								position: absolute;
+								right: 0;
+								padding: 7px 13px;
+								border: 2px #000 solid;
+							}
+							&:last-child {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
