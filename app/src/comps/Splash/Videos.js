@@ -46,15 +46,18 @@ class Videos extends React.Component {
 								return (
 									<li>
 										<iframe
-											width="560"
-											height="315"
+											width="80%"
+											height="80%"
 											src={embedURL + videoLink}
 											frameborder="0"
 											allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 											allowfullscreen
 										/>
+
+										<br/>
 										<img src={artistProfile} alt={apiData.name} />
 										<span>{artist.name}</span>
+
 									</li>
 								);
 							});
@@ -62,13 +65,14 @@ class Videos extends React.Component {
 						return (
 							<li>
 								<iframe
-									width="460"
-									height="300"
+									width="100%"
+									height="100%"
 									src={embedURL + artist.video_links}
 									frameborder="0"
 									allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 									allowfullscreen
 								/>
+								<br/>
 								<img src={artistProfile} alt={apiData.name} />
 								<span>{artist.name}</span>
 							</li>
@@ -82,7 +86,7 @@ class Videos extends React.Component {
 					<div class="banner other video">
 						<p>Highland Videos</p>
 					</div>
-					<div className="list">
+					<div className="video-list">
 						<ul>{apiRender}</ul>
 					</div>
 					<footer>

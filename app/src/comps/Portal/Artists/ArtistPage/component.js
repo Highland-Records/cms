@@ -43,25 +43,41 @@ class Artist extends React.Component {
 	}
 
 	handleVideoChange = (videoNum, event) => {
+		// let videoArray = this.state.videoArray;
+		// videoArray[videoNum] = event.target.value;
+		// this.setState({
+		// 	videoArray: videoArray
+		// });
+		// //
+		// // let artist = JSON.parse(JSON.stringify(this.state.artist));
+		// // if (this.state.videoArray.length > 1) {
+		// // 	this.state.artist.video_links = this.state.videoArray.join(
+		// // 		"!@!"
+		// // 	);
+		// // } else {
+		// // 	this.state.artist.video_links = this.state.videoArray[0];
+		// // }
+		// //
+		// // // this.setState({
+		// // // 	artist: artist
+		// // // });
+		// // console.log(this.state);
+
 		let videoArray = this.state.videoArray;
 		videoArray[videoNum] = event.target.value;
 		this.setState({
 			videoArray: videoArray
 		});
-		//
-		// let artist = JSON.parse(JSON.stringify(this.state.artist));
-		// if (this.state.videoArray.length > 1) {
-		// 	this.state.artist.video_links = this.state.videoArray.join(
-		// 		"!@!"
-		// 	);
-		// } else {
-		// 	this.state.artist.video_links = this.state.videoArray[0];
-		// }
-		//
-		// // this.setState({
-		// // 	artist: artist
-		// // });
-		// console.log(this.state);
+
+		let album = JSON.parse(JSON.stringify(this.state.album));
+		if (this.state.videoArray.length > 1) {
+			album.tracklist = this.state.videoArray.join("!@!");
+		} else {
+			album.tracklist = this.state.videoArray[0];
+		}
+		this.setState({
+			album: album
+		});
 	};
 	addVideo = e => {
 		e.preventDefault();

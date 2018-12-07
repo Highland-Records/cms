@@ -358,6 +358,45 @@ Section.SplashStyle {
 			}
 		}
 	}
+	div.video-list {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 40px;
+		ul {
+			li {
+				background-color: #fff;
+				display: inline-block;
+				margin: 5px;
+				border-radius: 10px;
+				iframe {
+					width: 576px;
+					height: 360px;
+					margin: 15px;
+					border-radius: 10px;
+					display: block;
+				}
+					img {
+
+						border-radius: 100px;
+						width: 100px;
+						height: 100px;
+						margin: 10px;
+						border: 5px #fff solid;
+						object-fit: cover;
+						margin-bottom: 40px;
+						margin-left: 20px;
+					}
+					span {
+						font-size: 60px;
+						line-height: 60px;
+						font-weight: bold;
+						padding: 20px 0;
+						text-align: left;
+						letter-spacing: -2px;
+					}
+				}
+		}
+	}
 	ul.home-flip {
 		li:first-child {
 			width: 70%;

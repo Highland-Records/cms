@@ -57,12 +57,47 @@ class ArtistPage extends React.Component {
 				);
 			});
 
+			let videos = [];
+			if (apiData.video_links && apiData.video_links.includes('!@!')){
+				videos = apiData.video_links.split('!@!');
+			} else if (apiData.video_links){
+				videos.push(apiData.video_links)
+			}
+
+			let VideoList = videos.map(video => {
+				let videoURL = "https://www.youtube.com/embed/" + video;
+				return (
+					<li>
+						<div>
+						<iframe
+							width="100%"
+							height="100%"
+							src={videoURL}
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						/>
+						</div>
+					</li>
+				);
+			});
+
 			let ReleasesHTML;
 			if(AlbumList.length !== 0) {
 				ReleasesHTML = <div className="list extra">
 					<h2>Lastest Releases</h2>
 					<ul className="album">
 						{AlbumList}
+					</ul>
+				</div>
+			}
+
+			let VideosHTML;
+			if(VideoList.length !== 0) {
+				VideosHTML = <div className="list extra">
+					<h2>Videos</h2>
+					<ul className="video">
+						{VideoList}
 					</ul>
 				</div>
 			}
@@ -86,12 +121,7 @@ class ArtistPage extends React.Component {
 						</li>
 					</ul>
 					{ReleasesHTML}
-					<div className="list extra">
-						<h2>Videos</h2>
-						<ul>
-
-						</ul>
-					</div>
+					{VideosHTML}
 					<footer>
 						<div className="c">
 							<i>Highland</i>
