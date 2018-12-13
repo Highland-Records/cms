@@ -16,7 +16,7 @@ class About extends React.Component {
 				</div>
 				<ul className="home">
 					<li>
-						Music to make you feel
+						Music to make you feel something
 					</li>
 					<li>
 						<h2>Highland Records is a new, up &amp; coming record label focusing on wide variety of genres.</h2>
