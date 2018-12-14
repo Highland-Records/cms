@@ -83,7 +83,7 @@ class SplashHome extends React.Component {
 									height="100%"
 									width="100%"
 									frameBorder="none"
-									src="https://www.youtube.com/embed/gl1aHhXnN1k?rel=0&amp;autoplay=1&mute=1&modestbranding=1&showinfo=0"
+									src="https://www.youtube.com/embed/pTQIkdOFSrA?rel=0&amp;autoplay=1&mute=1&modestbranding=1&showinfo=0"
 								/>
 							</div>
 						</li>
