@@ -1,7 +1,7 @@
 <?php
     $dbConfig = [
-        'host'=>'160.153.129.203',
+        'host'=>'NOTTODAY',
         'user'=>'highland-records',
-        'password'=>'highland',
+        'password'=>'GETUROWN',
         'db'=>'highland-records'
     ];
